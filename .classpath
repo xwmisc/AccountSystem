@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/jdk1.8.0_121"/>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="lib" path="E:/sw-default/eclipse/myworkspace/AccountSystem/lib/sqlite-jdbc-3.21.0.jar"/>
+	<classpathentry kind="lib" path="E:/sw-default/eclipse/plugins"/>
+	<classpathentry kind="lib" path="E:/sw-default/eclipse/plugins/org.eclipse.swt.win32.win32.x86_64_3.106.1.v20170926-0519.jar">
+		<attributes>
+			<attribute name="javadoc_location" value="http://help.eclipse.org/stable/nftopic/org.eclipse.platform.doc.isv/reference/api/"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="E:/sw-default/eclipse/myworkspace/AccountSystem/lib/poi/commons-codec-1.10.jar"/>
+	<classpathentry kind="lib" path="E:/sw-default/eclipse/myworkspace/AccountSystem/lib/poi/commons-collections4-4.1.jar"/>
+	<classpathentry kind="lib" path="E:/sw-default/eclipse/myworkspace/AccountSystem/lib/poi/commons-logging-1.2.jar"/>
+	<classpathentry kind="lib" path="E:/sw-default/eclipse/myworkspace/AccountSystem/lib/poi/curvesapi-1.04.jar"/>
+	<classpathentry kind="lib" path="E:/sw-default/eclipse/myworkspace/AccountSystem/lib/poi/junit-4.12.jar"/>
+	<classpathentry kind="lib" path="E:/sw-default/eclipse/myworkspace/AccountSystem/lib/poi/log4j-1.2.17.jar"/>
+	<classpathentry kind="lib" path="E:/sw-default/eclipse/myworkspace/AccountSystem/lib/poi/poi-3.17.jar"/>
+	<classpathentry kind="lib" path="E:/sw-default/eclipse/myworkspace/AccountSystem/lib/poi/poi-ooxml-3.17.jar"/>
+	<classpathentry kind="lib" path="E:/sw-default/eclipse/myworkspace/AccountSystem/lib/poi/poi-ooxml-schemas-3.17.jar"/>
+	<classpathentry kind="lib" path="E:/sw-default/eclipse/myworkspace/AccountSystem/lib/poi/xmlbeans-2.6.0.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>
