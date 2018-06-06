@@ -2,40 +2,54 @@ package com.xw.GUI;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 
 import com.xw.DBManager;
+import com.xw.db.DB;
 
 public class ASDataSource {
 
 	public static List<HashMap<String, String>> get(String tableName) throws IOException, SQLException {
-		DBManager db = DBManager.getInstance();
-		List result = db.query(tableName, new HashSet<String>(db.getColumnsName(tableName)), null);
+		DB db = DB.getInstance();
+		List result = db.query(tableName, db.getColumns(tableName), null);
 		return result;
 	}
 
 	public static List<HashMap<String, String>> get(String tableName, HashMap<String, Object> where)
 			throws IOException, SQLException {
-		DBManager db = DBManager.getInstance();
-		List result = db.query(tableName, new HashSet<String>(db.getColumnsName(tableName)), where);
+		DB db = DB.getInstance();
+		List result = db.query(tableName, db.getColumns(tableName), where);
 		return result;
 	}
 
-	public static void delete(String tableName, int[] id) throws IOException, SQLException {
-		DBManager db = DBManager.getInstance();
-		db.delete(tableName, id);
+	public static List<String> getColumns(String tableName) throws IOException, SQLException {
+		DB db = DB.getInstance();
+		return Arrays.asList(db.getColumns(tableName));
 	}
 
-	public static List<String> getColumns(String tableName) throws IOException, SQLException {
-		DBManager db = DBManager.getInstance();
-		return db.getColumnsName(tableName);
+	public static String[] getTables() throws SQLException {
+		DB db = DB.getInstance();
+		return db.getTables();
 	}
 
 	public static void insert(String tableName, HashMap<String, Object> values) throws IOException, SQLException {
-		DBManager db = DBManager.getInstance();
+		DB db = DB.getInstance();
 		db.insert(tableName, values);
+		db.commit();
+	}
+
+	public static void delete(String tableName, int[] id) throws IOException, SQLException {
+		DB db = DB.getInstance();
+		db.delete(tableName, id);
+		db.commit();
+	}
+
+	public static void deleteTable(String tableName) throws SQLException {
+		DB db = DB.getInstance();
+		db.deleteTable(tableName);
 		db.commit();
 	}
 

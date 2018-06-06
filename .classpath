@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/jdk1.8.0_121"/>
-	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="src" path="src">
+		<attributes>
+			<attribute name="org.eclipse.jdt.launching.CLASSPATH_ATTR_LIBRARY_PATH_ENTRY" value="C:/Users/acer-pc/Documents/Visual Studio 2015/Projects/NativeCV/Debug"/>
+		</attributes>
+	</classpathentry>
 	<classpathentry kind="lib" path="E:/sw-default/eclipse/myworkspace/AccountSystem/lib/sqlite-jdbc-3.21.0.jar"/>
 	<classpathentry kind="lib" path="E:/sw-default/eclipse/plugins"/>
 	<classpathentry kind="lib" path="E:/sw-default/eclipse/plugins/org.eclipse.swt.win32.win32.x86_64_3.106.1.v20170926-0519.jar">

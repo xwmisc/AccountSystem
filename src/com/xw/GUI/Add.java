@@ -4,7 +4,9 @@ import org.eclipse.swt.widgets.Dialog;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Combo;
+import org.eclipse.swt.widgets.Composite;
 
+import java.io.File;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.Date;
@@ -16,14 +18,15 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.DateTime;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.MessageBox;
-import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Text;
 
 import com.xw.DBManager;
 import com.xw.ExcelAPI;
 import com.xw.ExcelAPI.ExcelException;
 import com.xw.ExcelAPI.Sheet;
+import com.xw.Logic;
 import com.xw.Util;
+import com.xw.excel.Excel;
 
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.dnd.DropTarget;
@@ -87,10 +90,10 @@ public class Add extends Dialog {
 	 */
 	private void createContents() {
 		shell = new Shell(getParent(), getStyle());
-		shell.setSize(554, 538);
+		shell.setSize(564, 538);
 		shell.setText(getText());
-
-		Composite composite = new Composite(shell, SWT.NONE);
+		
+		Composite composite = new Composite(shell, SWT.BORDER);
 		composite.setBounds(22, 149, 513, 289);
 
 		combo_EMP = new Combo(composite, SWT.READ_ONLY);
@@ -177,7 +180,7 @@ public class Add extends Dialog {
 			addRecord();
 		}));
 
-		Composite composite_1 = new Composite(shell, SWT.NONE);
+		Composite composite_1 = new Composite(shell, SWT.BORDER);
 		composite_1.setBounds(22, 10, 133, 133);
 
 		Label label_10 = new Label(composite_1, SWT.NONE);
@@ -194,7 +197,7 @@ public class Add extends Dialog {
 			addEMP();
 		}));
 
-		Composite composite_2 = new Composite(shell, SWT.NONE);
+		Composite composite_2 = new Composite(shell, SWT.BORDER);
 		composite_2.setBounds(161, 10, 182, 133);
 
 		Label lblDfs_1 = new Label(composite_2, SWT.NONE);
@@ -211,7 +214,7 @@ public class Add extends Dialog {
 			addDFS();
 		}));
 
-		Composite composite_3 = new Composite(shell, SWT.NONE);
+		Composite composite_3 = new Composite(shell, SWT.BORDER);
 		composite_3.setBounds(349, 10, 186, 133);
 
 		Label label_12 = new Label(composite_3, SWT.NONE);
@@ -228,7 +231,7 @@ public class Add extends Dialog {
 			addCMP();
 		}));
 		
-		Composite composite_4 = new Composite(shell, SWT.NONE);
+		Composite composite_4 = new Composite(shell, SWT.BORDER);
 		composite_4.setBounds(22, 444, 513, 44);
 		
 		Label label_11 = new Label(composite_4, SWT.NONE);
@@ -271,9 +274,12 @@ public class Add extends Dialog {
 			public void drop(DropTargetEvent arg0) {
 				// TODO Auto-generated method stub
 				String[] files = (String[]) arg0.data;
-				for(String file:files) {
-					addFile(file);
+				for(String path:files) {
+					Logic.recordFromFile(new File(path));
 				}
+				System.out.println(files.length);
+				text_file.setText("添加成功:"+files[0]);
+				GUI.showMsgDialog(shell, "添加成功:"+files[0]);
 			}
 	
 			@Override
@@ -360,18 +366,6 @@ public class Add extends Dialog {
 //		excel.close();
 //	}
 	
-	public void addFile(String path) {
-		try {
-			ExcelAPI excel = new ExcelAPI(path);
-			Sheet sheet = excel.getSheet(excel.getSheetNames().get(0));
-//			System.out.println(sheet.read(2, 2).getClass().toString());
-//			System.out.println(sheet.read(2, 2).toString());
-		} catch (IOException | ExcelException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-	}
 
 	public void addEMP() {
 		try {

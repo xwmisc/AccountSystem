@@ -57,6 +57,8 @@ public class DBManager {
 			Date timestamp = new Date();
 
 			DBManager db = DBManager.getInstance();
+			
+			
 			System.out.println("1 " + (new Date().getTime() - timestamp.getTime()));
 
 			db.insert(EMP, Util.PairOf(EMP_NAME, "姜渊"));
@@ -115,7 +117,6 @@ public class DBManager {
 			m_Connection.setAutoCommit(false);
 
 			createTable();
-
 			stmt_insert_emp = m_Connection.prepareStatement("insert into EMP(name) values (?)");
 			stmt_insert_dfs = m_Connection.prepareStatement("insert into DFS(name) values (?)");
 			stmt_insert_cmp = m_Connection.prepareStatement("insert into CMP(name) values (?)");

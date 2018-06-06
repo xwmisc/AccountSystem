@@ -7,6 +7,7 @@ import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.TableItem;
 
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -14,6 +15,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Optional;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Supplier;
@@ -26,6 +28,8 @@ import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
+import org.eclipse.swt.graphics.GC;
+import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.events.ControlAdapter;
@@ -33,6 +37,8 @@ import org.eclipse.swt.events.ControlEvent;
 import org.eclipse.swt.widgets.Text;
 
 import com.xw.DBManager;
+import org.eclipse.swt.widgets.Label;
+import org.eclipse.swt.widgets.Canvas;
 
 public class GUI {
 
@@ -44,6 +50,8 @@ public class GUI {
 	private Text text_info;
 	private ASTable m_Table;
 	private Combo combo_tableList;
+	private Button btn_refreshTable;
+	private Button brn_dTable;
 
 	/**
 	 * Launch the application.
@@ -79,12 +87,12 @@ public class GUI {
 	 */
 	protected void createContents() {
 		shell = new Shell();
-		shell.setSize(672, 448);
+		shell.setSize(672, 480);
 		shell.setText("SWT Application");
 
 		table = new Table(shell, SWT.BORDER | SWT.FULL_SELECTION | SWT.MULTI);
 		m_Table = new ASTable(table);
-		table.setBounds(219, 10, 435, 382);
+		table.setBounds(219, 10, 435, 413);
 		table.setHeaderVisible(true);
 		table.setLinesVisible(true);
 		shell.addControlListener(new ControlAdapter() {
@@ -99,37 +107,38 @@ public class GUI {
 		});
 
 		combo_tableList = new Combo(shell, SWT.NONE);
-		combo_tableList.setItems(new String[] { DBManager.WORKING, DBManager.EMP, DBManager.DFS, DBManager.CMP });
+		combo_tableList.setItems(new String[] {});
 		combo_tableList.setBounds(10, 10, 98, 28);
 		combo_tableList.select(0);
 
 		text_info = new Text(shell, SWT.BORDER | SWT.MULTI);
-		text_info.setBounds(10, 82, 202, 310);
+		text_info.setBounds(10, 119, 202, 304);
 
 		btn_query = new Button(shell, SWT.NONE);
-		btn_query.setBounds(114, 10, 98, 30);
-		btn_query.setText("检索");
+		btn_query.setBounds(10, 47, 98, 30);
+		btn_query.setText("查询表");
 		btn_query.addSelectionListener(OnClick(e -> {
-			//检索
+			// 检索
 			String tableName = combo_tableList.getText();
 			m_Table.setCurrentTableName(tableName);
 			m_Table.reloadData();
 		}));
 
 		btn_add = new Button(shell, SWT.NONE);
-//		btn_add.setEnabled(false);
+		// btn_add.setEnabled(false);
 		btn_add.setText("添加");
-		btn_add.setBounds(10, 46, 98, 30);
+		btn_add.setBounds(10, 83, 98, 30);
 		btn_add.addSelectionListener(OnClick(e -> {
-			 new Add(shell, shell.getStyle()).open();
+			new Add(shell, shell.getStyle()).open();
+			// new AdjustImage(shell, shell.getStyle()).open();
 		}));
 
 		btn_delete = new Button(shell, SWT.NONE);
-//		btn_delete.setEnabled(false);
-		btn_delete.setText("删除");
-		btn_delete.setBounds(114, 46, 98, 30);
+		// btn_delete.setEnabled(false);
+		btn_delete.setText("删除行");
+		btn_delete.setBounds(114, 83, 98, 30);
 		btn_delete.addSelectionListener(OnClick(e -> {
-			//删除
+			// 删除
 			m_Table.deleteSelectData();
 		}));
 
@@ -143,8 +152,50 @@ public class GUI {
 				text_info.setText(info);
 			}
 		}));
-		
 
+		btn_refreshTable = new Button(shell, SWT.NONE);
+		btn_refreshTable.setText("刷新");
+		btn_refreshTable.setBounds(114, 10, 98, 30);
+		btn_refreshTable.addSelectionListener(OnClick(e -> {
+			refreshCombo();
+		}));
+		 
+
+
+		brn_dTable = new Button(shell, SWT.NONE);
+		brn_dTable.addSelectionListener(new SelectionAdapter() {
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+			}
+		});
+		brn_dTable.setText("删除表");
+		brn_dTable.setBounds(114, 47, 98, 30);
+		brn_dTable.addSelectionListener(OnClick(e -> {
+			try {
+				String tableName = combo_tableList.getText();
+				ASDataSource.deleteTable(tableName);
+				refreshCombo();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+		}));
+		
+		refreshCombo();
+	}
+	
+	private void refreshCombo() {
+
+		try {
+			String[] tables;
+			tables = ASDataSource.getTables();
+			combo_tableList.removeAll();
+			for (String table : tables)
+				combo_tableList.add(table);
+			if (combo_tableList.getItemCount() > 0)
+				combo_tableList.select(0);
+		} catch (SQLException e1) {
+			e1.printStackTrace();
+		}
 	}
 
 	public void runOnUIThread(final Runnable run) {
@@ -166,7 +217,7 @@ public class GUI {
 		return listener;
 	}
 
-	public static void showErrDialog(Shell shell,String err) {
+	public static void showErrDialog(Shell shell, String err) {
 		Display.getDefault().asyncExec(new Runnable() {
 			@Override
 			public void run() {
@@ -180,7 +231,7 @@ public class GUI {
 
 	}
 
-	public static void showMsgDialog(Shell shell,String message) {
+	public static void showMsgDialog(Shell shell, String message) {
 		Display.getDefault().asyncExec(new Runnable() {
 			@Override
 			public void run() {
@@ -192,6 +243,7 @@ public class GUI {
 			}
 		});
 	}
+
 	class ASTable {
 		Table m_Table;
 		private String m_tableName;
@@ -199,7 +251,7 @@ public class GUI {
 		public ASTable(Table table) {
 			m_Table = table;
 		}
-		
+
 		public void reloadData() {
 			final List data;
 			final List<String> columnNames;
@@ -216,30 +268,31 @@ public class GUI {
 				e1.printStackTrace();
 			}
 		}
-		
+
 		public void deleteSelectData() {
 			// 获得选中的id
 			ArrayList<Integer> list_id = new ArrayList<>();
 			for (TableItem item : table.getSelection()) {
 				HashMap<String, Object> data = (HashMap<String, Object>) item.getData();
-				list_id.add((Integer) data.get("id"));//id列
+				list_id.add((Integer) data.get("id"));// id列
 			}
 			int[] arr_id = new int[list_id.size()];
-			for(int i = 0;i<list_id.size();i++)
+			for (int i = 0; i < list_id.size(); i++)
 				arr_id[i] = list_id.get(i);
 			try {
-				//删除
-				ASDataSource.delete(m_tableName , arr_id);
-				//更新
+				// 删除
+				ASDataSource.delete(m_tableName, arr_id);
+				// 更新
 				reloadData();
 			} catch (Exception e1) {
 				e1.printStackTrace();
 			}
 		}
-		
+
 		public void setCurrentTableName(String tableName) {
 			m_tableName = tableName;
 		}
+
 		public String getCurrentTableName() {
 			return m_tableName;
 		}
@@ -261,9 +314,10 @@ public class GUI {
 			for (HashMap<String, Object> item : item_list) {
 				TableItem tableItem = new TableItem(table, SWT.NONE);
 				tableItem.setData(item);
-				for (TableColumn column : m_Table.getColumns())
-					tableItem.setText(m_Table.indexOf(column), item.getOrDefault(column.getText(), "").toString());
-
+				for (TableColumn column : m_Table.getColumns()) {
+					String text = Optional.ofNullable(item.get(column.getText())).orElse("").toString();
+					tableItem.setText(m_Table.indexOf(column), text);
+				}
 			}
 		}
 
@@ -278,5 +332,4 @@ public class GUI {
 		}
 
 	}
-
 }
