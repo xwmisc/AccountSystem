@@ -9,12 +9,17 @@ import org.eclipse.swt.widgets.TableItem;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.sql.SQLException;
+import java.text.Collator;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Locale;
 import java.util.Optional;
 import java.util.function.Consumer;
 import java.util.function.Function;
@@ -159,8 +164,6 @@ public class GUI {
 		btn_refreshTable.addSelectionListener(OnClick(e -> {
 			refreshCombo();
 		}));
-		 
-
 
 		brn_dTable = new Button(shell, SWT.NONE);
 		brn_dTable.addSelectionListener(new SelectionAdapter() {
@@ -179,10 +182,10 @@ public class GUI {
 				e1.printStackTrace();
 			}
 		}));
-		
+
 		refreshCombo();
 	}
-	
+
 	private void refreshCombo() {
 
 		try {
@@ -250,6 +253,13 @@ public class GUI {
 
 		public ASTable(Table table) {
 			m_Table = table;
+			m_Table.addSelectionListener(new SelectionAdapter() {
+				boolean sortType = true;
+
+				public void widgetSelected(SelectionEvent e) {
+					sortType = !sortType;
+				}
+			});
 		}
 
 		public void reloadData() {
@@ -307,16 +317,36 @@ public class GUI {
 				final TableColumn column = new TableColumn(m_Table, SWT.NONE);
 				column.setWidth(each.getBytes().length * 100 / 16 < 100 ? 100 : each.getBytes().length * 100 / 16);
 				column.setText(each);
+				column.addSelectionListener(new sortListener(column));
 			});
 		}
 
 		public void addItem(List<HashMap<String, Object>> item_list) {
+			final SimpleDateFormat fmt = new SimpleDateFormat("MM月dd日 E HH:mm:ss:SS yyyy");
+
 			for (HashMap<String, Object> item : item_list) {
 				TableItem tableItem = new TableItem(table, SWT.NONE);
 				tableItem.setData(item);
 				for (TableColumn column : m_Table.getColumns()) {
-					String text = Optional.ofNullable(item.get(column.getText())).orElse("").toString();
-					tableItem.setText(m_Table.indexOf(column), text);
+					String attr = column.getText();
+					Object something = item.get(attr);
+					boolean isDate = attr.contains("时间") || attr.contains("日期");
+					if (something instanceof Date) {
+						Date date = (Date) something;
+						tableItem.setText(m_Table.indexOf(column), fmt.format(date));
+					} else if (something instanceof Number) {
+						if (isDate) {
+							String text = fmt.format(new Date(((Number) something).longValue()));
+							System.out.println(text);
+							tableItem.setText(m_Table.indexOf(column), text);
+						} else {
+							String text = new BigDecimal(((Number) something).doubleValue()).toString();
+							tableItem.setText(m_Table.indexOf(column), text);
+						}
+					} else {
+						String text = Optional.ofNullable(something).orElse("").toString();
+						tableItem.setText(m_Table.indexOf(column), text);
+					}
 				}
 			}
 		}
@@ -329,6 +359,71 @@ public class GUI {
 		public void removeAllItem() {
 			for (TableItem item : m_Table.getItems())
 				item.dispose();
+		}
+
+		class sortListener implements SelectionListener {
+			TableColumn column;
+			String lastCol = "";
+			boolean lastIsAscend = false;
+
+			public sortListener(TableColumn column) {
+				this.column = column;
+			}
+
+			@Override
+			public void widgetSelected(SelectionEvent arg0) {
+				System.out.println("!" + column.getText());
+				String colName = column.getText();
+				boolean isAscend = true; // 按照升序排序
+				if(lastCol.equals(colName) ) {
+					isAscend = !lastIsAscend;
+				}
+				lastIsAscend = isAscend ;
+				lastCol = colName;
+
+				Collator comparator = Collator.getInstance(Locale.getDefault());
+				int columnIndex = table.indexOf(column);
+				TableItem[] items = table.getItems();
+				// 使用冒泡法进行排序
+				for (int i = 1; i < items.length; i++) {
+					String str2value = items[i].getText(columnIndex);
+					if (str2value.equalsIgnoreCase("")) {
+						// 当遇到表格中的空项目时，就停止往下检索排序项目
+						break;
+					}
+					for (int j = 0; j < i; j++) {
+						String str1value = items[j].getText(columnIndex);
+						boolean isLessThan = comparator.compare(str2value, str1value) < 0;
+						if ((isAscend && isLessThan) || (!isAscend && !isLessThan)) {
+							String[] values = getTableItemText(table, items[i]);
+							Object obj = items[i].getData();
+							items[i].dispose();
+							TableItem item = new TableItem(table, SWT.NONE, j);
+							item.setText(values);
+							item.setData(obj);
+							items = table.getItems();
+							break;
+						}
+					}
+				}
+				table.setSortColumn(column);
+				table.setSortDirection((isAscend ? SWT.UP : SWT.DOWN));
+				isAscend = !isAscend;
+			}
+
+			public String[] getTableItemText(Table table, TableItem item) {
+				int count = table.getColumnCount();
+				String[] strs = new String[count];
+				for (int i = 0; i < count; i++) {
+					strs[i] = item.getText(i);
+				}
+				return strs;
+			}
+
+			@Override
+			public void widgetDefaultSelected(SelectionEvent arg0) {
+
+			}
 		}
 
 	}

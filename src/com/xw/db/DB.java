@@ -23,7 +23,7 @@ public class DB {
 	Connection m_Connection;
 
 	public static enum SQLITE3_TYPE {
-		TYPE_TEXT, TYPE_NUMBER
+		TYPE_TEXT, TYPE_NUMBER,TYPE_DATE
 	}
 
 	public static void main(String[] args) throws SQLException {
@@ -85,8 +85,9 @@ public class DB {
 		case TYPE_TEXT:
 			sql += " text";
 			break;
-		default:
-			return;
+		case TYPE_DATE:
+			sql += " datetime";
+			break;
 		}
 		m_Connection.createStatement().executeUpdate(sql);
 	}
@@ -162,7 +163,7 @@ public class DB {
 		int k = 0;
 		for (Object key : keyset)
 			keys[k++] = (String) key;
-		System.out.println(keys.length);
+//		System.out.println(keys.length);
 
 		String sql = "insert into " + tableName + "(";
 		for (int i = 0; i < keys.length; i++)
@@ -175,7 +176,7 @@ public class DB {
 
 		for (int i = 0; i < vals.length; i++) {
 			for (int j = 0; j < keys.length; j++) {
-				System.out.println(keys[j]+": " + vals[i].get(keys[j]).toString());
+//				System.out.println(keys[j]+": " + vals[i].get(keys[j]).toString());
 				pre_stmt.setObject(j + 1, vals[i].get(keys[j]));
 			}
 			pre_stmt.addBatch();

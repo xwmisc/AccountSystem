@@ -8,8 +8,10 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import org.apache.poi.hssf.usermodel.HSSFDateUtil;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.DateUtil;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
@@ -125,10 +127,14 @@ public class Excel {
 			Cell cell = _row.getCell(location[1]);
 			if (cell == null)
 				return null;
+
 			switch (cell.getCellTypeEnum()) {
 			case FORMULA:
 			case NUMERIC:
-				return cell.getNumericCellValue();
+				if (DateUtil.isCellDateFormatted(cell))
+					return cell.getDateCellValue();
+				else
+					return cell.getNumericCellValue();
 			case STRING:
 				return cell.getStringCellValue();
 			case BOOLEAN:

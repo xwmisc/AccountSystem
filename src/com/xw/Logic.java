@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 
 import com.xw.db.DB;
@@ -12,6 +13,9 @@ import com.xw.excel.Excel.Sheet;
 import com.xw.excel.ExcelException;
 
 public class Logic {
+	public static enum CellType {
+		TEXT, NUMBER, DATE
+	}
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
@@ -20,18 +24,32 @@ public class Logic {
 
 	public static void recordFromFile(File file) {
 		try {
+			final boolean replaceTable = true;
+
 			System.out.println("file " + file.getName());
+
+			// 初始化DB
 			DB db = DB.getInstance();
 			String tableName = file.getName();
 			tableName = tableName.substring(0, tableName.indexOf("."));
+			// 建表
 			if (db.existTable(tableName)) {
 				System.out.println("file has been recorded " + file.getName());
-				return;
+				if (replaceTable) {
+					db.deleteTable(tableName);
+					db.commit();
+					db.createEmptyTable(tableName);
+					db.commit();
+					System.out.println("createEmptyTable " + tableName);
+				}else
+					return;
 			} else {
 				db.createEmptyTable(tableName);
-				System.out.println("createEmptyTable file " + file.getName());
+				db.commit();
+				System.out.println("createEmptyTable " + tableName);
 			}
 
+			// 初始化excel
 			Excel excel = new Excel(file);
 
 			Sheet sheet = excel.getSheets().get(0);
@@ -40,7 +58,7 @@ public class Logic {
 			System.out.println("cols: " + cols);
 			System.out.println("rows: " + rows);
 
-			HashMap[] vals = new HashMap[rows - 1];
+			HashMap[] vals = new HashMap[rows - 1];// 欲添加数据源
 
 			for (int col = 1; col <= cols; col++) {
 				// in each column
@@ -48,26 +66,38 @@ public class Logic {
 				System.out.println("attr: " + attr);
 				if (attr.equals(""))
 					continue;
-				boolean isNumberCol = isNumberColumn(sheet, col);
-				if (isNumberCol)
+				CellType type = getCellType(sheet, col);
+				switch (type) {
+				case DATE:
+					db.insertColumn(tableName, attr, DB.SQLITE3_TYPE.TYPE_DATE);
+					break;
+				case NUMBER:
 					db.insertColumn(tableName, attr, DB.SQLITE3_TYPE.TYPE_NUMBER);
-				else
+					break;
+				case TEXT:
 					db.insertColumn(tableName, attr, DB.SQLITE3_TYPE.TYPE_TEXT);
-
+					break;
+				}
 				for (int row = 2; row <= rows; row++) {
 					// in each row
 					int index = row - 2;
 					if (vals[index] == null)
 						vals[index] = new HashMap<>();
-					if (isNumberCol) {
+					switch (type) {
+					case DATE:
+						Date date = (Date) sheet.read(row, col);
+						vals[index].put(attr, date);
+						System.out.println("date:" + vals[index].get(attr));
+						break;
+					case NUMBER:
 						double num = sheet.readDouble(row, col, 0);
-						// System.out.println("num: " + num);
 						vals[index].put(attr, num);
-					} else {
+						break;
+					case TEXT:
 						String text = sheet.readString(row, col, "");
-						// System.out.println("text:" + text);
 						vals[index].put(attr, text);
-						System.out.println("text:" + vals[index].get(attr));
+//						System.out.println("text:" + vals[index].get(attr));
+						break;
 					}
 				}
 			}
@@ -82,8 +112,18 @@ public class Logic {
 
 	}
 
-	private static boolean isNumberColumn(Sheet sheet, int col) {
+	private static CellType getCellType(Sheet sheet, int col) {
 		int rows = sheet.getRowCount();
+		for (int row = 2; row <= rows; row++) {
+			Object sample = sheet.read(row, col);
+			if (sample instanceof Date) {
+				if (row == rows)
+					return CellType.DATE;
+				else
+					continue;
+			}
+		}
+
 		for (int row = 2; row <= rows; row++) {
 			Object sample = sheet.read(row, col);
 			if (sample instanceof Double)
@@ -94,10 +134,10 @@ public class Logic {
 				if (text.matches("(-)?[0-9]+(\\.[0-9]+)?"))
 					continue;
 				else
-					return false;
+					return CellType.TEXT;
 			} else
-				return false;
+				return CellType.TEXT;
 		}
-		return true;
+		return CellType.NUMBER;
 	}
 }
