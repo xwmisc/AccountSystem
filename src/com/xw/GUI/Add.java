@@ -275,11 +275,16 @@ public class Add extends Dialog {
 				// TODO Auto-generated method stub
 				String[] files = (String[]) arg0.data;
 				for(String path:files) {
-					Logic.recordFromFile(new File(path));
+					boolean result = Logic.recordFromFile(new File(path));
+					if(result) {
+						text_file.setText("添加成功:"+files[0]);
+						GUI.showMsgDialog(shell, "添加成功:"+files[0]);
+					}else {
+						text_file.setText("添加失败:"+files[0]);
+						GUI.showErrDialog(shell, "添加失败,请检查错误信息:"+files[0]);
+					}
 				}
 				System.out.println(files.length);
-				text_file.setText("添加成功:"+files[0]);
-				GUI.showMsgDialog(shell, "添加成功:"+files[0]);
 			}
 	
 			@Override

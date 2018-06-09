@@ -152,7 +152,7 @@ public class Excel {
 		}
 
 		public int getColCount(int row) {
-			Row _row = m_Sheet.getRow(row - 1);
+			Row _row = getRow(row - 1);
 			int rowCount = _row.getLastCellNum();
 			return rowCount;
 		}

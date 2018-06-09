@@ -23,7 +23,7 @@ public class DB {
 	Connection m_Connection;
 
 	public static enum SQLITE3_TYPE {
-		TYPE_TEXT, TYPE_NUMBER,TYPE_DATE
+		TYPE_TEXT, TYPE_NUMBER, TYPE_DATE
 	}
 
 	public static void main(String[] args) throws SQLException {
@@ -92,6 +92,11 @@ public class DB {
 		m_Connection.createStatement().executeUpdate(sql);
 	}
 
+	public void insertColumn(String tableName, String colName, String type) throws SQLException {
+		String sql = "alter table " + tableName + " add column " + colName + " " + type;
+		m_Connection.createStatement().executeUpdate(sql);
+	}
+
 	public boolean hasColumn(String tableName, String colName) throws SQLException {
 
 		ResultSet rSet = m_Connection.createStatement().executeQuery("select * from " + tableName);
@@ -129,6 +134,26 @@ public class DB {
 		return cols;
 	}
 
+	public String getColumnType(String tableName, String columnName) throws SQLException {
+
+		ResultSet rSet = m_Connection.createStatement().executeQuery("select * from " + tableName);
+		ResultSetMetaData rsmd = rSet.getMetaData();
+
+		int colCount = rsmd.getColumnCount();
+		int c = 0;
+		for (int i = 1; i <= colCount; i++) {
+			if (rsmd.getColumnName(i).equals(columnName)) {
+				c = i;
+				break;
+			}
+		}
+
+		String type = rsmd.getColumnTypeName(c);
+
+		rSet.close();
+		return type;
+	}
+
 	public String[] getTables() throws SQLException {
 
 		DatabaseMetaData meta = m_Connection.getMetaData();
@@ -163,7 +188,7 @@ public class DB {
 		int k = 0;
 		for (Object key : keyset)
 			keys[k++] = (String) key;
-//		System.out.println(keys.length);
+		// System.out.println(keys.length);
 
 		String sql = "insert into " + tableName + "(";
 		for (int i = 0; i < keys.length; i++)
@@ -176,7 +201,7 @@ public class DB {
 
 		for (int i = 0; i < vals.length; i++) {
 			for (int j = 0; j < keys.length; j++) {
-//				System.out.println(keys[j]+": " + vals[i].get(keys[j]).toString());
+				// System.out.println(keys[j]+": " + vals[i].get(keys[j]).toString());
 				pre_stmt.setObject(j + 1, vals[i].get(keys[j]));
 			}
 			pre_stmt.addBatch();

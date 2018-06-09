@@ -57,6 +57,7 @@ public class GUI {
 	private Combo combo_tableList;
 	private Button btn_refreshTable;
 	private Button brn_dTable;
+	private Button button;
 
 	/**
 	 * Launch the application.
@@ -92,12 +93,12 @@ public class GUI {
 	 */
 	protected void createContents() {
 		shell = new Shell();
-		shell.setSize(672, 480);
+		shell.setSize(672, 508);
 		shell.setText("SWT Application");
 
 		table = new Table(shell, SWT.BORDER | SWT.FULL_SELECTION | SWT.MULTI);
 		m_Table = new ASTable(table);
-		table.setBounds(219, 10, 435, 413);
+		table.setBounds(219, 10, 435, 441);
 		table.setHeaderVisible(true);
 		table.setLinesVisible(true);
 		shell.addControlListener(new ControlAdapter() {
@@ -117,7 +118,7 @@ public class GUI {
 		combo_tableList.select(0);
 
 		text_info = new Text(shell, SWT.BORDER | SWT.MULTI);
-		text_info.setBounds(10, 119, 202, 304);
+		text_info.setBounds(10, 155, 202, 296);
 
 		btn_query = new Button(shell, SWT.NONE);
 		btn_query.setBounds(10, 47, 98, 30);
@@ -181,6 +182,13 @@ public class GUI {
 			} catch (SQLException e1) {
 				e1.printStackTrace();
 			}
+		}));
+		
+		button = new Button(shell, SWT.NONE);
+		button.setText("比较01");
+		button.setBounds(10, 119, 98, 30);
+		button.addSelectionListener(OnClick(e -> {
+			new Compare01(shell, shell.getStyle()).open();
 		}));
 
 		refreshCombo();
