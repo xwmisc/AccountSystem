@@ -210,6 +210,28 @@ public class DB {
 		pre_stmt.close();
 	}
 
+	public void insert(String tableName, List vals) throws SQLException {
+		HashMap[] arr = List2HashMapArr(vals);
+		insert(tableName, arr);
+	}
+
+
+	public static List<HashMap<String, Object>> HashMapArr2List(HashMap[] hm) {
+		ArrayList<HashMap<String, Object>> list = new ArrayList<>();
+		for (int i = 0; i < hm.length; i++) {
+			list.add(hm[i]);
+		}
+		return list;
+	}
+
+	public static HashMap[] List2HashMapArr(List list) {
+		HashMap[] hm = new HashMap[list.size()];
+		for (int i = 0; i < list.size(); i++) {
+			hm[i] = (HashMap) list.get(i);
+		}
+		return hm;
+	}
+	
 	public void delete(String tableName, int[] id) throws SQLException {
 		String sql = "delete from " + tableName + " where id=?";
 		PreparedStatement pre_stmt = m_Connection.prepareStatement(sql);

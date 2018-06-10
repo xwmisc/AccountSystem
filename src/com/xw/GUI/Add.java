@@ -24,6 +24,7 @@ import com.xw.DBManager;
 import com.xw.ExcelAPI;
 import com.xw.ExcelAPI.ExcelException;
 import com.xw.ExcelAPI.Sheet;
+import com.xw.Log;
 import com.xw.Logic;
 import com.xw.Util;
 import com.xw.excel.Excel;
@@ -281,7 +282,7 @@ public class Add extends Dialog {
 						GUI.showMsgDialog(shell, "添加成功:"+files[0]);
 					}else {
 						text_file.setText("添加失败:"+files[0]);
-						GUI.showErrDialog(shell, "添加失败,请检查错误信息:"+files[0]);
+						GUI.showErrDialog(shell, "添加失败,请检查运行日志:"+Log.getFileLocation());
 					}
 				}
 				System.out.println(files.length);

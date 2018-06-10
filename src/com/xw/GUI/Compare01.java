@@ -8,6 +8,7 @@ import org.eclipse.swt.widgets.Dialog;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 
+import com.xw.Log;
 import com.xw.Logic;
 
 import org.eclipse.swt.widgets.Button;
@@ -86,7 +87,7 @@ public class Compare01 extends Dialog {
 			if(result) {
 				GUI.showMsgDialog(shell, "成功,请查看表["+table1+"_"+table2+"]");
 			}else {
-				GUI.showErrDialog(shell, "失败,请检查错误信息");
+				GUI.showErrDialog(shell, "失败,请检查运行日志:"+Log.getFileLocation());
 			}
 		}));
 	}

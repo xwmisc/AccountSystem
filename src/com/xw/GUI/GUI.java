@@ -345,7 +345,6 @@ public class GUI {
 					} else if (something instanceof Number) {
 						if (isDate) {
 							String text = fmt.format(new Date(((Number) something).longValue()));
-							System.out.println(text);
 							tableItem.setText(m_Table.indexOf(column), text);
 						} else {
 							String text = new BigDecimal(((Number) something).doubleValue()).toString();
