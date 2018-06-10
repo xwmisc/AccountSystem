@@ -42,6 +42,9 @@ import org.eclipse.swt.events.ControlEvent;
 import org.eclipse.swt.widgets.Text;
 
 import com.xw.DBManager;
+import com.xw.Log;
+import com.xw.Logic;
+
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Canvas;
 
@@ -58,6 +61,7 @@ public class GUI {
 	private Button btn_refreshTable;
 	private Button brn_dTable;
 	private Button button;
+	private Button button_1;
 
 	/**
 	 * Launch the application.
@@ -186,9 +190,21 @@ public class GUI {
 		
 		button = new Button(shell, SWT.NONE);
 		button.setText("比较01");
-		button.setBounds(10, 119, 98, 30);
+		button.setBounds(115, 119, 98, 30);
 		button.addSelectionListener(OnClick(e -> {
 			new Compare01(shell, shell.getStyle()).open();
+		}));
+		
+		button_1 = new Button(shell, SWT.NONE);
+		button_1.setText("导出XSLX");
+		button_1.setBounds(10, 119, 98, 30);
+		button_1.addSelectionListener(OnClick(e -> {
+			boolean result = Logic.exportXLSX(combo_tableList.getText());
+			if(result) {
+				GUI.showMsgDialog(shell, "导出成功,请在运行目录下查看文件");
+			}else {
+				GUI.showErrDialog(shell, "导出失败,请检查运行日志:"+Log.getFileLocation());
+			}
 		}));
 
 		refreshCombo();

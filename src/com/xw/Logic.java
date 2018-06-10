@@ -7,7 +7,9 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Optional;
 
 import com.xw.db.DB;
 import com.xw.db.DB.SQLITE3_TYPE;
@@ -230,9 +232,11 @@ public class Logic {
 			if (!db.existTable(table1) || !db.existTable(table1))
 				return false;
 
+			// 获得数据
 			List<HashMap<String, Object>> list1 = db.query(table1, db.getColumns(table1), null);
 			List<HashMap<String, Object>> list2 = db.query(table2, db.getColumns(table2), null);
 
+			// 去重
 			for (int i = 0; i < list1.size(); i++) {
 				HashMap<String, Object> record = list1.get(i);
 				double word = (double) record.get(keyWord);
@@ -247,7 +251,6 @@ public class Logic {
 					}
 				}
 			}
-
 
 			// 建表
 			final boolean replaceTable = true;
@@ -268,7 +271,7 @@ public class Logic {
 				Log.append("createEmptyTable " + tableName);
 			}
 
-			//id分类
+			// id分类
 			for (HashMap<String, Object> record : list1) {
 				int id = (int) record.get("id");
 				record.put(table1 + "_id", id);
@@ -307,6 +310,151 @@ public class Logic {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			Log.append(e.toString());
+		}
+		return false;
+	}
+
+	public static boolean compare02(String table1, String table2, String date1, String key1, String date2,
+			String key2) {
+		try {
+			Log.clean();
+
+			// 初始化DB
+			DB db = DB.getInstance();
+			if (!db.existTable(table1) || !db.existTable(table1))
+				return false;
+
+			// 建表
+			final boolean replaceTable = true;
+			String tableName = table1 + "_" + table2;
+			if (db.existTable(tableName)) {
+				Log.append(tableName + " existed");
+				if (replaceTable) {
+					db.deleteTable(tableName);
+					db.commit();
+					db.createEmptyTable(tableName);
+					db.commit();
+					Log.append("createEmptyTable " + tableName);
+				} else
+					return false;
+			} else {
+				db.createEmptyTable(tableName);
+				db.commit();
+				Log.append("createEmptyTable " + tableName);
+			}
+
+			//
+			List<HashMap<String, Object>> list1 = db.query(table1, new String[] { date1, key1 }, null);
+			List<HashMap<String, Object>> list2 = db.query(table2, new String[] { date2, key2 }, null);
+
+			// 统计表1
+			final Date ERRDate = new Date(0);
+			HashMap<Date, Double> sum1 = new HashMap<>();
+			for (HashMap<String, Object> each : list1) {
+				// 这里由于sqlite3日期用数值存,故用new date
+				long dnum = (long) Optional.ofNullable(each.get(date1)).orElse(0l);
+				Date date = new Date(dnum);
+				if (!sum1.containsKey(date)) {
+					sum1.put(date, 0.0);
+				}
+				double num = sum1.get(date);
+				num += (Double) each.get(key1);
+				sum1.put(date, num);
+			}
+			// 统计表2
+			HashMap<Date, Double> sum2 = new HashMap<>();
+			for (HashMap<String, Object> each : list2) {
+				long dnum = (long) Optional.ofNullable(each.get(date2)).orElse(0l);
+				Date date = new Date(dnum);
+				double num = (Double) each.get(key2);
+				sum2.put(date, num);
+			}
+
+			// 去重
+			HashSet<Date> added = new HashSet<>();
+			for (Date key : sum1.keySet()) {
+				if (sum2.containsKey(key)) {
+					double num1 = sum1.get(key);
+					double num2 = sum2.get(key);
+					if (num1 == num2) {
+						Log.append("-" + num1 + "-" + (key == null ? "" : key.toString()));
+						added.add(key);
+						sum2.remove(key);
+					} else {
+						Log.append("num " + num1 + "-" + num2);
+					}
+				}
+			}
+			added.forEach(date -> {
+				sum1.remove(date);
+			});
+
+			// 录入
+			ArrayList<HashMap> l1 = new ArrayList<>();
+			for (Date each : sum1.keySet()) {
+				HashMap<String, Object> hm = new HashMap<>();
+				hm.put("日期", each);
+				hm.put(key1 + "_求和", sum1.get(each));
+				l1.add(hm);
+			}
+			ArrayList<HashMap> l2 = new ArrayList<>();
+			for (Date each : sum2.keySet()) {
+				HashMap<String, Object> hm = new HashMap<>();
+				hm.put("日期", each);
+				hm.put(key2, sum2.get(each));
+				l2.add(hm);
+			}
+			db.insertColumn(tableName, key1 + "_求和", SQLITE3_TYPE.TYPE_NUMBER);
+			db.insertColumn(tableName, key2, SQLITE3_TYPE.TYPE_NUMBER);
+			db.insertColumn(tableName, "日期", SQLITE3_TYPE.TYPE_DATE);
+
+			db.insert(tableName, l1);
+			db.insert(tableName, l2);
+
+			db.commit();
+			return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+			Log.append(e.toString());
+		}
+		return false;
+	}
+
+	public static boolean exportXLSX(String tableName) {
+		try {
+			File file = new File(tableName + ".xlsx");
+			Excel excel = Excel.createExcel(file.getAbsolutePath(), true);
+			Sheet sheet = excel.createSheet(tableName);
+
+			DB db = DB.getInstance();
+			String[] colNames = db.getColumns(tableName);
+			List<HashMap<String, Object>> data = db.query(tableName, colNames, null);
+
+			String[] types = new String[colNames.length];
+			for (int index = 0; index < colNames.length; index++) {
+				String title = colNames[index];
+				sheet.write(1, index+1, title);
+				types[index] = db.getColumnType(tableName, title);
+				Log.append(title+":"+types[index]);
+			}
+			for (int i = 0; i < data.size(); i++) {
+				HashMap<String, Object> each = data.get(i);
+				int row = i + 2;
+				for (int index = 0; index < colNames.length; index++) {
+					String title = colNames[index];
+					Object obj = each.get(title);
+					if (obj instanceof Long && types[index].toLowerCase().contains("date")) {
+						sheet.write(row, index+1, new Date((long) obj));
+					} else {
+						sheet.write(row, index+1, obj);
+					}
+
+				}
+			}
+			excel.closeWithSave();
+			return true;
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
 		return false;
 	}

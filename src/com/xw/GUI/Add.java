@@ -91,7 +91,7 @@ public class Add extends Dialog {
 	 */
 	private void createContents() {
 		shell = new Shell(getParent(), getStyle());
-		shell.setSize(564, 538);
+		shell.setSize(564, 546);
 		shell.setText(getText());
 		
 		Composite composite = new Composite(shell, SWT.BORDER);
@@ -233,7 +233,7 @@ public class Add extends Dialog {
 		}));
 		
 		Composite composite_4 = new Composite(shell, SWT.BORDER);
-		composite_4.setBounds(22, 444, 513, 44);
+		composite_4.setBounds(22, 444, 513, 48);
 		
 		Label label_11 = new Label(composite_4, SWT.NONE);
 		label_11.setText("文件拖拽");
@@ -245,6 +245,10 @@ public class Add extends Dialog {
 		DropTarget dropTarget = new DropTarget(text_file, DND.DROP_MOVE);
 		Transfer[] transfer = new Transfer[] { FileTransfer.getInstance() };
 		dropTarget.setTransfer(transfer);
+		
+		Button btnCheckButton = new Button(composite_4, SWT.CHECK);
+		btnCheckButton.setBounds(10, 43, 121, 20);
+		btnCheckButton.setText("手动添加");
 		dropTarget.addDropListener(new DropTargetListener() {
 	
 			@Override
@@ -285,7 +289,6 @@ public class Add extends Dialog {
 						GUI.showErrDialog(shell, "添加失败,请检查运行日志:"+Log.getFileLocation());
 					}
 				}
-				System.out.println(files.length);
 			}
 	
 			@Override
@@ -473,5 +476,4 @@ public class Add extends Dialog {
 			e.printStackTrace();
 		}
 	}
-
 }

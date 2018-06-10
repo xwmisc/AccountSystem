@@ -11,6 +11,8 @@ import java.util.List;
 import org.apache.poi.hssf.usermodel.HSSFDateUtil;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.CellStyle;
+import org.apache.poi.ss.usermodel.DataFormat;
 import org.apache.poi.ss.usermodel.DateUtil;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Workbook;
@@ -59,14 +61,23 @@ public class Excel {
 				cell.setCellValue((String) value);
 			} else if (value instanceof Date) {
 				cell.setCellValue((Date) value);
+	            CellStyle cellStyle = m_Workbook.createCellStyle();
+	            DataFormat format= m_Workbook.createDataFormat();
+	            cellStyle.setDataFormat(format.getFormat("yyyy年m月d日"));
+	            cell.setCellStyle(cellStyle);
+	            
 			} else if (value instanceof Boolean) {
 				cell.setCellValue((Boolean) value);
 			} else if (value instanceof Double) {
 				cell.setCellValue((Double) value);
+			} else if (value instanceof Long) {
+				cell.setCellValue((Long) value);
 			} else if (value instanceof Float) {
 				cell.setCellValue((Float) value + 0.0);
 			} else if (value instanceof Integer) {
 				cell.setCellValue((Integer) value + 0.0);
+			} else if (value == null) {
+				;
 			} else
 				throw new ExcelException("Cant write with " + value.toString());
 		}
@@ -107,6 +118,15 @@ public class Excel {
 					return Double.parseDouble(text);
 			}
 			return def;
+		}
+
+		public Date readDate(int row, int col, Date def) {
+
+			Object something = read(new int[] { row - 1, col - 1 });
+			if (something instanceof Date)
+				return (Date) something;
+			else
+				return def;
 		}
 
 		public String readString(int row, int col, String def) {
