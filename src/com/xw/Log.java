@@ -34,10 +34,20 @@ public class Log {
 		}
 	}
 
-	public static void append(String s) {
-		System.out.println(s);
+	public static void appendln(String s) {
+		System.out.print(s + "\r\n");
 		try (FileWriter writer = new FileWriter(logfile, true);) {
-			writer.write("\r\n" + s);
+			writer.write(s + "\r\n");
+			writer.flush();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public static void append(String s) {
+		System.out.print(s);
+		try (FileWriter writer = new FileWriter(logfile, true);) {
+			writer.write(s);
 			writer.flush();
 		} catch (IOException e) {
 			e.printStackTrace();

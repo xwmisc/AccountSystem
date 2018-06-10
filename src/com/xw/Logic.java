@@ -58,7 +58,7 @@ public class Logic {
 		try {
 			final boolean replaceTable = true;
 			Log.clean();
-			Log.append("file " + file.getName());
+			Log.appendln("file " + file.getName());
 
 			// 初始化DB
 			DB db = DB.getInstance();
@@ -66,19 +66,19 @@ public class Logic {
 			tableName = tableName.substring(0, tableName.indexOf("."));
 			// 建表
 			if (db.existTable(tableName)) {
-				Log.append("file has been recorded " + file.getName());
+				Log.appendln("file has been recorded " + file.getName());
 				if (replaceTable) {
 					db.deleteTable(tableName);
 					db.commit();
 					db.createEmptyTable(tableName);
 					db.commit();
-					Log.append("createEmptyTable " + tableName);
+					Log.appendln("createEmptyTable " + tableName);
 				} else
 					return false;
 			} else {
 				db.createEmptyTable(tableName);
 				db.commit();
-				Log.append("createEmptyTable " + tableName);
+				Log.appendln("createEmptyTable " + tableName);
 			}
 
 			// 初始化excel
@@ -105,9 +105,9 @@ public class Logic {
 				}
 			}
 			int cols = sheet.getColCount(startRow);
-			Log.append("cols: " + cols);
-			Log.append("startRow: " + startRow);
-			Log.append("rows: " + rows);
+			Log.appendln("cols: " + cols);
+			Log.appendln("startRow: " + startRow);
+			Log.appendln("rows: " + rows);
 
 			HashMap[] vals = new HashMap[rows - startRow];// 欲添加数据源
 
@@ -179,7 +179,7 @@ public class Logic {
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-			Log.append(e.toString());
+			Log.appendln(e.toString());
 		}
 		return false;
 
@@ -223,7 +223,7 @@ public class Logic {
 		}
 	}
 
-	public static boolean compare01(String table1, String table2, String keyWord, String keyWord2) {
+	public static boolean compare01(String table1, String table2, String keyWord1, String keyWord2) {
 
 		try {
 			Log.clean();
@@ -236,39 +236,106 @@ public class Logic {
 			List<HashMap<String, Object>> list1 = db.query(table1, db.getColumns(table1), null);
 			List<HashMap<String, Object>> list2 = db.query(table2, db.getColumns(table2), null);
 
-			// 去重
+			/*
+			 * 去重
+			 */
+			int[][][] matrix = new int[3][list1.size()][list2.size()];
 			for (int i = 0; i < list1.size(); i++) {
-				HashMap<String, Object> record = list1.get(i);
-				double word = (double) record.get(keyWord);
+				HashMap<String, Object> record1 = list1.get(i);
+				double word1 = (double) record1.get(keyWord1);
 				for (int j = 0; j < list2.size(); j++) {
 					HashMap<String, Object> record2 = list2.get(j);
 					double word2 = (double) record2.get(keyWord2);
-					if (word == word2) {
-						Log.append("-" + word);
-						list1.remove(i--);
-						list2.remove(j--);
-						break;
+					if (word1 == word2) {
+						boolean flag = true;
+						for (int k = 0; k < list2.size(); k++) {
+							if (k == j)
+								continue;
+							HashMap<String, Object> record3 = list2.get(k);
+							double word3 = (double) record3.get(keyWord2);
+							if (word1 == word3) {
+								flag = false;
+								break;
+							}
+						}
+						if (flag) {
+							Log.appendln("-" + word1);
+							matrix[0][i][j]++;
+						}
 					}
 				}
 			}
+			for (int i = 0; i < list2.size(); i++) {
+				HashMap<String, Object> record2 = list2.get(i);
+				double word2 = (double) record2.get(keyWord2);
+				for (int j = 0; j < list1.size(); j++) {
+					HashMap<String, Object> record1 = list1.get(j);
+					double word1 = (double) record1.get(keyWord1);
+					if (word2 == word1) {
+						boolean flag = true;
+						for (int k = 0; k < list1.size(); k++) {
+							if (k == j)
+								continue;
+							HashMap<String, Object> record3 = list1.get(k);
+							double word3 = (double) record3.get(keyWord1);
+							if (word2 == word3) {
+								flag = false;
+								break;
+							}
+						}
+						if (flag) {
+							Log.appendln("-" + word1);
+							matrix[1][j][i]++;
+						}
+					}
+				}
+			}
+			String log = "";
+			for (int i = 0; i < list1.size(); i++) {
+				for (int j = 0; j < list2.size(); j++) {
+					matrix[2][i][j] = matrix[0][i][j] + matrix[1][i][j];
+					log+=matrix[2][i][j]+" ";
+					if(matrix[2][i][j]==2)
+						Log.appendln("-" + (double) list1.get(i).get(keyWord1));
+				}
+				log+="\r\n";
+			}
+			Log.appendln(log);
+			list1.removeIf(o -> {
+				int index = list1.indexOf(o);
+				for (int i = 0; i < list2.size(); i++) {
+					if(matrix[2][index][i]==2)
+						return true;
+				}
+				return false;
+			});
+			list2.removeIf(o -> {
+				int index = list2.indexOf(o);
+				for (int i = 0; i < list1.size(); i++) {
+					if(matrix[2][i][index]==2)
+						return true;
+				}
+				return false;
+			});
 
+			
 			// 建表
 			final boolean replaceTable = true;
 			String tableName = table1 + "_" + table2;
 			if (db.existTable(tableName)) {
-				Log.append(tableName + " existed");
+				Log.appendln(tableName + " existed");
 				if (replaceTable) {
 					db.deleteTable(tableName);
 					db.commit();
 					db.createEmptyTable(tableName);
 					db.commit();
-					Log.append("createEmptyTable " + tableName);
+					Log.appendln("createEmptyTable " + tableName);
 				} else
 					return false;
 			} else {
 				db.createEmptyTable(tableName);
 				db.commit();
-				Log.append("createEmptyTable " + tableName);
+				Log.appendln("createEmptyTable " + tableName);
 			}
 
 			// id分类
@@ -309,7 +376,7 @@ public class Logic {
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-			Log.append(e.toString());
+			Log.appendln(e.toString());
 		}
 		return false;
 	}
@@ -328,19 +395,19 @@ public class Logic {
 			final boolean replaceTable = true;
 			String tableName = table1 + "_" + table2;
 			if (db.existTable(tableName)) {
-				Log.append(tableName + " existed");
+				Log.appendln(tableName + " existed");
 				if (replaceTable) {
 					db.deleteTable(tableName);
 					db.commit();
 					db.createEmptyTable(tableName);
 					db.commit();
-					Log.append("createEmptyTable " + tableName);
+					Log.appendln("createEmptyTable " + tableName);
 				} else
 					return false;
 			} else {
 				db.createEmptyTable(tableName);
 				db.commit();
-				Log.append("createEmptyTable " + tableName);
+				Log.appendln("createEmptyTable " + tableName);
 			}
 
 			//
@@ -377,11 +444,11 @@ public class Logic {
 					double num1 = sum1.get(key);
 					double num2 = sum2.get(key);
 					if (num1 == num2) {
-						Log.append("-" + num1 + "-" + (key == null ? "" : key.toString()));
+						Log.appendln("-" + num1 + "-" + (key == null ? "" : key.toString()));
 						added.add(key);
 						sum2.remove(key);
 					} else {
-						Log.append("num " + num1 + "-" + num2);
+						Log.appendln("num " + num1 + "-" + num2);
 					}
 				}
 			}
@@ -415,7 +482,7 @@ public class Logic {
 			return true;
 		} catch (Exception e) {
 			e.printStackTrace();
-			Log.append(e.toString());
+			Log.appendln(e.toString());
 		}
 		return false;
 	}
@@ -433,9 +500,9 @@ public class Logic {
 			String[] types = new String[colNames.length];
 			for (int index = 0; index < colNames.length; index++) {
 				String title = colNames[index];
-				sheet.write(1, index+1, title);
+				sheet.write(1, index + 1, title);
 				types[index] = db.getColumnType(tableName, title);
-				Log.append(title+":"+types[index]);
+				Log.appendln(title + ":" + types[index]);
 			}
 			for (int i = 0; i < data.size(); i++) {
 				HashMap<String, Object> each = data.get(i);
@@ -444,9 +511,9 @@ public class Logic {
 					String title = colNames[index];
 					Object obj = each.get(title);
 					if (obj instanceof Long && types[index].toLowerCase().contains("date")) {
-						sheet.write(row, index+1, new Date((long) obj));
+						sheet.write(row, index + 1, new Date((long) obj));
 					} else {
-						sheet.write(row, index+1, obj);
+						sheet.write(row, index + 1, obj);
 					}
 
 				}
