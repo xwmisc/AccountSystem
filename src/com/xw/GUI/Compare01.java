@@ -82,6 +82,16 @@ public class Compare01 extends Dialog {
 		Button c1_start = new Button(composite, SWT.NONE);
 		c1_start.setBounds(230, 30, 98, 30);
 		c1_start.setText("数值比对");
+		c1_start.addSelectionListener(GUI.OnClick(e -> {
+			String t1 = table1.getText();
+			String t2 = table2.getText();
+			boolean result = Logic.compare01(t1, t2, c1_t1key.getText(), c1_t2key.getText());
+			if (result) {
+				GUI.showMsgDialog(shell, "成功,请查看表[" + t1 + "_" + t2 + "]");
+			} else {
+				GUI.showErrDialog(shell, "失败,请检查运行日志:" + Log.getFileLocation());
+			}
+		}));
 
 		Label label_2 = new Label(composite, SWT.NONE);
 		label_2.setText("表1关键词：");
@@ -97,6 +107,10 @@ public class Compare01 extends Dialog {
 		Button refresh_table = new Button(composite_1, SWT.NONE);
 		refresh_table.setBounds(229, 34, 98, 30);
 		refresh_table.setText("刷新表");
+		refresh_table.addSelectionListener(GUI.OnClick(e -> {
+			refreshCombo(table1);
+			refreshCombo(table2);
+		}));
 
 		table2 = new Combo(composite_1, SWT.NONE);
 		table2.setBounds(114, 36, 98, 28);
@@ -130,8 +144,8 @@ public class Compare01 extends Dialog {
 		c2_t1key.setBounds(10, 95, 98, 26);
 
 		Button c2_start = new Button(composite_2, SWT.NONE);
-		c2_start.setText("日期统计");
-		c2_start.setBounds(228, 93, 98, 30);
+		c2_start.setText("仅求和表1");
+		c2_start.setBounds(226, 55, 98, 30);
 		c2_start.addSelectionListener(GUI.OnClick(e -> {
 			String t1 = table1.getText();
 			String t2 = table2.getText();
@@ -139,7 +153,7 @@ public class Compare01 extends Dialog {
 			String t2date = c2_t2date.getText();
 			String t1key = c2_t1key.getText();
 			String t2key = c2_t2key.getText();
-			boolean result = Logic.compare02(t1, t2, t1date, t1key, t2date, t2key);
+			boolean result = Logic.compare02(t1, t2, t1date, t1key, t2date, t2key,true);
 			if (result) {
 				GUI.showMsgDialog(shell, "成功,请查看表[" + t1 + "_" + t2 + "]");
 			} else {
@@ -172,16 +186,20 @@ public class Compare01 extends Dialog {
 		label_7.setBounds(114, 69, 98, 20);
 
 		Label label_8 = new Label(composite_2, SWT.WRAP);
-		label_8.setText("把表1的求和列按照日期列求和,将结果与表2去重存于新表");
-		label_8.setBounds(218, 10, 110, 83);
-		refresh_table.addSelectionListener(GUI.OnClick(e -> {
-			refreshCombo(table1);
-			refreshCombo(table2);
-		}));
-		c1_start.addSelectionListener(GUI.OnClick(e -> {
+		label_8.setText("日期统计");
+		label_8.setBounds(242, 11, 65, 26);
+		
+		Button c2_start2 = new Button(composite_2, SWT.NONE);
+		c2_start2.setText("分别求和");
+		c2_start2.setBounds(226, 91, 98, 30);
+		c2_start2.addSelectionListener(GUI.OnClick(e -> {
 			String t1 = table1.getText();
 			String t2 = table2.getText();
-			boolean result = Logic.compare01(t1, t2, c1_t1key.getText(), c1_t2key.getText());
+			String t1date = c2_t1date.getText();
+			String t2date = c2_t2date.getText();
+			String t1key = c2_t1key.getText();
+			String t2key = c2_t2key.getText();
+			boolean result = Logic.compare02(t1, t2, t1date, t1key, t2date, t2key,false);
 			if (result) {
 				GUI.showMsgDialog(shell, "成功,请查看表[" + t1 + "_" + t2 + "]");
 			} else {

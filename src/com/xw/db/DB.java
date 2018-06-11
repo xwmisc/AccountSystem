@@ -183,6 +183,7 @@ public class DB {
 	}
 
 	public void insert(String tableName, HashMap[] vals) throws SQLException {
+		if(vals.length==0)return;
 		Set keyset = vals[0].keySet();
 		String[] keys = new String[keyset.size()];
 		int k = 0;

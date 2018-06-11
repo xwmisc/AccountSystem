@@ -56,6 +56,8 @@ public class Add extends Dialog {
 	private Combo combo_CMP;
 	private DateTime dateTime;
 	private Text text_file;
+	private Text text_表头行号;
+	private Text text_结束行号;
 
 	/**
 	 * Create the dialog.
@@ -91,9 +93,9 @@ public class Add extends Dialog {
 	 */
 	private void createContents() {
 		shell = new Shell(getParent(), getStyle());
-		shell.setSize(564, 546);
+		shell.setSize(564, 632);
 		shell.setText(getText());
-		
+
 		Composite composite = new Composite(shell, SWT.BORDER);
 		composite.setBounds(22, 149, 513, 289);
 
@@ -231,150 +233,177 @@ public class Add extends Dialog {
 		button_3.addSelectionListener(GUI.OnClick(e -> {
 			addCMP();
 		}));
-		
+
 		Composite composite_4 = new Composite(shell, SWT.BORDER);
-		composite_4.setBounds(22, 444, 513, 48);
-		
+		composite_4.setBounds(22, 444, 513, 144);
+
 		Label label_11 = new Label(composite_4, SWT.NONE);
 		label_11.setText("文件拖拽");
 		label_11.setBounds(10, 13, 61, 20);
-		
+
 		text_file = new Text(composite_4, SWT.BORDER);
 		text_file.setBounds(77, 10, 426, 26);
-		
+
 		DropTarget dropTarget = new DropTarget(text_file, DND.DROP_MOVE);
 		Transfer[] transfer = new Transfer[] { FileTransfer.getInstance() };
 		dropTarget.setTransfer(transfer);
-		
-		Button btnCheckButton = new Button(composite_4, SWT.CHECK);
-		btnCheckButton.setBounds(10, 43, 121, 20);
-		btnCheckButton.setText("手动添加");
+
+		Composite composite_5 = new Composite(composite_4, SWT.BORDER);
+		composite_5.setBounds(7, 48, 496, 77);
+
+		Button check_autosetting = new Button(composite_5, SWT.CHECK);
+		check_autosetting.setText("手动配置");
+		check_autosetting.setBounds(10, 10, 100, 20);
+
+		Label label_13 = new Label(composite_5, SWT.NONE);
+		label_13.setBounds(151, 10, 76, 20);
+		label_13.setText("表头行号：");
+
+		Label label_14 = new Label(composite_5, SWT.NONE);
+		label_14.setText("结束行号：");
+		label_14.setBounds(274, 10, 76, 20);
+
+		text_表头行号 = new Text(composite_5, SWT.BORDER);
+		text_表头行号.setText("1");
+		text_表头行号.setBounds(151, 36, 107, 26);
+
+		text_结束行号 = new Text(composite_5, SWT.BORDER);
+		text_结束行号.setText("100");
+		text_结束行号.setBounds(274, 36, 107, 26);
 		dropTarget.addDropListener(new DropTargetListener() {
-	
+
 			@Override
 			public void dragEnter(DropTargetEvent arg0) {
 				// TODO Auto-generated method stub
-	
+
 			}
-	
+
 			@Override
 			public void dragLeave(DropTargetEvent arg0) {
 				// TODO Auto-generated method stub
-	
+
 			}
-	
+
 			@Override
 			public void dragOperationChanged(DropTargetEvent arg0) {
 				// TODO Auto-generated method stub
-	
+
 			}
-	
+
 			@Override
 			public void dragOver(DropTargetEvent arg0) {
 				// TODO Auto-generated method stub
-	
+
 			}
-	
+
 			@Override
 			public void drop(DropTargetEvent arg0) {
 				// TODO Auto-generated method stub
 				String[] files = (String[]) arg0.data;
-				for(String path:files) {
-					boolean result = Logic.recordFromFile(new File(path));
-					if(result) {
-						text_file.setText("添加成功:"+files[0]);
-						GUI.showMsgDialog(shell, "添加成功:"+files[0]);
-					}else {
-						text_file.setText("添加失败:"+files[0]);
-						GUI.showErrDialog(shell, "添加失败,请检查运行日志:"+Log.getFileLocation());
+				for (String path : files) {
+					boolean result = false;
+					if (check_autosetting.getSelection()) {
+						int start = Integer.parseInt(text_表头行号.getText());
+						int end = Integer.parseInt(text_结束行号.getText());
+						result = Logic.recordFromFile(new File(path), start, end);
+					} else {
+						result = Logic.recordFromFile(new File(path));
+					}
+					if (result) {
+						text_file.setText("添加成功:" + files[0]);
+						GUI.showMsgDialog(shell, "添加成功:" + files[0]);
+					} else {
+						text_file.setText("添加失败:" + files[0]);
+						GUI.showErrDialog(shell, "添加失败,请检查运行日志:" + Log.getFileLocation());
 					}
 				}
 			}
-	
+
 			@Override
 			public void dropAccept(DropTargetEvent arg0) {
 				// TODO Auto-generated method stub
-	
+
 			}
 		});
-		// 数据加载
+
 		refreshData();
 	}
-	
 
-//	public static void addRecord1(String fileName) throws Exception {
-//		// System.out.println("addRecord1");
-//		DBManager db = DBManager.getInstance();
-//		ExcelAPI excel = new ExcelAPI(fileName);
-//
-//		List<HashMap<String, Object>> list_emp = db.query(DBManager.EMP, Util.SetOf(DBManager.EMP_ID,DBManager.EMP_NAME),null);
-//		HashSet emp_set = new HashSet<>();
-//		list_emp.stream().forEach(emp->{emp_set.add(emp.get(DBManager.EMP_NAME));});
-//		
-//		for (String sheetName : excel.getSheetNames()) {
-//			if (!emp_set.contains(sheetName))
-//				continue;
-//			Sheet sheet = excel.getSheet(sheetName);
-//			//验证名字
-//			String emp_name = (String) sheet.read(1, 2);
-//			if (!emp_set.contains(emp_name))
-//				continue;
-//			//添加数据
-//			HashMap<String, Object> kv = new HashMap<>();
-//			//emp
-//			int id = DBManager.findIdByName(DBManager.EMP, emp_name);
-//			kv.put(DBManager.WORKING_EMPID, id);
-//			//date 2018!!!
-//			String dateString = (String) sheet.read(2, 2);
-//			Date date = new Date(2018, Integer.parseInt(dateString.substring(0, 2)), Integer.parseInt(dateString.substring(2, 4)));
-//			kv.put(DBManager.WORKING_WORKINGDATE, date);
-//			//date
-//			String dateString = (String) sheet.read(2, 2);
-//			Date date = new Date(2018, Integer.parseInt(dateString.substring(0, 2)), Integer.parseInt(dateString.substring(2, 4)));
-//			kv.put(DBManager.WORKING_WORKINGDATE, date);
-//			
-//			
-//			
-//			for (int i = 0; i < 6; i++) {
-//				String text;
-//				Date date = excel.read(base_row + 1, base_column + 1);
-//				kv.put(DBManager.WORKING_WORKINGDATE, );
-//				text = excel.read(base_row + 3 + i, base_column).trim();
-//				kv.put("款项类型", text);
-//				if (text.equals("刷货差额")) {
-//					try {
-//						text = dFormat.format(excel.readNumber(base_row + 3 + i, base_column + 1));
-//					} catch (ClassCastException e) {
-//						text = "0";
-//					}
-//
-//					if (text.startsWith("-")) {
-//						kv.put("应收增加", "0");
-//						kv.put("应收减少", text.substring(1));
-//					} else {
-//						kv.put("应收增加", text);
-//						kv.put("应收减少", "0");
-//					}
-//				} else {
-//					try {
-//						text = dFormat.format(excel.readNumber(base_row + 3 + i, base_column + 1));
-//					} catch (ClassCastException e) {
-//						text = "0";
-//					}
-//					kv.put("应收增加", text.equals("") ? "0" : text);
-//					try {
-//						text = dFormat.format(excel.readNumber(base_row + 3 + i, base_column + 2));
-//					} catch (ClassCastException e) {
-//						text = "0";
-//					}
-//					kv.put("应收减少", text.equals("") ? "0" : text);
-//				}
-//				db.put(Config.TABLE_1, kv);
-//			}
-//		}
-//		excel.close();
-//	}
-	
+	// public static void addRecord1(String fileName) throws Exception {
+	// // System.out.println("addRecord1");
+	// DBManager db = DBManager.getInstance();
+	// ExcelAPI excel = new ExcelAPI(fileName);
+	//
+	// List<HashMap<String, Object>> list_emp = db.query(DBManager.EMP,
+	// Util.SetOf(DBManager.EMP_ID,DBManager.EMP_NAME),null);
+	// HashSet emp_set = new HashSet<>();
+	// list_emp.stream().forEach(emp->{emp_set.add(emp.get(DBManager.EMP_NAME));});
+	//
+	// for (String sheetName : excel.getSheetNames()) {
+	// if (!emp_set.contains(sheetName))
+	// continue;
+	// Sheet sheet = excel.getSheet(sheetName);
+	// //验证名字
+	// String emp_name = (String) sheet.read(1, 2);
+	// if (!emp_set.contains(emp_name))
+	// continue;
+	// //添加数据
+	// HashMap<String, Object> kv = new HashMap<>();
+	// //emp
+	// int id = DBManager.findIdByName(DBManager.EMP, emp_name);
+	// kv.put(DBManager.WORKING_EMPID, id);
+	// //date 2018!!!
+	// String dateString = (String) sheet.read(2, 2);
+	// Date date = new Date(2018, Integer.parseInt(dateString.substring(0, 2)),
+	// Integer.parseInt(dateString.substring(2, 4)));
+	// kv.put(DBManager.WORKING_WORKINGDATE, date);
+	// //date
+	// String dateString = (String) sheet.read(2, 2);
+	// Date date = new Date(2018, Integer.parseInt(dateString.substring(0, 2)),
+	// Integer.parseInt(dateString.substring(2, 4)));
+	// kv.put(DBManager.WORKING_WORKINGDATE, date);
+	//
+	//
+	//
+	// for (int i = 0; i < 6; i++) {
+	// String text;
+	// Date date = excel.read(base_row + 1, base_column + 1);
+	// kv.put(DBManager.WORKING_WORKINGDATE, );
+	// text = excel.read(base_row + 3 + i, base_column).trim();
+	// kv.put("款项类型", text);
+	// if (text.equals("刷货差额")) {
+	// try {
+	// text = dFormat.format(excel.readNumber(base_row + 3 + i, base_column + 1));
+	// } catch (ClassCastException e) {
+	// text = "0";
+	// }
+	//
+	// if (text.startsWith("-")) {
+	// kv.put("应收增加", "0");
+	// kv.put("应收减少", text.substring(1));
+	// } else {
+	// kv.put("应收增加", text);
+	// kv.put("应收减少", "0");
+	// }
+	// } else {
+	// try {
+	// text = dFormat.format(excel.readNumber(base_row + 3 + i, base_column + 1));
+	// } catch (ClassCastException e) {
+	// text = "0";
+	// }
+	// kv.put("应收增加", text.equals("") ? "0" : text);
+	// try {
+	// text = dFormat.format(excel.readNumber(base_row + 3 + i, base_column + 2));
+	// } catch (ClassCastException e) {
+	// text = "0";
+	// }
+	// kv.put("应收减少", text.equals("") ? "0" : text);
+	// }
+	// db.put(Config.TABLE_1, kv);
+	// }
+	// }
+	// excel.close();
+	// }
 
 	public void addEMP() {
 		try {
@@ -444,7 +473,7 @@ public class Add extends Dialog {
 			db.insert(DBManager.WORKING, working);
 			db.commit();
 			GUI.showMsgDialog(shell, "添加成功");
-			
+
 		} catch (Exception e) {
 			GUI.showErrDialog(shell, e.toString());
 			e.printStackTrace();

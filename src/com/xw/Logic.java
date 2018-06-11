@@ -55,6 +55,10 @@ public class Logic {
 	}
 
 	public static boolean recordFromFile(File file) {
+		return recordFromFile(file, -1, -1);
+	}
+
+	public static boolean recordFromFile(File file, int start, int end) {
 		try {
 			final boolean replaceTable = true;
 			Log.clean();
@@ -85,25 +89,30 @@ public class Logic {
 			Excel excel = new Excel(file);
 
 			Sheet sheet = excel.getSheets().get(0);
-			int rows = sheet.getRowCount();
+			int rows = end > 0 ? end : sheet.getRowCount();
 
 			// 寻找起始行
 			int startRow = 1;
-			for (int row = 1; row <= rows; row++) {
-				int cols = sheet.getColCount(row);
-				boolean flag = cols >= 1;
-				for (int col = 1; col <= cols; col++) {
-					String s = sheet.readString(row, col, "");
-					if (s.equals("")) {
-						flag = false;
+			if (start > 0) {
+				startRow = start;
+			} else {
+				for (int row = 1; row <= rows; row++) {
+					int cols = sheet.getColCount(row);
+					boolean flag = cols >= 1;
+					for (int col = 1; col <= cols; col++) {
+						String s = sheet.readString(row, col, "");
+						if (s.equals("")) {
+							flag = false;
+							break;
+						}
+					}
+					if (flag) {
+						startRow = row;
 						break;
 					}
 				}
-				if (flag) {
-					startRow = row;
-					break;
-				}
 			}
+
 			int cols = sheet.getColCount(startRow);
 			Log.appendln("cols: " + cols);
 			Log.appendln("startRow: " + startRow);
@@ -294,17 +303,17 @@ public class Logic {
 			for (int i = 0; i < list1.size(); i++) {
 				for (int j = 0; j < list2.size(); j++) {
 					matrix[2][i][j] = matrix[0][i][j] + matrix[1][i][j];
-					log+=matrix[2][i][j]+" ";
-					if(matrix[2][i][j]==2)
+					log += matrix[2][i][j] + " ";
+					if (matrix[2][i][j] == 2)
 						Log.appendln("-" + (double) list1.get(i).get(keyWord1));
 				}
-				log+="\r\n";
+				log += "\r\n";
 			}
 			Log.appendln(log);
 			list1.removeIf(o -> {
 				int index = list1.indexOf(o);
 				for (int i = 0; i < list2.size(); i++) {
-					if(matrix[2][index][i]==2)
+					if (matrix[2][index][i] == 2)
 						return true;
 				}
 				return false;
@@ -312,13 +321,12 @@ public class Logic {
 			list2.removeIf(o -> {
 				int index = list2.indexOf(o);
 				for (int i = 0; i < list1.size(); i++) {
-					if(matrix[2][i][index]==2)
+					if (matrix[2][i][index] == 2)
 						return true;
 				}
 				return false;
 			});
 
-			
 			// 建表
 			final boolean replaceTable = true;
 			String tableName = table1 + "_" + table2;
@@ -381,8 +389,8 @@ public class Logic {
 		return false;
 	}
 
-	public static boolean compare02(String table1, String table2, String date1, String key1, String date2,
-			String key2) {
+	public static boolean compare02(String table1, String table2, String date1, String key1, String date2, String key2,
+			boolean onlyTable1) {
 		try {
 			Log.clean();
 
@@ -430,11 +438,25 @@ public class Logic {
 			}
 			// 统计表2
 			HashMap<Date, Double> sum2 = new HashMap<>();
-			for (HashMap<String, Object> each : list2) {
-				long dnum = (long) Optional.ofNullable(each.get(date2)).orElse(0l);
-				Date date = new Date(dnum);
-				double num = (Double) each.get(key2);
-				sum2.put(date, num);
+			if (onlyTable1) {
+				for (HashMap<String, Object> each : list2) {
+					long dnum = (long) Optional.ofNullable(each.get(date2)).orElse(0l);
+					Date date = new Date(dnum);
+					double num = (Double) each.get(key2);
+					sum2.put(date, num);
+				}
+			} else {
+				for (HashMap<String, Object> each : list2) {
+					// 这里由于sqlite3日期用数值存,故用new date
+					long dnum = (long) Optional.ofNullable(each.get(date2)).orElse(0l);
+					Date date = new Date(dnum);
+					if (!sum2.containsKey(date)) {
+						sum2.put(date, 0.0);
+					}
+					double num = sum2.get(date);
+					num += (Double) each.get(key2);
+					sum2.put(date, num);
+				}
 			}
 
 			// 去重
