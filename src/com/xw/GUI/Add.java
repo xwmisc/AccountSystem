@@ -58,6 +58,7 @@ public class Add extends Dialog {
 	private Text text_file;
 	private Text text_表头行号;
 	private Text text_结束行号;
+	private Text text_开始行号;
 
 	/**
 	 * Create the dialog.
@@ -261,15 +262,23 @@ public class Add extends Dialog {
 
 		Label label_14 = new Label(composite_5, SWT.NONE);
 		label_14.setText("结束行号：");
-		label_14.setBounds(274, 10, 76, 20);
+		label_14.setBounds(375, 10, 76, 20);
 
 		text_表头行号 = new Text(composite_5, SWT.BORDER);
 		text_表头行号.setText("1");
-		text_表头行号.setBounds(151, 36, 107, 26);
+		text_表头行号.setBounds(151, 36, 76, 26);
 
 		text_结束行号 = new Text(composite_5, SWT.BORDER);
 		text_结束行号.setText("100");
-		text_结束行号.setBounds(274, 36, 107, 26);
+		text_结束行号.setBounds(375, 36, 76, 26);
+
+		text_开始行号 = new Text(composite_5, SWT.BORDER);
+		text_开始行号.setText("2");
+		text_开始行号.setBounds(264, 36, 76, 26);
+
+		Label label_15 = new Label(composite_5, SWT.NONE);
+		label_15.setText("开始行号：");
+		label_15.setBounds(264, 10, 76, 20);
 		dropTarget.addDropListener(new DropTargetListener() {
 
 			@Override
@@ -303,9 +312,10 @@ public class Add extends Dialog {
 				for (String path : files) {
 					boolean result = false;
 					if (check_autosetting.getSelection()) {
-						int start = Integer.parseInt(text_表头行号.getText());
+						int title = Integer.parseInt(text_表头行号.getText());
+						int start = Integer.parseInt(text_开始行号.getText());
 						int end = Integer.parseInt(text_结束行号.getText());
-						result = Logic.recordFromFile(new File(path), start, end);
+						result = Logic.recordFromFile(new File(path), title, start, end);
 					} else {
 						result = Logic.recordFromFile(new File(path));
 					}

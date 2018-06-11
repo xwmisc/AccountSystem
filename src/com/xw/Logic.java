@@ -55,10 +55,10 @@ public class Logic {
 	}
 
 	public static boolean recordFromFile(File file) {
-		return recordFromFile(file, -1, -1);
+		return recordFromFile(file, -1, -1, -1);
 	}
 
-	public static boolean recordFromFile(File file, int start, int end) {
+	public static boolean recordFromFile(File file, int title, int start, int end) {
 		try {
 			final boolean replaceTable = true;
 			Log.clean();
@@ -89,14 +89,14 @@ public class Logic {
 			Excel excel = new Excel(file);
 
 			Sheet sheet = excel.getSheets().get(0);
-			int rows = end > 0 ? end : sheet.getRowCount();
+			int endRow = end > 0 ? end : sheet.getRowCount();
 
 			// 寻找起始行
 			int startRow = 1;
-			if (start > 0) {
-				startRow = start;
+			if (title > 0) {
+				startRow = title;
 			} else {
-				for (int row = 1; row <= rows; row++) {
+				for (int row = 1; row <= endRow; row++) {
 					int cols = sheet.getColCount(row);
 					boolean flag = cols >= 1;
 					for (int col = 1; col <= cols; col++) {
@@ -114,11 +114,13 @@ public class Logic {
 			}
 
 			int cols = sheet.getColCount(startRow);
+			int beginRow = start > 0 ? start : (startRow + 1);
 			Log.appendln("cols: " + cols);
 			Log.appendln("startRow: " + startRow);
-			Log.appendln("rows: " + rows);
+			Log.appendln("beginRow: " + beginRow);
+			Log.appendln("rows: " + endRow);
 
-			HashMap[] vals = new HashMap[rows - startRow];// 欲添加数据源
+			HashMap[] vals = new HashMap[endRow - (beginRow - 1)];// 欲添加数据源
 
 			for (int col = 1; col <= cols; col++) {
 				// in each column
@@ -133,7 +135,7 @@ public class Logic {
 				System.out.println("attr: " + attr);
 				if (attr.equals(""))
 					continue;
-				CellType type = getSerialCellType(sheet, startRow, rows, col);
+				CellType type = getSerialCellType(sheet, beginRow, endRow, col);
 				switch (type) {
 				case DATE:
 					db.insertColumn(tableName, attr, DB.SQLITE3_TYPE.TYPE_DATE);
@@ -145,9 +147,10 @@ public class Logic {
 					db.insertColumn(tableName, attr, DB.SQLITE3_TYPE.TYPE_TEXT);
 					break;
 				}
-				for (int row = startRow + 1; row <= rows; row++) {
+
+				for (int row = beginRow; row <= endRow; row++) {
 					// in each row
-					int index = row - startRow - 1;
+					int index = row - beginRow;
 					if (vals[index] == null)
 						vals[index] = new HashMap<>();
 					switch (type) {
@@ -199,7 +202,7 @@ public class Logic {
 		int date = 0;
 		int blank = 0;
 		int num = 0;
-		for (int row = startRow + 1; row <= endRow; row++) {
+		for (int row = startRow; row <= endRow; row++) {
 			Object sample = sheet.read(row, col);
 
 			if (sample instanceof Date) {
