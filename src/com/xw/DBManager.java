@@ -24,15 +24,15 @@ public class DBManager {
 	PreparedStatement stmt_insert_cmp;
 	PreparedStatement stmt_insert_working;
 
-	public static final String EMP = "EMP";
+	public static final String EMP = "系统_EMP";
 	public static final String EMP_ID = "id";
 	public static final String EMP_NAME = "name";
 
-	public static final String DFS = "DFS";
+	public static final String DFS = "系统_DFS";
 	public static final String DFS_ID = "id";
 	public static final String DFS_NAME = "name";
 
-	public static final String CMP = "CMP";
+	public static final String CMP = "系统_CMP";
 	public static final String CMP_ID = "id";
 	public static final String CMP_NAME = "name";
 
@@ -57,8 +57,7 @@ public class DBManager {
 			Date timestamp = new Date();
 
 			DBManager db = DBManager.getInstance();
-			
-			
+
 			System.out.println("1 " + (new Date().getTime() - timestamp.getTime()));
 
 			db.insert(EMP, Util.PairOf(EMP_NAME, "姜渊"));
@@ -117,9 +116,9 @@ public class DBManager {
 			m_Connection.setAutoCommit(false);
 
 			createTable();
-			stmt_insert_emp = m_Connection.prepareStatement("insert into EMP(name) values (?)");
-			stmt_insert_dfs = m_Connection.prepareStatement("insert into DFS(name) values (?)");
-			stmt_insert_cmp = m_Connection.prepareStatement("insert into CMP(name) values (?)");
+			stmt_insert_emp = m_Connection.prepareStatement("insert into "+EMP+"(name) values (?)");
+			stmt_insert_dfs = m_Connection.prepareStatement("insert into "+DFS+"(name) values (?)");
+			stmt_insert_cmp = m_Connection.prepareStatement("insert into "+CMP+"(name) values (?)");
 			stmt_insert_working = m_Connection.prepareStatement("insert into "
 					+ "Working(workingDate,empId,dfsId,cmpId,刷货开工费现金,刷货开工费卡,刷货使用现金,刷货使用卡,刷货入库金额,刷货费用,刷货损失) "
 					+ "values (?,?,?,?,?,?,?,?,?,?,?)");
@@ -270,10 +269,10 @@ public class DBManager {
 	}
 
 	private void createTable() throws SQLException {
-		String sql = "create table if not exists DFS(\r\n" + "	id integer primary key autoincrement,\r\n"
-				+ "	name text not null unique\r\n" + ");\r\n" + "create table if not exists EMP(\r\n"
+		String sql = "create table if not exists 系统_DFS(\r\n" + "	id integer primary key autoincrement,\r\n"
+				+ "	name text not null unique\r\n" + ");\r\n" + "create table if not exists 系统_EMP(\r\n"
 				+ "	id integer primary key autoincrement,\r\n" + "	name text not null unique\r\n" + ");\r\n"
-				+ "create table if not exists CMP(\r\n" + "	id integer primary key autoincrement,\r\n"
+				+ "create table if not exists 系统_CMP(\r\n" + "	id integer primary key autoincrement,\r\n"
 				+ "	name text not null unique\r\n" + ");\r\n" + "create table if not exists Working(\r\n"
 				+ "	id integer primary key autoincrement,\r\n" + "	workingDate datetime not null,\r\n"
 				+ "	empId integer not null,\r\n" + "	dfsId integer not null,\r\n" + "	cmpId integer not null,\r\n"
@@ -282,6 +281,7 @@ public class DBManager {
 				+ "	刷货损失 double not null,\r\n" + "	foreign key (empId) references EMP(id),\r\n"
 				+ "	foreign key (dfsId) references DFS(id),\r\n" + "	foreign key (cmpId) references CMP(id)\r\n"
 				+ ")";
+//		System.out.println(sql);
 		// m_Connection.createStatement().execute("drop table if exists DFS");
 		// m_Connection.createStatement().execute("drop table if exists EMP");
 		// m_Connection.createStatement().execute("drop table if exists CMP");
