@@ -26,6 +26,7 @@ import com.xw.ExcelAPI.ExcelException;
 import com.xw.ExcelAPI.Sheet;
 import com.xw.Log;
 import com.xw.Logic;
+import com.xw.LogicV1;
 import com.xw.Util;
 import com.xw.excel.Excel;
 
@@ -59,6 +60,7 @@ public class Add extends Dialog {
 	private Text text_表头行号;
 	private Text text_结束行号;
 	private Text text_开始行号;
+	private Text text_file2;
 
 	/**
 	 * Create the dialog.
@@ -94,7 +96,7 @@ public class Add extends Dialog {
 	 */
 	private void createContents() {
 		shell = new Shell(getParent(), getStyle());
-		shell.setSize(564, 632);
+		shell.setSize(564, 693);
 		shell.setText(getText());
 
 		Composite composite = new Composite(shell, SWT.BORDER);
@@ -241,14 +243,7 @@ public class Add extends Dialog {
 		Label label_11 = new Label(composite_4, SWT.NONE);
 		label_11.setText("文件拖拽");
 		label_11.setBounds(10, 13, 61, 20);
-
-		text_file = new Text(composite_4, SWT.BORDER);
-		text_file.setBounds(77, 10, 426, 26);
-
-		DropTarget dropTarget = new DropTarget(text_file, DND.DROP_MOVE);
-		Transfer[] transfer = new Transfer[] { FileTransfer.getInstance() };
-		dropTarget.setTransfer(transfer);
-
+		
 		Composite composite_5 = new Composite(composite_4, SWT.BORDER);
 		composite_5.setBounds(7, 48, 496, 77);
 
@@ -279,35 +274,36 @@ public class Add extends Dialog {
 		Label label_15 = new Label(composite_5, SWT.NONE);
 		label_15.setText("开始行号：");
 		label_15.setBounds(264, 10, 76, 20);
+		
+		text_file = new Text(composite_4, SWT.BORDER);
+		text_file.setBounds(77, 10, 426, 26);
+
+		DropTarget dropTarget = new DropTarget(text_file, DND.DROP_MOVE);
+		Transfer[] transfer = new Transfer[] { FileTransfer.getInstance() };
+		dropTarget.setTransfer(transfer);
 		dropTarget.addDropListener(new DropTargetListener() {
 
 			@Override
 			public void dragEnter(DropTargetEvent arg0) {
-				// TODO Auto-generated method stub
-
 			}
 
 			@Override
 			public void dragLeave(DropTargetEvent arg0) {
-				// TODO Auto-generated method stub
 
 			}
 
 			@Override
 			public void dragOperationChanged(DropTargetEvent arg0) {
-				// TODO Auto-generated method stub
 
 			}
 
 			@Override
 			public void dragOver(DropTargetEvent arg0) {
-				// TODO Auto-generated method stub
 
 			}
 
 			@Override
 			public void drop(DropTargetEvent arg0) {
-				// TODO Auto-generated method stub
 				String[] files = (String[]) arg0.data;
 				for (String path : files) {
 					boolean result = false;
@@ -331,7 +327,62 @@ public class Add extends Dialog {
 
 			@Override
 			public void dropAccept(DropTargetEvent arg0) {
-				// TODO Auto-generated method stub
+
+			}
+		});
+		
+		Composite composite_6 = new Composite(shell, SWT.BORDER);
+		composite_6.setBounds(22, 594, 513, 43);
+		
+		Label label_16 = new Label(composite_6, SWT.NONE);
+		label_16.setText("对账文件夹");
+		label_16.setBounds(10, 10, 75, 20);
+		
+		text_file2 = new Text(composite_6, SWT.BORDER);
+		text_file2.setLocation(92, 7);
+		text_file2.setSize(411, 26);
+
+		DropTarget dropTarget2 = new DropTarget(text_file2, DND.DROP_MOVE);
+		dropTarget2.setTransfer(transfer);
+		dropTarget2.addDropListener(new DropTargetListener() {
+
+			@Override
+			public void dragEnter(DropTargetEvent arg0) {
+			}
+
+			@Override
+			public void dragLeave(DropTargetEvent arg0) {
+
+			}
+
+			@Override
+			public void dragOperationChanged(DropTargetEvent arg0) {
+
+			}
+
+			@Override
+			public void dragOver(DropTargetEvent arg0) {
+
+			}
+
+			@Override
+			public void drop(DropTargetEvent arg0) {
+				String[] files = (String[]) arg0.data;
+				for (String path : files) {
+					boolean result = false;
+					result = LogicV1.account(new File(path));
+					if (result) {
+						text_file2.setText("添加成功:" + files[0]);
+						GUI.showMsgDialog(shell, "添加成功:" + files[0]);
+					} else {
+						text_file2.setText("添加失败:" + files[0]);
+						GUI.showErrDialog(shell, "添加失败,请检查运行日志:" + Log.getFileLocation());
+					}
+				}
+			}
+
+			@Override
+			public void dropAccept(DropTargetEvent arg0) {
 
 			}
 		});
@@ -416,11 +467,12 @@ public class Add extends Dialog {
 	// }
 
 	public void addEMP() {
+		//TODO 修改其他的
 		try {
 			String name = text_emp_name.getText().trim();
 			if (name.equals(""))
 				throw new Exception("名字不能为空");
-			ASDataSource.insert(DBManager.EMP, Util.PairOf(DBManager.EMP_NAME, name));
+			ASDataSource.insert(LogicV1.EMP, Util.PairOf("name", name));
 			GUI.showMsgDialog(shell, "添加成功");
 			refreshData();
 		} catch (Exception e) {

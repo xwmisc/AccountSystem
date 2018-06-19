@@ -62,6 +62,7 @@ public class GUI {
 	private Button brn_dTable;
 	private Button button;
 	private Button button_1;
+	private Button checkbox_seeSysTable;
 
 	/**
 	 * Launch the application.
@@ -97,12 +98,12 @@ public class GUI {
 	 */
 	protected void createContents() {
 		shell = new Shell();
-		shell.setSize(672, 508);
+		shell.setSize(672, 542);
 		shell.setText("SWT Application");
 
 		table = new Table(shell, SWT.BORDER | SWT.FULL_SELECTION | SWT.MULTI);
 		m_Table = new ASTable(table);
-		table.setBounds(219, 10, 435, 441);
+		table.setBounds(219, 10, 435, 475);
 		table.setHeaderVisible(true);
 		table.setLinesVisible(true);
 		shell.addControlListener(new ControlAdapter() {
@@ -118,14 +119,14 @@ public class GUI {
 
 		combo_tableList = new Combo(shell, SWT.NONE);
 		combo_tableList.setItems(new String[] {});
-		combo_tableList.setBounds(10, 10, 98, 28);
+		combo_tableList.setBounds(10, 10, 128, 28);
 		combo_tableList.select(0);
 
 		text_info = new Text(shell, SWT.BORDER | SWT.MULTI);
-		text_info.setBounds(10, 155, 202, 296);
+		text_info.setBounds(11, 189, 202, 296);
 
 		btn_query = new Button(shell, SWT.NONE);
-		btn_query.setBounds(10, 47, 98, 30);
+		btn_query.setBounds(10, 81, 98, 30);
 		btn_query.setText("查询表");
 		btn_query.addSelectionListener(OnClick(e -> {
 			// 检索
@@ -137,7 +138,7 @@ public class GUI {
 		btn_add = new Button(shell, SWT.NONE);
 		// btn_add.setEnabled(false);
 		btn_add.setText("添加");
-		btn_add.setBounds(10, 83, 98, 30);
+		btn_add.setBounds(10, 117, 98, 30);
 		btn_add.addSelectionListener(OnClick(e -> {
 			new Add(shell, shell.getStyle()).open();
 			// new AdjustImage(shell, shell.getStyle()).open();
@@ -146,7 +147,7 @@ public class GUI {
 		btn_delete = new Button(shell, SWT.NONE);
 		// btn_delete.setEnabled(false);
 		btn_delete.setText("删除行");
-		btn_delete.setBounds(114, 83, 98, 30);
+		btn_delete.setBounds(114, 117, 98, 30);
 		btn_delete.addSelectionListener(OnClick(e -> {
 			// 删除
 			m_Table.deleteSelectData();
@@ -165,7 +166,7 @@ public class GUI {
 
 		btn_refreshTable = new Button(shell, SWT.NONE);
 		btn_refreshTable.setText("刷新");
-		btn_refreshTable.setBounds(114, 10, 98, 30);
+		btn_refreshTable.setBounds(10, 45, 202, 30);
 		btn_refreshTable.addSelectionListener(OnClick(e -> {
 			refreshCombo();
 		}));
@@ -177,7 +178,7 @@ public class GUI {
 			}
 		});
 		brn_dTable.setText("删除表");
-		brn_dTable.setBounds(114, 47, 98, 30);
+		brn_dTable.setBounds(114, 81, 98, 30);
 		brn_dTable.addSelectionListener(OnClick(e -> {
 			try {
 				String tableName = combo_tableList.getText();
@@ -187,25 +188,29 @@ public class GUI {
 				e1.printStackTrace();
 			}
 		}));
-		
+
 		button = new Button(shell, SWT.NONE);
 		button.setText("比较01");
-		button.setBounds(115, 119, 98, 30);
+		button.setBounds(115, 153, 98, 30);
 		button.addSelectionListener(OnClick(e -> {
 			new Compare01(shell, shell.getStyle()).open();
 		}));
-		
+
 		button_1 = new Button(shell, SWT.NONE);
 		button_1.setText("导出XSLX");
-		button_1.setBounds(10, 119, 98, 30);
+		button_1.setBounds(10, 153, 98, 30);
 		button_1.addSelectionListener(OnClick(e -> {
 			boolean result = Logic.exportXLSX(combo_tableList.getText());
-			if(result) {
+			if (result) {
 				GUI.showMsgDialog(shell, "导出成功,请在运行目录下查看文件");
-			}else {
-				GUI.showErrDialog(shell, "导出失败,请检查运行日志:"+Log.getFileLocation());
+			} else {
+				GUI.showErrDialog(shell, "导出失败,请检查运行日志:" + Log.getFileLocation());
 			}
 		}));
+
+		checkbox_seeSysTable = new Button(shell, SWT.CHECK);
+		checkbox_seeSysTable.setBounds(144, 9, 69, 28);
+		checkbox_seeSysTable.setText("系统表");
 
 		refreshCombo();
 	}
@@ -216,8 +221,11 @@ public class GUI {
 			String[] tables;
 			tables = ASDataSource.getTables();
 			combo_tableList.removeAll();
-			for (String table : tables)
+			for (String table : tables) {
+				if (!checkbox_seeSysTable.getSelection() && table.contains("系统_"))
+					continue;
 				combo_tableList.add(table);
+			}
 			if (combo_tableList.getItemCount() > 0)
 				combo_tableList.select(0);
 		} catch (SQLException e1) {
@@ -398,10 +406,10 @@ public class GUI {
 				System.out.println("!" + column.getText());
 				String colName = column.getText();
 				boolean isAscend = true; // 按照升序排序
-				if(lastCol.equals(colName) ) {
+				if (lastCol.equals(colName)) {
 					isAscend = !lastIsAscend;
 				}
-				lastIsAscend = isAscend ;
+				lastIsAscend = isAscend;
 				lastCol = colName;
 
 				Collator comparator = Collator.getInstance(Locale.getDefault());

@@ -166,7 +166,12 @@ public class DB {
 	}
 
 	public void insert(String tableName, HashMap vals) throws SQLException {
-		String[] keys = (String[]) vals.keySet().toArray();
+		Set keyset = vals.keySet();
+		String[] keys = new String[keyset.size()];
+		int k = 0;
+		for (Object key : keyset)
+			keys[k++] = (String) key;
+		
 		String sql = "insert into " + tableName + "(";
 		for (int i = 0; i < keys.length; i++)
 			sql += (i == 0 ? "" : ",") + keys[i];
@@ -177,7 +182,7 @@ public class DB {
 		PreparedStatement pre_stmt = m_Connection.prepareStatement(sql);
 
 		for (int i = 0; i < keys.length; i++)
-			pre_stmt.setObject(i, vals.get(keys[i]));
+			pre_stmt.setObject(1+i, vals.get(keys[i]));
 
 		pre_stmt.executeUpdate();
 	}
@@ -258,11 +263,11 @@ public class DB {
 
 		ArrayList where_values = null;
 		if (where != null) {
-			String sql_where = "where ";
+			String sql_where = "";
 			where_values = new ArrayList<>();
 			for (Object key : where.keySet()) {
-				if (!sql_where.equals(""))
-					sql_where += " " + (String) key + "=?";
+				if (sql_where.equals(""))
+					sql_where += " where " + (String) key + "=?";
 				else
 					sql_where += " and " + (String) key + "=?";
 				where_values.add(where.get(key));

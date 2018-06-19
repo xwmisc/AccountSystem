@@ -2,7 +2,9 @@ package com.xw;
 
 import java.io.File;
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -10,6 +12,7 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
+import java.util.regex.Pattern;
 
 import com.xw.db.DB;
 import com.xw.db.DB.SQLITE3_TYPE;
@@ -17,7 +20,7 @@ import com.xw.excel.Excel;
 import com.xw.excel.Excel.Sheet;
 import com.xw.excel.ExcelException;
 
-public class Logic {
+public class Logic{
 	public static enum CellType {
 		TEXT, NUMBER, DATE
 	}
@@ -385,7 +388,6 @@ public class Logic {
 
 			return true;
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			Log.appendln(e.toString());
 		}
@@ -511,6 +513,7 @@ public class Logic {
 		}
 		return false;
 	}
+
 
 	public static boolean exportXLSX(String tableName) {
 		try {
