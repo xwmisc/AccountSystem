@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
@@ -20,7 +21,7 @@ import com.xw.excel.Excel;
 import com.xw.excel.Excel.Sheet;
 import com.xw.excel.ExcelException;
 
-public class Logic{
+public class Logic {
 	public static enum CellType {
 		TEXT, NUMBER, DATE
 	}
@@ -58,11 +59,27 @@ public class Logic{
 	}
 
 	public static boolean recordFromFile(File file) {
-		return recordFromFile(file, -1, -1, -1);
+		return recordFromFile(file, -1, -1, -1, "", null);
 	}
 
 	public static boolean recordFromFile(File file, int title, int start, int end) {
+		return recordFromFile(file, title, start, end, "", null);
+	}
+
+	public static boolean recordFromFile(File file, int title, int start, int end, String date_columns, String format) {
+		String[] date_column = date_columns.split("\\\\");
+		return recordFromFile(file, title, start, end, date_column, format);
+	}
+
+	public static boolean recordFromFile(File file, int title, int start, int end, String[] date_column,
+			String format) {
 		try {
+			SimpleDateFormat sdf;
+			if (format == null || format.equals(""))
+				sdf = null;
+			else
+				sdf = new SimpleDateFormat(format);
+
 			final boolean replaceTable = true;
 			Log.clean();
 			Log.appendln("file " + file.getName());
@@ -138,7 +155,20 @@ public class Logic{
 				System.out.println("attr: " + attr);
 				if (attr.equals(""))
 					continue;
-				CellType type = getSerialCellType(sheet, beginRow, endRow, col);
+				CellType type;
+				if (date_column == null || date_column.length == 0) {
+					type = getSerialCellType(sheet, beginRow, endRow, col);
+				} else {
+					// 指定日期
+					boolean date_flag = false;
+					for (String d_column : date_column) {
+						if (attr.equals(d_column)) {
+							date_flag = true;
+							break;
+						}
+					}
+					type = date_flag ? CellType.DATE : getSerialCellType(sheet, beginRow, endRow, col);
+				}
 				switch (type) {
 				case DATE:
 					db.insertColumn(tableName, attr, DB.SQLITE3_TYPE.TYPE_DATE);
@@ -158,8 +188,14 @@ public class Logic{
 						vals[index] = new HashMap<>();
 					switch (type) {
 					case DATE:
-						Date date = (Date) sheet.read(row, col);
-						vals[index].put(attr, date);
+						Object date = sheet.read(row, col);
+						if (date instanceof Date) {
+							vals[index].put(attr, (Date) date);
+						} else {
+							String s_date = sheet.readString(row, col, "");
+							Date date_f = sdf.parse(s_date);
+							vals[index].put(attr, date_f);
+						}
 						// System.out.println("date:" + vals[index].get(attr));
 						break;
 					case NUMBER:
@@ -432,8 +468,10 @@ public class Logic{
 			HashMap<Date, Double> sum1 = new HashMap<>();
 			for (HashMap<String, Object> each : list1) {
 				// 这里由于sqlite3日期用数值存,故用new date
-				long dnum = (long) Optional.ofNullable(each.get(date1)).orElse(0l);
-				Date date = new Date(dnum);
+				// long dnum = (long) Optional.ofNullable(each.get(date1)).orElse(0l);
+				// Date date = new Date(dnum);
+				Date date = (Date) each.get(date1);
+				date = new Date(date.getYear(), date.getMonth(), date.getDate());
 				if (!sum1.containsKey(date)) {
 					sum1.put(date, 0.0);
 				}
@@ -445,16 +483,20 @@ public class Logic{
 			HashMap<Date, Double> sum2 = new HashMap<>();
 			if (onlyTable1) {
 				for (HashMap<String, Object> each : list2) {
-					long dnum = (long) Optional.ofNullable(each.get(date2)).orElse(0l);
-					Date date = new Date(dnum);
+					// long dnum = (long) Optional.ofNullable(each.get(date2)).orElse(0l);
+					// Date date = new Date(dnum);
+					Date date = (Date) each.get(date2);
+					date = new Date(date.getYear(), date.getMonth(), date.getDate());
 					double num = (Double) each.get(key2);
 					sum2.put(date, num);
 				}
 			} else {
 				for (HashMap<String, Object> each : list2) {
 					// 这里由于sqlite3日期用数值存,故用new date
-					long dnum = (long) Optional.ofNullable(each.get(date2)).orElse(0l);
-					Date date = new Date(dnum);
+					// long dnum = (long) Optional.ofNullable(each.get(date2)).orElse(0l);
+					// Date date = new Date(dnum);
+					Date date = (Date) each.get(date2);
+					date = new Date(date.getYear(), date.getMonth(), date.getDate());
 					if (!sum2.containsKey(date)) {
 						sum2.put(date, 0.0);
 					}
@@ -495,11 +537,11 @@ public class Logic{
 			for (Date each : sum2.keySet()) {
 				HashMap<String, Object> hm = new HashMap<>();
 				hm.put("日期", each);
-				hm.put(key2, sum2.get(each));
+				hm.put(key2 + (onlyTable1 ? "" : "_求和"), sum2.get(each));
 				l2.add(hm);
 			}
 			db.insertColumn(tableName, key1 + "_求和", SQLITE3_TYPE.TYPE_NUMBER);
-			db.insertColumn(tableName, key2, SQLITE3_TYPE.TYPE_NUMBER);
+			db.insertColumn(tableName, key2 + (onlyTable1 ? "" : "_求和"), SQLITE3_TYPE.TYPE_NUMBER);
 			db.insertColumn(tableName, "日期", SQLITE3_TYPE.TYPE_DATE);
 
 			db.insert(tableName, l1);
@@ -513,7 +555,6 @@ public class Logic{
 		}
 		return false;
 	}
-
 
 	public static boolean exportXLSX(String tableName) {
 		try {

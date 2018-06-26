@@ -213,6 +213,9 @@ public class GUI {
 		checkbox_seeSysTable.setText("系统表");
 
 		refreshCombo();
+		
+//		AdjustImage a = new AdjustImage(shell, shell.getStyle());
+//		a.open();
 	}
 
 	private void refreshCombo() {

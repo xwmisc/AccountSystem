@@ -18,12 +18,65 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
+import com.xw.Util;
+
 public class DB {
 	private static DB mDB;
+	private static SqliteDate mSD;
 	Connection m_Connection;
 
 	public static enum SQLITE3_TYPE {
 		TYPE_TEXT, TYPE_NUMBER, TYPE_DATE
+	}
+
+	public SqliteDate getSqliteDate() throws SQLException {
+		if (mSD == null) {
+			mSD = new SqliteDate();
+		}
+		return mSD;
+	}
+
+	public class SqliteDate {
+		static final String DATE_TABLE = "sqlite3_date";
+		static final String TB_NAME = "table_name";
+		static final String TB_CNAME = "date_column_name";
+
+		private SqliteDate() throws SQLException {
+			if (!existTable(DATE_TABLE)) {
+				try {
+					createEmptyTable(DATE_TABLE);
+					insertColumn(DATE_TABLE, TB_NAME, SQLITE3_TYPE.TYPE_TEXT);
+					insertColumn(DATE_TABLE, TB_CNAME, SQLITE3_TYPE.TYPE_TEXT);
+				} catch (SQLException e) {
+					if (e.getMessage().contains("already exists"))
+						return;
+					else
+						throw e;
+				}
+			}
+		}
+
+		public boolean isDateColumn(String table, String column) throws SQLException {
+			List<HashMap<String, Object>> vals = query(DATE_TABLE, new String[] { TB_CNAME },
+					Util.PairOf(TB_NAME, table, TB_CNAME, column));
+			return vals.size() > 0;
+		}
+
+		public void setDateColumn(String table, String[] columns) throws SQLException {
+			HashMap[] vals = new HashMap[columns.length];
+			for (int i = 0; i < columns.length; i++)
+				vals[i] = Util.PairOf(TB_NAME, table, TB_CNAME, columns[i]);
+			insert(DATE_TABLE, vals);
+		}
+
+		public void cleanDateColumn(String table) throws SQLException {
+			List<HashMap<String, Object>> vals = query(DATE_TABLE, new String[] { "id" }, Util.PairOf(TB_NAME, table));
+			int[] ids = new int[vals.size()];
+			for (int i = 0; i < vals.size(); i++)
+				ids[i] = (int) vals.get(i).get("id");
+			delete(table, ids);
+		}
+
 	}
 
 	public static void main(String[] args) throws SQLException {
@@ -90,11 +143,18 @@ public class DB {
 			break;
 		}
 		m_Connection.createStatement().executeUpdate(sql);
+		// 日期
+		if (type == SQLITE3_TYPE.TYPE_DATE)
+			getSqliteDate().setDateColumn(tableName, new String[] { colName });
+
 	}
 
 	public void insertColumn(String tableName, String colName, String type) throws SQLException {
 		String sql = "alter table " + tableName + " add column " + colName + " " + type;
 		m_Connection.createStatement().executeUpdate(sql);
+		// 日期
+		if (type.contains("date"))
+			getSqliteDate().setDateColumn(tableName, new String[] { colName });
 	}
 
 	public boolean hasColumn(String tableName, String colName) throws SQLException {
@@ -171,7 +231,7 @@ public class DB {
 		int k = 0;
 		for (Object key : keyset)
 			keys[k++] = (String) key;
-		
+
 		String sql = "insert into " + tableName + "(";
 		for (int i = 0; i < keys.length; i++)
 			sql += (i == 0 ? "" : ",") + keys[i];
@@ -182,13 +242,14 @@ public class DB {
 		PreparedStatement pre_stmt = m_Connection.prepareStatement(sql);
 
 		for (int i = 0; i < keys.length; i++)
-			pre_stmt.setObject(1+i, vals.get(keys[i]));
+			pre_stmt.setObject(1 + i, vals.get(keys[i]));
 
 		pre_stmt.executeUpdate();
 	}
 
 	public void insert(String tableName, HashMap[] vals) throws SQLException {
-		if(vals.length==0)return;
+		if (vals.length == 0)
+			return;
 		Set keyset = vals[0].keySet();
 		String[] keys = new String[keyset.size()];
 		int k = 0;
@@ -221,7 +282,6 @@ public class DB {
 		insert(tableName, arr);
 	}
 
-
 	public static List<HashMap<String, Object>> HashMapArr2List(HashMap[] hm) {
 		ArrayList<HashMap<String, Object>> list = new ArrayList<>();
 		for (int i = 0; i < hm.length; i++) {
@@ -237,7 +297,7 @@ public class DB {
 		}
 		return hm;
 	}
-	
+
 	public void delete(String tableName, int[] id) throws SQLException {
 		String sql = "delete from " + tableName + " where id=?";
 		PreparedStatement pre_stmt = m_Connection.prepareStatement(sql);
@@ -289,7 +349,11 @@ public class DB {
 		while (rSet.next()) {
 			HashMap<String, Object> row = new HashMap<>();
 			for (String column : columns) {
-				row.put(column, rSet.getObject(column));
+				if (getSqliteDate().isDateColumn(tableName, column)) {
+					row.put(column, rSet.getDate(column));// 日期
+				} else {
+					row.put(column, rSet.getObject(column));
+				}
 			}
 			list.add(row);
 		}

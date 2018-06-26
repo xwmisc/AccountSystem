@@ -10,10 +10,18 @@ extern "C" {
 /*
  * Class:     com_xw_Opencv
  * Method:    cut
- * Signature: ([BIIII)[B
+ * Signature: (JIIII)[B
  */
-JNIEXPORT jbyteArray JNICALL Java_com_xw_Opencv_cut
-  (JNIEnv *, jclass, jbyteArray, jint, jint, jint, jint);
+JNIEXPORT jbyteArray JNICALL Java_com_xw_Opencv_cut__JIIII
+  (JNIEnv *, jclass, jlong, jint, jint, jint, jint);
+
+/*
+ * Class:     com_xw_Opencv
+ * Method:    cut
+ * Signature: (J)[B
+ */
+JNIEXPORT jbyteArray JNICALL Java_com_xw_Opencv_cut__J
+  (JNIEnv *, jclass, jlong);
 
 #ifdef __cplusplus
 }

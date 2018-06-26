@@ -37,6 +37,8 @@ import org.eclipse.swt.dnd.DropTargetListener;
 import org.eclipse.swt.dnd.FileTransfer;
 import org.eclipse.swt.dnd.Transfer;
 import org.eclipse.swt.dnd.DND;
+import org.eclipse.swt.events.SelectionAdapter;
+import org.eclipse.swt.events.SelectionEvent;
 
 public class Add extends Dialog {
 
@@ -61,6 +63,8 @@ public class Add extends Dialog {
 	private Text text_结束行号;
 	private Text text_开始行号;
 	private Text text_file2;
+	private Text text_日期列名;
+	private Text txtYyyymmddHhmmss;
 
 	/**
 	 * Create the dialog.
@@ -100,7 +104,7 @@ public class Add extends Dialog {
 		shell.setText(getText());
 
 		Composite composite = new Composite(shell, SWT.BORDER);
-		composite.setBounds(22, 149, 513, 289);
+		composite.setBounds(22, 128, 513, 289);
 
 		combo_EMP = new Combo(composite, SWT.READ_ONLY);
 		combo_EMP.setBounds(10, 101, 92, 28);
@@ -187,94 +191,123 @@ public class Add extends Dialog {
 		}));
 
 		Composite composite_1 = new Composite(shell, SWT.BORDER);
-		composite_1.setBounds(22, 10, 133, 133);
+		composite_1.setBounds(22, 10, 133, 112);
 
 		Label label_10 = new Label(composite_1, SWT.NONE);
 		label_10.setText("员工");
-		label_10.setBounds(10, 21, 76, 20);
+		label_10.setBounds(10, 10, 76, 20);
 
 		text_emp_name = new Text(composite_1, SWT.BORDER);
-		text_emp_name.setBounds(10, 47, 88, 26);
+		text_emp_name.setBounds(10, 36, 88, 26);
 
 		Button button_1 = new Button(composite_1, SWT.NONE);
 		button_1.setText("添加员工");
-		button_1.setBounds(10, 93, 98, 30);
+		button_1.setBounds(10, 68, 98, 30);
 		button_1.addSelectionListener(GUI.OnClick(e -> {
 			addEMP();
 		}));
 
 		Composite composite_2 = new Composite(shell, SWT.BORDER);
-		composite_2.setBounds(161, 10, 182, 133);
+		composite_2.setBounds(161, 10, 182, 112);
 
 		Label lblDfs_1 = new Label(composite_2, SWT.NONE);
 		lblDfs_1.setText("DFS");
-		lblDfs_1.setBounds(10, 21, 76, 20);
+		lblDfs_1.setBounds(10, 10, 76, 20);
 
 		text_dfs_name = new Text(composite_2, SWT.BORDER);
-		text_dfs_name.setBounds(10, 47, 147, 26);
+		text_dfs_name.setBounds(10, 36, 147, 26);
 
 		Button btndfs = new Button(composite_2, SWT.NONE);
 		btndfs.setText("添加DFS");
-		btndfs.setBounds(10, 93, 147, 30);
+		btndfs.setBounds(10, 67, 147, 30);
 		btndfs.addSelectionListener(GUI.OnClick(e -> {
 			addDFS();
 		}));
 
 		Composite composite_3 = new Composite(shell, SWT.BORDER);
-		composite_3.setBounds(349, 10, 186, 133);
+		composite_3.setBounds(349, 10, 186, 112);
 
 		Label label_12 = new Label(composite_3, SWT.NONE);
 		label_12.setText("返点公司");
-		label_12.setBounds(10, 21, 76, 20);
+		label_12.setBounds(10, 10, 76, 20);
 
 		text_cmp_name = new Text(composite_3, SWT.BORDER);
-		text_cmp_name.setBounds(10, 47, 154, 26);
+		text_cmp_name.setBounds(10, 36, 154, 26);
 
 		Button button_3 = new Button(composite_3, SWT.NONE);
 		button_3.setText("添加返点公司");
-		button_3.setBounds(10, 93, 154, 30);
+		button_3.setBounds(10, 68, 154, 30);
 		button_3.addSelectionListener(GUI.OnClick(e -> {
 			addCMP();
 		}));
 
 		Composite composite_4 = new Composite(shell, SWT.BORDER);
-		composite_4.setBounds(22, 444, 513, 144);
+		composite_4.setBounds(22, 423, 513, 165);
 
 		Label label_11 = new Label(composite_4, SWT.NONE);
 		label_11.setText("文件拖拽");
 		label_11.setBounds(10, 13, 61, 20);
-		
+
 		Composite composite_5 = new Composite(composite_4, SWT.BORDER);
-		composite_5.setBounds(7, 48, 496, 77);
+		composite_5.setBounds(7, 48, 496, 103);
 
 		Button check_autosetting = new Button(composite_5, SWT.CHECK);
 		check_autosetting.setText("手动配置");
 		check_autosetting.setBounds(10, 10, 100, 20);
 
 		Label label_13 = new Label(composite_5, SWT.NONE);
-		label_13.setBounds(151, 10, 76, 20);
+		label_13.setBounds(10, 36, 76, 20);
 		label_13.setText("表头行号：");
 
 		Label label_14 = new Label(composite_5, SWT.NONE);
 		label_14.setText("结束行号：");
-		label_14.setBounds(375, 10, 76, 20);
+		label_14.setBounds(174, 36, 76, 20);
 
 		text_表头行号 = new Text(composite_5, SWT.BORDER);
 		text_表头行号.setText("1");
-		text_表头行号.setBounds(151, 36, 76, 26);
+		text_表头行号.setBounds(10, 62, 76, 26);
 
 		text_结束行号 = new Text(composite_5, SWT.BORDER);
 		text_结束行号.setText("100");
-		text_结束行号.setBounds(375, 36, 76, 26);
+		text_结束行号.setBounds(174, 62, 76, 26);
 
 		text_开始行号 = new Text(composite_5, SWT.BORDER);
 		text_开始行号.setText("2");
-		text_开始行号.setBounds(264, 36, 76, 26);
+		text_开始行号.setBounds(92, 62, 76, 26);
 
 		Label label_15 = new Label(composite_5, SWT.NONE);
 		label_15.setText("开始行号：");
-		label_15.setBounds(264, 10, 76, 20);
-		
+		label_15.setBounds(92, 36, 76, 20);
+
+		Label label_17 = new Label(composite_5, SWT.NONE);
+		label_17.setText("日期列名：");
+		label_17.setBounds(264, 36, 76, 20);
+
+		text_日期列名 = new Text(composite_5, SWT.BORDER);
+		text_日期列名.setText("日期");
+		text_日期列名.setBounds(264, 62, 76, 26);
+
+		Label label_18 = new Label(composite_5, SWT.NONE);
+		label_18.setText("格式化文本：");
+		label_18.setBounds(346, 36, 107, 20);
+
+		txtYyyymmddHhmmss = new Text(composite_5, SWT.BORDER);
+		txtYyyymmddHhmmss.setText("yyyy-MM-dd HH:mm:ss");
+		txtYyyymmddHhmmss.setBounds(346, 62, 136, 26);
+
+		Button checkbox_date = new Button(composite_5, SWT.CHECK);
+		checkbox_date.addSelectionListener(new SelectionAdapter() {
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+			}
+		});
+		checkbox_date.setText("指定日期");
+		checkbox_date.setBounds(256, 10, 84, 20);
+
+		Button checkbox_format = new Button(composite_5, SWT.CHECK);
+		checkbox_format.setText("手动格式化");
+		checkbox_format.setBounds(346, 10, 107, 20);
+
 		text_file = new Text(composite_4, SWT.BORDER);
 		text_file.setBounds(77, 10, 426, 26);
 
@@ -311,7 +344,14 @@ public class Add extends Dialog {
 						int title = Integer.parseInt(text_表头行号.getText());
 						int start = Integer.parseInt(text_开始行号.getText());
 						int end = Integer.parseInt(text_结束行号.getText());
-						result = Logic.recordFromFile(new File(path), title, start, end);
+
+						if (checkbox_date.getSelection()) {
+							String date_columns = text_日期列名.getText();
+							String format = txtYyyymmddHhmmss.getText();
+							result = Logic.recordFromFile(new File(path), title, start, end, date_columns, format);
+						} else
+							result = Logic.recordFromFile(new File(path), title, start, end);
+
 					} else {
 						result = Logic.recordFromFile(new File(path));
 					}
@@ -330,14 +370,14 @@ public class Add extends Dialog {
 
 			}
 		});
-		
+
 		Composite composite_6 = new Composite(shell, SWT.BORDER);
 		composite_6.setBounds(22, 594, 513, 43);
-		
+
 		Label label_16 = new Label(composite_6, SWT.NONE);
 		label_16.setText("对账文件夹");
 		label_16.setBounds(10, 10, 75, 20);
-		
+
 		text_file2 = new Text(composite_6, SWT.BORDER);
 		text_file2.setLocation(92, 7);
 		text_file2.setSize(411, 26);
@@ -467,7 +507,7 @@ public class Add extends Dialog {
 	// }
 
 	public void addEMP() {
-		//TODO 修改其他的
+		// TODO 修改其他的
 		try {
 			String name = text_emp_name.getText().trim();
 			if (name.equals(""))

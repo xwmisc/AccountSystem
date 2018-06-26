@@ -3,7 +3,7 @@
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/jdk1.8.0_121"/>
 	<classpathentry kind="src" path="src">
 		<attributes>
-			<attribute name="org.eclipse.jdt.launching.CLASSPATH_ATTR_LIBRARY_PATH_ENTRY" value="C:/Users/acer-pc/Documents/Visual Studio 2015/Projects/NativeCV/Debug"/>
+			<attribute name="org.eclipse.jdt.launching.CLASSPATH_ATTR_LIBRARY_PATH_ENTRY" value="C:/Users/acer-pc/Documents/Visual Studio 2015/Projects/NativeCV/x64/Debug"/>
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="lib" path="E:/sw-default/eclipse/myworkspace/AccountSystem/lib/sqlite-jdbc-3.21.0.jar"/>
@@ -24,5 +24,6 @@
 	<classpathentry kind="lib" path="E:/sw-default/eclipse/myworkspace/AccountSystem/lib/poi/poi-ooxml-schemas-3.17.jar"/>
 	<classpathentry kind="lib" path="E:/sw-default/eclipse/myworkspace/AccountSystem/lib/poi/xmlbeans-2.6.0.jar"/>
 	<classpathentry kind="lib" path="swing2swt.jar"/>
+	<classpathentry kind="lib" path="E:/sw-default/eclipse/myworkspace/AccountSystem/lib/opencv-341.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

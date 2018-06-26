@@ -7,6 +7,7 @@ public class Opencv {
 
 	}
 
-	public static native byte[] cut(byte[] img, int x, int y, int w, int h);
+	public static native byte[] cut(long imgAddr, int x, int y, int w, int h);
+	public static native byte[] cut(long imgAddr);
 
 }

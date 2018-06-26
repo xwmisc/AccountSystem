@@ -1,7 +1,15 @@
-file result.xlsx
-file has been recorded result.xlsx
-createEmptyTable result
-cols: 9
-startRow: 1
-beginRow: 23
-rows: 24
+记账科目明细账数据法人帐_법인통장거래내역원화201806 existed
+createEmptyTable 记账科目明细账数据法人帐_법인통장거래내역원화201806
+-0.0-Wed Jun 20 00:00:00 CST 2018
+num 1803397.0-1.3989582E7
+num 3.4258248E7-2.4631118E7
+-1000000.0-Mon Jun 04 00:00:00 CST 2018
+num 3281233.0-2544133.0
+-165000.0-Tue Jun 05 00:00:00 CST 2018
+-2769200.0-Sat Jun 16 00:00:00 CST 2018
+-3510000.0-Thu Jun 21 00:00:00 CST 2018
+num 7539610.0-7935370.0
+num 844800.0-1889560.0
+num 4840000.0-4890000.0
+-2699000.0-Fri Jun 22 00:00:00 CST 2018
+-9737000.0-Mon Jun 18 00:00:00 CST 2018
