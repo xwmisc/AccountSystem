@@ -1,5 +1,6 @@
 package com.xw.GUI;
 
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.sql.SQLException;
 import java.text.Collator;
@@ -30,10 +31,12 @@ import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.swt.widgets.Text;
 
+import com.xw.Config;
 import com.xw.Log;
 import com.xw.Logic;
 import com.xw.LogicV1;
 import com.xw.Util;
+import com.xw.excel.ExcelException;
 
 import CustomDialog.CheckboxBean;
 import CustomDialog.DialogFactory;
@@ -205,10 +208,11 @@ public class GUI {
 
 		try {
 			LogicV1.setup();
-		} catch (SQLException e1) {
+			Config.loadSetting();
+		} catch (SQLException | IOException | ExcelException e1) {
 			e1.printStackTrace();
 			Log.appendln(e1.toString());
-			DialogFactory.showErr(shell, "数据库错误,请关闭程序再试");
+			DialogFactory.showErr(shell, "数据库或配置文件错误,请调整或关闭程序再试");
 		}
 		refreshCombo();
 

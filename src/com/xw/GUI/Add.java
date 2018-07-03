@@ -20,6 +20,7 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.swt.widgets.Text;
 
+import com.xw.Config;
 import com.xw.DBManager;
 import com.xw.ExcelAPI;
 import com.xw.ExcelAPI.ExcelException;
@@ -433,8 +434,10 @@ public class Add extends Dialog {
 	}
 
 	public void addEMP() {
-		// TODO 修改其他的
 		try {
+			DialogFactory.showErr(shell, "请于配置文件(config.xlsx)处添加员工");
+			if (true)
+				return;
 			String name = text_emp_name.getText().trim();
 			if (name.equals(""))
 				throw new Exception("名字不能为空");
@@ -510,6 +513,8 @@ public class Add extends Dialog {
 
 	public void refreshData() {
 		try {
+			Config.loadSetting();
+			
 			combo_CMP.removeAll();
 			ASDataSource.get(DBManager.CMP).forEach(e -> {
 				combo_CMP.add(e.get("name"));
@@ -529,7 +534,7 @@ public class Add extends Dialog {
 			if (combo_DFS.getItemCount() > 0)
 				combo_DFS.select(0);
 
-		} catch (IOException | SQLException e) {
+		} catch (IOException | SQLException | com.xw.excel.ExcelException e) {
 			e.printStackTrace();
 		}
 	}

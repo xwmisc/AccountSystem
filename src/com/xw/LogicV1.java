@@ -438,11 +438,9 @@ public class LogicV1 {
 				}
 			}
 			// 未满足条件执行以下
-			// Log.appendln("IgnoreError|" + "i:" + i + "|" + sheet.read(row, 1) + "|"
-			// + remark);
 			try {
-				 Log.appendln("IgnoreError|" + "i:" + i + "|" + sheet.read(row, 1) + "|"
-				 + sheet.read(row, 11));
+//				 Log.appendln("IgnoreError|" + "i:" + i + "|" + sheet.read(row, 1) + "|"
+//				 + sheet.read(row, 11));
 				sheet.setColor(row, 11, IndexedColors.RED.getIndex());
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -489,7 +487,7 @@ public class LogicV1 {
 
 			String date_text = ((date.getMonth() + 1 < 10) ? "0" : "") + (date.getMonth() + 1)
 					+ ((date.getDate() < 10) ? "0" : "") + date.getDate();
-			Log.appendln("ValidData:|" + date_text);
+//			Log.appendln("ValidData:|" + date_text);
 			val.put("日期", date_text);
 
 			double num = sheet.readDouble(row_add + base_row, 2, 0);

@@ -74,7 +74,9 @@ public class Excel {
 			if (m_Sheet.getLastRowNum() < row)
 				return;
 			Cell cell = m_Sheet.getRow(row - 1).getCell(col - 1);
-			CellStyle style = m_Workbook.createCellStyle();   
+			if (cell == null)
+				return;
+			CellStyle style = m_Workbook.createCellStyle();
 			style.cloneStyleFrom(cell.getCellStyle());
 			style.setFillForegroundColor(index);
 			style.setFillPattern(FillPatternType.SOLID_FOREGROUND);

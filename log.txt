@@ -749,3 +749,505 @@ IgnoreError|i:188|189.0|原说明：0518 刷货入库 姜渊
 IgnoreError|i:191|192.0|原说明：0519 刷货入库 姜渊 于2018年05月19日 21时24分被[newline]红冲
 IgnoreError|i:193|194.0|原说明：0519 刷货入库 姜渊 2018年05月19日 21时24分[newline]红冲
 录入完成!
+E:\congfig\员工表.xlsx
+E:\sw-default\eclipse\myworkspace\AccountSystem\congfig\员工表.xlsx
+E:\sw-default\eclipse\myworkspace\AccountSystem\congfig\员工表.xlsx
+E:\sw-default\eclipse\myworkspace\AccountSystem\congfig\config.xlsx
+E:\sw-default\eclipse\myworkspace\AccountSystem\congfig\config.xlsx
+E:\sw-default\eclipse\myworkspace\AccountSystem\congfig\config.xlsx
+E:\sw-default\eclipse\myworkspace\AccountSystem\congfig\config.xlsx
+E:\sw-default\eclipse\myworkspace\AccountSystem\congfig\config.xlsx
+E:\sw-default\eclipse\myworkspace\AccountSystem\config\config.xlsx
+E:\sw-default\eclipse\myworkspace\AccountSystem\config\config.xlsx
+E:\sw-default\eclipse\myworkspace\AccountSystem\config.xlsx
+E:\sw-default\eclipse\myworkspace\AccountSystem\config.xlsx
+E:\sw-default\eclipse\myworkspace\AccountSystem\config.xlsx
+E:\sw-default\eclipse\myworkspace\AccountSystem\config.xlsx
+E:\sw-default\eclipse\myworkspace\AccountSystem\config.xlsx
+E:\sw-default\eclipse\myworkspace\AccountSystem\config.xlsx
+E:\sw-default\eclipse\myworkspace\AccountSystem\config.xlsx
+E:\sw-default\eclipse\myworkspace\AccountSystem\config.xlsx
+C:\Users\acer-pc\Documents\WeChat Files\wxid_qyi4s5vkakv222\Files\对账2月3月(1)
+折扣表C:\Users\acer-pc\Documents\WeChat Files\wxid_qyi4s5vkakv222\Files\对账2月3月(1)\0102折扣表.xls
+折扣表C:\Users\acer-pc\Documents\WeChat Files\wxid_qyi4s5vkakv222\Files\对账2月3月(1)\0103折扣表.xls
+折扣表C:\Users\acer-pc\Documents\WeChat Files\wxid_qyi4s5vkakv222\Files\对账2月3月(1)\0104折扣表.xls
+折扣表C:\Users\acer-pc\Documents\WeChat Files\wxid_qyi4s5vkakv222\Files\对账2月3月(1)\0105折扣表.xls
+折扣表C:\Users\acer-pc\Documents\WeChat Files\wxid_qyi4s5vkakv222\Files\对账2月3月(1)\0106折扣表.xls
+折扣表C:\Users\acer-pc\Documents\WeChat Files\wxid_qyi4s5vkakv222\Files\对账2月3月(1)\0108折扣表.xls
+折扣表C:\Users\acer-pc\Documents\WeChat Files\wxid_qyi4s5vkakv222\Files\对账2月3月(1)\0109折扣表.xls
+折扣表C:\Users\acer-pc\Documents\WeChat Files\wxid_qyi4s5vkakv222\Files\对账2月3月(1)\0111折扣表.xls
+折扣表C:\Users\acer-pc\Documents\WeChat Files\wxid_qyi4s5vkakv222\Files\对账2月3月(1)\0112折扣表.xls
+折扣表C:\Users\acer-pc\Documents\WeChat Files\wxid_qyi4s5vkakv222\Files\对账2月3月(1)\0113折扣表.xls
+折扣表C:\Users\acer-pc\Documents\WeChat Files\wxid_qyi4s5vkakv222\Files\对账2月3月(1)\0114折扣表.xls
+折扣表C:\Users\acer-pc\Documents\WeChat Files\wxid_qyi4s5vkakv222\Files\对账2月3月(1)\0115折扣表.xls
+折扣表C:\Users\acer-pc\Documents\WeChat Files\wxid_qyi4s5vkakv222\Files\对账2月3月(1)\0116折扣表.xls
+折扣表C:\Users\acer-pc\Documents\WeChat Files\wxid_qyi4s5vkakv222\Files\对账2月3月(1)\0117折扣表.xls
+折扣表C:\Users\acer-pc\Documents\WeChat Files\wxid_qyi4s5vkakv222\Files\对账2月3月(1)\0118折扣表.xls
+折扣表C:\Users\acer-pc\Documents\WeChat Files\wxid_qyi4s5vkakv222\Files\对账2月3月(1)\0119折扣表.xls
+折扣表C:\Users\acer-pc\Documents\WeChat Files\wxid_qyi4s5vkakv222\Files\对账2月3月(1)\0120折扣表.xls
+折扣表C:\Users\acer-pc\Documents\WeChat Files\wxid_qyi4s5vkakv222\Files\对账2月3月(1)\0122折扣表.xls
+折扣表C:\Users\acer-pc\Documents\WeChat Files\wxid_qyi4s5vkakv222\Files\对账2月3月(1)\0123折扣表.xls
+折扣表C:\Users\acer-pc\Documents\WeChat Files\wxid_qyi4s5vkakv222\Files\对账2月3月(1)\0124折扣表.xls
+折扣表C:\Users\acer-pc\Documents\WeChat Files\wxid_qyi4s5vkakv222\Files\对账2月3月(1)\0125折扣表.xls
+折扣表C:\Users\acer-pc\Documents\WeChat Files\wxid_qyi4s5vkakv222\Files\对账2月3月(1)\0126折扣表.xls
+折扣表C:\Users\acer-pc\Documents\WeChat Files\wxid_qyi4s5vkakv222\Files\对账2月3月(1)\0127折扣表.xls
+折扣表C:\Users\acer-pc\Documents\WeChat Files\wxid_qyi4s5vkakv222\Files\对账2月3月(1)\0129折扣表.xls
+折扣表C:\Users\acer-pc\Documents\WeChat Files\wxid_qyi4s5vkakv222\Files\对账2月3月(1)\0130折扣表.xls
+折扣表C:\Users\acer-pc\Documents\WeChat Files\wxid_qyi4s5vkakv222\Files\对账2月3月(1)\0131折扣表.xls
+折扣表C:\Users\acer-pc\Documents\WeChat Files\wxid_qyi4s5vkakv222\Files\对账2月3月(1)\0201折扣表.xls
+折扣表C:\Users\acer-pc\Documents\WeChat Files\wxid_qyi4s5vkakv222\Files\对账2月3月(1)\0202折扣表.xls
+折扣表C:\Users\acer-pc\Documents\WeChat Files\wxid_qyi4s5vkakv222\Files\对账2月3月(1)\0203折扣表.xls
+折扣表C:\Users\acer-pc\Documents\WeChat Files\wxid_qyi4s5vkakv222\Files\对账2月3月(1)\0205折扣表.xls
+折扣表C:\Users\acer-pc\Documents\WeChat Files\wxid_qyi4s5vkakv222\Files\对账2月3月(1)\0206折扣表.xls
+折扣表C:\Users\acer-pc\Documents\WeChat Files\wxid_qyi4s5vkakv222\Files\对账2月3月(1)\0207折扣表.xls
+折扣表C:\Users\acer-pc\Documents\WeChat Files\wxid_qyi4s5vkakv222\Files\对账2月3月(1)\0208折扣表.xls
+折扣表C:\Users\acer-pc\Documents\WeChat Files\wxid_qyi4s5vkakv222\Files\对账2月3月(1)\0209折扣表.xls
+折扣表C:\Users\acer-pc\Documents\WeChat Files\wxid_qyi4s5vkakv222\Files\对账2月3月(1)\0210折扣表.xls
+折扣表C:\Users\acer-pc\Documents\WeChat Files\wxid_qyi4s5vkakv222\Files\对账2月3月(1)\0211折扣表.xls
+折扣表C:\Users\acer-pc\Documents\WeChat Files\wxid_qyi4s5vkakv222\Files\对账2月3月(1)\0212折扣表.xls
+折扣表C:\Users\acer-pc\Documents\WeChat Files\wxid_qyi4s5vkakv222\Files\对账2月3月(1)\0214折扣表.xls
+折扣表C:\Users\acer-pc\Documents\WeChat Files\wxid_qyi4s5vkakv222\Files\对账2月3月(1)\0222折扣表.xls
+折扣表C:\Users\acer-pc\Documents\WeChat Files\wxid_qyi4s5vkakv222\Files\对账2月3月(1)\0224折扣表.xls
+折扣表C:\Users\acer-pc\Documents\WeChat Files\wxid_qyi4s5vkakv222\Files\对账2月3月(1)\0225折扣表.xls
+折扣表C:\Users\acer-pc\Documents\WeChat Files\wxid_qyi4s5vkakv222\Files\对账2月3月(1)\0226折扣表.xls
+折扣表C:\Users\acer-pc\Documents\WeChat Files\wxid_qyi4s5vkakv222\Files\对账2月3月(1)\0227折扣表.xls
+折扣表C:\Users\acer-pc\Documents\WeChat Files\wxid_qyi4s5vkakv222\Files\对账2月3月(1)\0228折扣表.xls
+折扣表C:\Users\acer-pc\Documents\WeChat Files\wxid_qyi4s5vkakv222\Files\对账2月3月(1)\0301折扣表.xls
+折扣表C:\Users\acer-pc\Documents\WeChat Files\wxid_qyi4s5vkakv222\Files\对账2月3月(1)\0302折扣表.xls
+折扣表C:\Users\acer-pc\Documents\WeChat Files\wxid_qyi4s5vkakv222\Files\对账2月3月(1)\0303折扣表.xls
+折扣表C:\Users\acer-pc\Documents\WeChat Files\wxid_qyi4s5vkakv222\Files\对账2月3月(1)\0305折扣表.xls
+折扣表C:\Users\acer-pc\Documents\WeChat Files\wxid_qyi4s5vkakv222\Files\对账2月3月(1)\0306折扣表.xls
+折扣表C:\Users\acer-pc\Documents\WeChat Files\wxid_qyi4s5vkakv222\Files\对账2月3月(1)\0307折扣表.xls
+折扣表C:\Users\acer-pc\Documents\WeChat Files\wxid_qyi4s5vkakv222\Files\对账2月3月(1)\0308折扣表.xls
+折扣表C:\Users\acer-pc\Documents\WeChat Files\wxid_qyi4s5vkakv222\Files\对账2月3月(1)\0309折扣表.xls
+折扣表C:\Users\acer-pc\Documents\WeChat Files\wxid_qyi4s5vkakv222\Files\对账2月3月(1)\0310折扣表.xls
+折扣表C:\Users\acer-pc\Documents\WeChat Files\wxid_qyi4s5vkakv222\Files\对账2月3月(1)\0312折扣表.xls
+折扣表C:\Users\acer-pc\Documents\WeChat Files\wxid_qyi4s5vkakv222\Files\对账2月3月(1)\0313折扣表.xls
+折扣表C:\Users\acer-pc\Documents\WeChat Files\wxid_qyi4s5vkakv222\Files\对账2月3月(1)\0314折扣表.xls
+折扣表C:\Users\acer-pc\Documents\WeChat Files\wxid_qyi4s5vkakv222\Files\对账2月3月(1)\0315折扣表.xls
+折扣表C:\Users\acer-pc\Documents\WeChat Files\wxid_qyi4s5vkakv222\Files\对账2月3月(1)\0316折扣表.xls
+折扣表C:\Users\acer-pc\Documents\WeChat Files\wxid_qyi4s5vkakv222\Files\对账2月3月(1)\0317折扣表.xls
+折扣表C:\Users\acer-pc\Documents\WeChat Files\wxid_qyi4s5vkakv222\Files\对账2月3月(1)\0319折扣表.xls
+折扣表C:\Users\acer-pc\Documents\WeChat Files\wxid_qyi4s5vkakv222\Files\对账2月3月(1)\0320折扣表.xls
+折扣表C:\Users\acer-pc\Documents\WeChat Files\wxid_qyi4s5vkakv222\Files\对账2月3月(1)\0321折扣表.xls
+折扣表C:\Users\acer-pc\Documents\WeChat Files\wxid_qyi4s5vkakv222\Files\对账2月3月(1)\0323折扣表.xls
+折扣表C:\Users\acer-pc\Documents\WeChat Files\wxid_qyi4s5vkakv222\Files\对账2月3月(1)\0324折扣表.xls
+折扣表C:\Users\acer-pc\Documents\WeChat Files\wxid_qyi4s5vkakv222\Files\对账2月3月(1)\0614折扣表.xlsx
+对账表C:\Users\acer-pc\Documents\WeChat Files\wxid_qyi4s5vkakv222\Files\对账2月3月(1)\往来对账数据.xlsx
+IgnoreError|i:0|1.0|12/22~12/26 乐天返点抹零
+IgnoreError|i:1|2.0|0101 刷货开工费
+IgnoreError|i:6|7.0|原说明：樂天反點12,660,915 于2018年01月03日 16时26分被[刘洋]红冲
+IgnoreError|i:7|8.0|原说明：樂天反點12,660,915 2018年01月03日 16时26分[刘洋]红冲
+IgnoreError|i:8|9.0|1/2刷货：樂天反點12,660,915 于2018年01月04日 12时40分被[newline]红冲
+IgnoreError|i:9|10.0|1/2刷货：樂天反點12,660,915 2018年01月04日 12时40分[newline]红冲
+IgnoreError|i:13|14.0|1/3 免税入库商品错误
+IgnoreError|i:14|15.0| 于2018年01月10日 14时21分被[刘洋]红冲
+IgnoreError|i:20|21.0|0104 刷货开工费 金光叶
+IgnoreError|i:21|22.0|1/3 入库气垫色号错误
+IgnoreError|i:22|23.0| 2018年01月10日 14时21分[刘洋]红冲
+IgnoreError|i:23|24.0|12/27，12/28 南山乐天返点
+IgnoreError|i:24|25.0|12/28，12/29 南山东河返点（实领2700万，领付南山116700手续费） 于2018年01月17日 14时25分被[刘洋]红冲
+IgnoreError|i:25|26.0|12/28，12/29 南山东河返点（实领2700万，领付南山116700手续费） 2018年01月17日 14时25分[刘洋]红冲
+IgnoreError|i:26|27.0|12/28，12/29 东河返点
+IgnoreError|i:27|28.0|12/28，12/29 东河返点抹零
+IgnoreError|i:28|29.0|0104 刷货入库 金光叶
+IgnoreError|i:30|31.0|1/2 南山乐天返点
+IgnoreError|i:31|32.0|1/4 刷货退回 于2018年01月11日 12时53分被[刘洋]红冲
+IgnoreError|i:33|34.0|1/4 刷货现金支付费用 于2018年01月11日 12时49分被[刘洋]红冲
+IgnoreError|i:35|36.0|0104 刷货差额 金光叶
+IgnoreError|i:37|38.0|1/4 刷货现金支付费用 2018年01月11日 12时49分[刘洋]红冲
+IgnoreError|i:38|39.0|0104 刷货费用 金光叶
+IgnoreError|i:39|40.0|1/4 刷货退回 2018年01月11日 12时53分[刘洋]红冲
+IgnoreError|i:40|41.0|0104 刷货退回 金光叶
+IgnoreError|i:41|42.0|1/2 入库时色号填错
+IgnoreError|i:42|43.0|1/3 免税入库商品错误 于2018年01月05日 14时53分被[刘洋]红冲
+IgnoreError|i:43|44.0|1/3 免税入库商品错误 2018年01月05日 14时53分[刘洋]红冲
+IgnoreError|i:44|45.0|12/23~12/28南山乐天返点抹零 于2018年01月10日 17时02分被[刘洋]红冲
+IgnoreError|i:45|46.0|1/3，1/4部分 南山乐天返点
+IgnoreError|i:46|47.0|0105 刷货退回
+IgnoreError|i:47|48.0|0106 刷货开工费 金光叶
+IgnoreError|i:49|50.0|0104 刷货入库 金光叶 多入库退货（JH-20180105-001）
+IgnoreError|i:52|53.0|12/23~12/28南山乐天返点抹零 2018年01月10日 17时02分[刘洋]红冲
+IgnoreError|i:54|55.0|B队 于2018年01月09日 18时39分被[刘洋]红冲
+IgnoreError|i:55|56.0|原说明：A队 于2018年01月09日 18时39分被[刘洋]红冲
+IgnoreError|i:56|57.0|原说明：A队 2018年01月09日 18时39分[刘洋]红冲
+IgnoreError|i:57|58.0|B队 2018年01月09日 18时39分[刘洋]红冲
+IgnoreError|i:58|59.0|0106 刷货入库 金光叶
+IgnoreError|i:60|61.0|0106 刷货退回 金光叶
+IgnoreError|i:62|63.0|0106 刷货费用 金光叶
+IgnoreError|i:64|65.0|0106 刷货差额 金光叶
+IgnoreError|i:66|67.0|0108 刷货开工费 金光叶
+IgnoreError|i:67|68.0|0108 刷货入库 金光叶
+IgnoreError|i:68|69.0|0108 刷货退回 金光叶
+IgnoreError|i:69|70.0|0108 刷货费用 金光叶
+IgnoreError|i:70|71.0|1/4，1/5，1/6部分 乐天返点
+IgnoreError|i:72|73.0|1/2刷货丢2个兰芝控油气垫21号
+IgnoreError|i:73|74.0|1/2~1/5 东河返点（实收1995万，另付474800现金给南山做手续费） 于2018年01月19日 15时27分被[刘洋]红冲
+IgnoreError|i:75|76.0|1/8 新乐天返点（实领1400万卡，付现金3万）
+IgnoreError|i:79|80.0|1/10 开工费 于2018年01月10日 16时50分被[newline]红冲
+IgnoreError|i:80|81.0|1/10 开工费 2018年01月10日 16时50分[newline]红冲
+IgnoreError|i:82|83.0|1/2~1/5 东河返点
+IgnoreError|i:83|84.0|1/2~1/5 南山东河手续费 于2018年01月31日 08时55分被[刘洋]红冲
+IgnoreError|i:84|85.0|1/2~1/5 东河返点收入
+IgnoreError|i:85|86.0|1/2~1/5 东河返点（实收1995万，另付474800现金给南山做手续费） 2018年01月19日 15时27分[刘洋]红冲
+IgnoreError|i:86|87.0|1/2~1/5 南山东河手续费 2018年01月31日 08时55分[刘洋]红冲
+IgnoreError|i:87|88.0|12/28，12/29 南山东河返点抹零 于2018年01月17日 14时23分被[刘洋]红冲
+IgnoreError|i:88|89.0|1/2~1/6 南山乐天返点抹零
+IgnoreError|i:89|90.0|1/8 新乐天返点抹零
+IgnoreError|i:90|91.0| 于2018年01月10日 21时00分被[刘洋]红冲
+IgnoreError|i:91|92.0|12/27，12/28 南山乐天返点抹零
+IgnoreError|i:92|93.0|1/6剩余 南山乐天返点
+IgnoreError|i:93|94.0| 2018年01月10日 21时00分[刘洋]红冲
+IgnoreError|i:94|95.0|0111 刷货开工费 金光叶
+IgnoreError|i:96|97.0|12/28，12/29 南山东河返点抹零 2018年01月17日 14时23分[刘洋]红冲
+IgnoreError|i:97|98.0|1/2~1/5 南山东河返点抹零 于2018年01月11日 14时13分被[刘洋]红冲
+IgnoreError|i:98|99.0|1/2~1/5 南山东河返点抹零 2018年01月11日 14时13分[刘洋]红冲
+IgnoreError|i:99|100.0|1/2~1/5 南山东河返点抹零 于2018年01月31日 08时38分被[刘洋]红冲
+IgnoreError|i:101|102.0|1/11 刷货退回（A队） 于2018年01月12日 23时33分被[刘洋]红冲
+IgnoreError|i:102|103.0|1/11 刷货退回（A队） 2018年01月12日 23时33分[刘洋]红冲
+IgnoreError|i:103|104.0|1/11刷货退回（A队） 于2018年01月13日 21时16分被[刘洋]红冲
+IgnoreError|i:105|106.0|0111 刷货费用 金光叶
+IgnoreError|i:108|109.0|0111 刷货差额 金光叶
+IgnoreError|i:110|111.0|0111 刷货入库 金光叶 阿金拿走4爱敬
+IgnoreError|i:112|113.0|1/11刷货退回（A队） 2018年01月13日 21时16分[刘洋]红冲
+IgnoreError|i:113|114.0|0111 刷货退回 金光叶
+IgnoreError|i:114|115.0|1/2~1/5 南山东河返点抹零 2018年01月31日 08时38分[刘洋]红冲
+IgnoreError|i:115|116.0|1/9 南山乐天返点
+IgnoreError|i:116|117.0|1/9 南山乐天返点抹零
+IgnoreError|i:117|118.0|1/9 东河返点
+IgnoreError|i:118|119.0|1/12开工（A队） 于2018年01月13日 20时10分被[刘洋]红冲
+IgnoreError|i:120|121.0|1/11新公司返点
+IgnoreError|i:121|122.0|1/11 新乐天返点抹零
+IgnoreError|i:122|123.0|0112 刷货退回 金光叶
+IgnoreError|i:124|125.0|0112 刷货费用 金光叶
+IgnoreError|i:127|128.0|原说明：A队1000爱丽已出 于2018年01月13日 09时54分被[刘洋]红冲
+IgnoreError|i:129|130.0|原说明：A队1000爱丽已出 2018年01月13日 09时54分[刘洋]红冲
+IgnoreError|i:130|131.0|0112 刷货入库 金光叶
+IgnoreError|i:131|132.0|1/12 刷货退回多钱 于2018年01月31日 08时56分被[刘洋]红冲
+IgnoreError|i:132|133.0|1/12 刷货退回多钱 于2018年01月19日 16时01分被[刘洋]红冲
+IgnoreError|i:133|134.0|1/12开工（A队） 2018年01月13日 20时10分[刘洋]红冲
+IgnoreError|i:134|135.0|0112 刷货开工费 金光叶
+IgnoreError|i:135|136.0|1/12 刷货退回多钱 2018年01月19日 16时01分[刘洋]红冲
+IgnoreError|i:136|137.0|1/12 刷货退回多钱 2018年01月31日 08时56分[刘洋]红冲
+IgnoreError|i:137|138.0|0112 刷货退回 多钱
+IgnoreError|i:140|141.0|1/13 蓝药丸给物流
+IgnoreError|i:141|142.0|1/13 蓝药丸给物流
+IgnoreError|i:147|148.0|1/12 免税入库入错产品
+IgnoreError|i:148|149.0|原说明：1/12免税，兰芝5个礼包里有4个气垫盒，少入库
+IgnoreError|i:150|151.0|1/12~1/14 新乐天返点
+IgnoreError|i:151|152.0|1/12~1/14 新乐天返点抹零
+IgnoreError|i:152|153.0|12/28，12/29 南山东河返点 于2018年01月17日 16时58分被[刘洋]红冲
+IgnoreError|i:153|154.0|12/28，12/29 南山东河返点抹零 于2018年01月17日 16时57分被[刘洋]红冲
+IgnoreError|i:154|155.0|12/28，12/29 南山东河返点抹零 2018年01月17日 16时57分[刘洋]红冲
+IgnoreError|i:155|156.0|12/28，12/29 南山东河返点 2018年01月17日 16时58分[刘洋]红冲
+IgnoreError|i:156|157.0|1/11~1/12东河返点
+IgnoreError|i:157|158.0|1/11~1/12 东河返点抹零
+IgnoreError|i:158|159.0|1/11 南山乐天返点
+IgnoreError|i:159|160.0|1/11 南山乐天返点损失
+IgnoreError|i:166|167.0|1/15 新乐天返点
+IgnoreError|i:167|168.0|1/15 新乐天返点抹零
+IgnoreError|i:168|169.0|0111 刷货退回 金光叶 补
+IgnoreError|i:178|179.0|原说明：1/17免税   火山泥432 于2018年01月18日 11时33分被[孙彬]红冲
+IgnoreError|i:179|180.0|1/15免税
+IgnoreError|i:180|181.0|原说明：1/17免税   火山泥432 2018年01月18日 11时33分[孙彬]红冲
+IgnoreError|i:185|186.0|1/16 新乐天返点
+IgnoreError|i:186|187.0|1/17 新乐天返点
+IgnoreError|i:189|190.0|1/18 新乐天返点
+IgnoreError|i:190|191.0|1/16~1/18 新乐天返点抹零
+IgnoreError|i:192|193.0|0119 刷货开工费 金光叶（蒂佳婷）
+IgnoreError|i:193|194.0|0119 刷货开工费 金光叶
+IgnoreError|i:195|196.0|原说明：1/19  免税蒂佳婷直发物流
+IgnoreError|i:196|197.0|1/19 刷货退回（B队） 于2018年03月09日 13时43分被[刘洋]红冲
+IgnoreError|i:198|199.0|0119 刷货退回 金光叶
+IgnoreError|i:199|200.0|1/19 刷货费用（A队） 于2018年01月30日 19时05分被[刘洋]红冲
+IgnoreError|i:201|202.0|0120 刷货开工费 金光叶
+IgnoreError|i:202|203.0|1/19 刷货费用（A队） 2018年01月30日 19时05分[刘洋]红冲
+IgnoreError|i:203|204.0|0119 刷货费用 金光叶
+IgnoreError|i:204|205.0|0119 刷货差额 金光叶
+IgnoreError|i:205|206.0|0119 刷货差额 金光叶
+IgnoreError|i:207|208.0|1/19 刷货退回（B队） 2018年03月09日 13时43分[刘洋]红冲
+IgnoreError|i:208|209.0|原说明：1/19  免税蒂佳婷直发物流悦诗睫毛膏待查 于2018年01月22日 16时23分被[孙彬]红冲
+IgnoreError|i:212|213.0|0120 刷货入库 金光叶
+IgnoreError|i:213|214.0|原说明：1/19  免税蒂佳婷直发物流悦诗睫毛膏待查 2018年01月22日 16时23分[孙彬]红冲
+IgnoreError|i:214|215.0|原说明：1/19  免税蒂佳婷直发物流 于2018年01月22日 16时52分被[孙彬]红冲
+IgnoreError|i:215|216.0|原说明：1/19  免税蒂佳婷直发物流 2018年01月22日 16时52分[孙彬]红冲
+IgnoreError|i:216|217.0|1/15~1/19 东河返点
+IgnoreError|i:217|218.0|0120 刷货退回 金光叶
+IgnoreError|i:219|220.0|0120 刷货费用 金光叶
+IgnoreError|i:224|225.0|1/22 刷货退回 于2018年01月30日 19时22分被[刘洋]红冲
+IgnoreError|i:225|226.0|0123 刷货开工费 金光叶
+IgnoreError|i:228|229.0|1/22 刷货退回 2018年01月30日 19时22分[刘洋]红冲
+IgnoreError|i:232|233.0|1/19，1/20 新乐天返点 于2018年01月30日 16时50分被[刘洋]红冲
+IgnoreError|i:233|234.0|0123 刷货退回 金光叶
+IgnoreError|i:235|236.0|0123 刷货费用 金光叶
+IgnoreError|i:238|239.0|1/19，1/20 新乐天返点 2018年01月30日 16时50分[刘洋]红冲
+IgnoreError|i:239|240.0|1/19，1/20 新乐天返点
+IgnoreError|i:240|241.0|0123 刷货入库 金光叶 姜渊
+IgnoreError|i:241|242.0|1/24 刷货退回 于2018年01月29日 23时14分被[刘洋]红冲
+IgnoreError|i:242|243.0|1/24 刷货退回 2018年01月29日 23时14分[刘洋]红冲
+IgnoreError|i:243|244.0|1/24 刷货退回 于2018年01月30日 23时12分被[刘洋]红冲
+IgnoreError|i:246|247.0|1/24 刷货退回 2018年01月30日 23时12分[刘洋]红冲
+IgnoreError|i:249|250.0|原说明：1/25免税 于2018年01月26日 15时31分被[孙彬]红冲
+IgnoreError|i:250|251.0|原说明：1/25免税 2018年01月26日 15时31分[孙彬]红冲
+IgnoreError|i:252|253.0|1/22，1/23，预付1/24部分 新乐天返点
+IgnoreError|i:256|257.0|1/25 预支新乐天返点
+IgnoreError|i:257|258.0|0123 刷货费用 蜜蜂头 金光叶 姜渊
+IgnoreError|i:258|259.0|1/22 东河返点
+IgnoreError|i:260|261.0|1/25 刷货退回 于2018年01月30日 19时40分被[刘洋]红冲
+IgnoreError|i:261|262.0|1/24 新乐天返点尾款
+IgnoreError|i:262|263.0|1/25 刷货退回 2018年01月30日 19时40分[刘洋]红冲
+IgnoreError|i:265|266.0|原说明：1/24免税 于2018年01月26日 15时22分被[孙彬]红冲
+IgnoreError|i:266|267.0|原说明：1/24免税 2018年01月26日 15时22分[孙彬]红冲
+IgnoreError|i:267|268.0| 于2018年01月30日 16时02分被[刘洋]红冲
+IgnoreError|i:272|273.0|1/27 樂天D.r.jart
+IgnoreError|i:273|274.0|1/15~1/22 南山东河抽点 于2018年01月30日 22时19分被[刘洋]红冲
+IgnoreError|i:275|276.0|1/26 刷货费用 于2018年01月30日 19时49分被[刘洋]红冲
+IgnoreError|i:277|278.0| 2018年01月30日 16时02分[刘洋]红冲
+IgnoreError|i:278|279.0|1/26 刷货费用 2018年01月30日 19时49分[刘洋]红冲
+IgnoreError|i:280|281.0|1/15~1/22 南山东河抽点 2018年01月30日 22时19分[刘洋]红冲
+IgnoreError|i:283|284.0|1/27 樂天開工 單店6人
+IgnoreError|i:284|285.0|1/24~1/27 無塵蜜蜂頭費 (￥3200)
+IgnoreError|i:288|289.0|原说明：1/27免税 于2018年01月29日 18时21分被[孙彬]红冲
+IgnoreError|i:289|290.0|原说明：1/27免税 2018年01月29日 18时21分[孙彬]红冲
+IgnoreError|i:291|292.0|原说明：1/29-13項 于2018年01月30日 11时51分被[孙彬]红冲
+IgnoreError|i:297|298.0|0130 刷货开工费 金光叶
+IgnoreError|i:298|299.0|原说明：1/29-13項 2018年01月30日 11时51分[孙彬]红冲
+IgnoreError|i:303|304.0|0130 刷货入库 金光叶
+IgnoreError|i:304|305.0|0130 刷货退回 金光叶
+IgnoreError|i:306|307.0|1/23 东河返点
+IgnoreError|i:307|308.0|1/27 东河返点
+IgnoreError|i:308|309.0|1/25~1/29 新乐天返点
+IgnoreError|i:309|310.0|0130 刷货费用 金光叶
+IgnoreError|i:311|312.0|1/19~1/29 新乐天返点抹零
+IgnoreError|i:312|313.0|1/19~1/27 东河返点收入 于2018年01月31日 09时01分被[刘洋]红冲
+IgnoreError|i:313|314.0|0130 刷货开工费 金光叶 追加
+IgnoreError|i:314|315.0|使用alipay结账，返点收回
+IgnoreError|i:315|316.0|0130 刷货差额 金光叶 多钱
+IgnoreError|i:316|317.0|1/19~1/27 东河返点收入 2018年01月31日 09时01分[刘洋]红冲
+IgnoreError|i:317|318.0|1/19~1/27 东河返点收入
+IgnoreError|i:318|319.0|1/30 预支东河返点 于2018年03月14日 14时00分被[刘洋]红冲
+IgnoreError|i:319|320.0|0131 刷货开工费 金光叶
+IgnoreError|i:320|321.0|1/30 预支东河返点 2018年03月14日 14时00分[刘洋]红冲
+IgnoreError|i:321|322.0|1/30 预支东河返点
+IgnoreError|i:322|323.0|0131 刷货开工费 金光叶 追加
+IgnoreError|i:324|325.0|0131 刷货退回 金光叶
+IgnoreError|i:325|326.0|null
+java.lang.NullPointerException
+IgnoreError|i:326|327.0|0131 刷货费用 金光叶
+IgnoreError|i:327|328.0|0131 刷货差额 金光叶
+IgnoreError|i:328|329.0|0201免税 于2018年02月01日 22时19分被[newline]红冲
+IgnoreError|i:329|330.0|0201免税 2018年02月01日 22时19分[newline]红冲
+IgnoreError|i:331|332.0|1/30-1/31東河返点+补1/9AHC
+IgnoreError|i:332|333.0|1/30-1/31李國樂天反点
+IgnoreError|i:342|343.0|原说明：0202免税 于2018年02月02日 23时58分被[newline]红冲
+IgnoreError|i:344|345.0|0131 刷货入库 金光叶
+IgnoreError|i:345|346.0|原说明：0202免税 2018年02月02日 23时58分[newline]红冲
+IgnoreError|i:346|347.0|原说明：0202免税18401062 于2018年02月04日 19时43分被[孙彬]红冲
+IgnoreError|i:347|348.0|原说明：0202免税18401062 2018年02月04日 19时43分[孙彬]红冲
+IgnoreError|i:354|355.0|1/31 东河返点
+IgnoreError|i:355|356.0|2/1 东河返点
+IgnoreError|i:356|357.0|0203 刷货开工费 金光叶
+IgnoreError|i:358|359.0|0203 刷货退回 金光叶
+IgnoreError|i:362|363.0|0203 刷货费用 金光叶
+IgnoreError|i:368|369.0|0203 刷货入库 金光叶
+IgnoreError|i:371|372.0|2/1~2/3 首尔林乐天返点
+IgnoreError|i:375|376.0|2/6 开工费（姜） 于2018年02月06日 14时35分被[newline]红冲
+IgnoreError|i:376|377.0|2/6 开工费（姜） 2018年02月06日 14时35分[newline]红冲
+IgnoreError|i:385|386.0|原说明：2/3A队免税 于2018年02月07日 11时22分被[孙彬]红冲
+IgnoreError|i:386|387.0|2/5 李国乐天返点 于2018年02月07日 16时01分被[newline]红冲
+IgnoreError|i:387|388.0|原说明：2/3A队免税 2018年02月07日 11时22分[孙彬]红冲
+IgnoreError|i:388|389.0|2/5 李国乐天返点 2018年02月07日 16时01分[newline]红冲
+IgnoreError|i:389|390.0|2/5 李国乐天返点
+IgnoreError|i:392|393.0|0203 刷货入库 金光叶
+IgnoreError|i:393|394.0|0207免税 于2018年02月07日 17时08分被[newline]红冲
+IgnoreError|i:395|396.0|0207免税 2018年02月07日 17时08分[newline]红冲
+IgnoreError|i:401|402.0|2/3 东河返点 + 补1/31 蒂佳婷重算返点率 于2018年02月08日 21时21分被[刘洋]红冲
+IgnoreError|i:402|403.0|首尔林返点
+IgnoreError|i:408|409.0|原说明：0208 BEN 免税 于2018年02月09日 12时38分被[newline]红冲
+IgnoreError|i:410|411.0|0203 刷货入库 金光叶 0208 補帶回水源
+IgnoreError|i:411|412.0|2/3 东河返点 + 补1/31 蒂佳婷重算返点率 2018年02月08日 21时21分[刘洋]红冲
+IgnoreError|i:414|415.0|原说明：0208 BEN 免税 2018年02月09日 12时38分[newline]红冲
+IgnoreError|i:415|416.0|原说明：0208 BEN 免税 于2018年02月09日 12时42分被[newline]红冲
+IgnoreError|i:416|417.0|原说明：0208 BEN 免税 2018年02月09日 12时42分[newline]红冲
+IgnoreError|i:417|418.0|2/9 开工费（Ben）追加 于2018年02月09日 17时14分被[newline]红冲
+IgnoreError|i:418|419.0|2/3东河返点+补1/31蒂佳婷 于2018年02月28日 15时13分被[刘洋]红冲
+IgnoreError|i:419|420.0|2/9 开工费（Ben）追加 2018年02月09日 17时14分[newline]红冲
+IgnoreError|i:421|422.0|2/3东河返点+补1/31蒂佳婷 2018年02月28日 15时13分[刘洋]红冲
+IgnoreError|i:422|423.0|2/3 东河返点 于2018年03月22日 00时05分被[刘洋]红冲
+IgnoreError|i:423|424.0|2/3 东河返点收入 于2018年03月21日 23时56分被[刘洋]红冲
+IgnoreError|i:424|425.0|2/1 东河返点收入
+IgnoreError|i:426|427.0|2/3 东河返点收入
+IgnoreError|i:427|428.0|2/3 东河返点收入 2018年03月21日 23时56分[刘洋]红冲
+IgnoreError|i:428|429.0|2/3 东河返点 2018年03月22日 00时05分[刘洋]红冲
+IgnoreError|i:429|430.0|2/3 东河返点 + 补1/31 蒂佳婷 于2018年03月24日 23时41分被[刘洋]红冲
+IgnoreError|i:430|431.0|2/3 东河返点 + 补1/31 蒂佳婷 2018年03月24日 23时41分[刘洋]红冲
+IgnoreError|i:431|432.0|2/3 东河返点 + 补1/31 蒂佳婷
+IgnoreError|i:434|435.0|2/10开工费（Ben） 于2018年02月09日 18时17分被[刘洋]红冲
+IgnoreError|i:438|439.0|1/30，1/31，2/5 李国乐天返点抹零
+IgnoreError|i:439|440.0|1/9，1/30，1/31 东河返点损失
+IgnoreError|i:440|441.0|2/1，2/2 东河返点收入 于2018年02月28日 15时28分被[刘洋]红冲
+IgnoreError|i:441|442.0|2/10开工费（Ben） 2018年02月09日 18时17分[刘洋]红冲
+IgnoreError|i:442|443.0|2/9 于2018年02月13日 18时08分被[newline]红冲
+IgnoreError|i:443|444.0|刷貨退回(B) 于2018年02月13日 18时11分被[newline]红冲
+IgnoreError|i:445|446.0|2/9 2018年02月13日 18时08分[newline]红冲
+IgnoreError|i:447|448.0|刷貨退回(B) 2018年02月13日 18时11分[newline]红冲
+IgnoreError|i:449|450.0|2/9 刷货费用（姜） 于2018年03月09日 13时55分被[刘洋]红冲
+IgnoreError|i:450|451.0|2/1，2/2 东河返点收入 2018年02月28日 15时28分[刘洋]红冲
+IgnoreError|i:451|452.0|2/9 刷货费用（姜） 2018年03月09日 13时55分[刘洋]红冲
+IgnoreError|i:455|456.0|首爾林2/1-2/9反点現金(清)
+IgnoreError|i:473|474.0|1/9 卡額106900 三導遊補貼反点90000 于2018年02月13日 18时25分被[newline]红冲
+IgnoreError|i:474|475.0|李国乐天返点
+IgnoreError|i:476|477.0|1/9 卡額106900 三導遊補貼反点90000 2018年02月13日 18时25分[newline]红冲
+IgnoreError|i:477|478.0| 于2018年03月09日 13时50分被[刘洋]红冲
+IgnoreError|i:478|479.0| 2018年03月09日 13时50分[刘洋]红冲
+IgnoreError|i:484|485.0|原说明：0214免税 于2018年02月23日 15时07分被[孙彬]红冲
+IgnoreError|i:485|486.0|原说明：0214免税 2018年02月23日 15时07分[孙彬]红冲
+IgnoreError|i:488|489.0|2/1，2/2 首尔林乐天返点抹零 于2018年02月28日 10时29分被[刘洋]红冲
+IgnoreError|i:489|490.0|2/10，2/11，2/13 李国乐天返点损失
+IgnoreError|i:491|492.0|2/1，2/2 首尔林乐天返点抹零 2018年02月28日 10时29分[刘洋]红冲
+IgnoreError|i:492|493.0| 于2018年02月23日 15时15分被[孙彬]红冲
+IgnoreError|i:493|494.0| 2018年02月23日 15时15分[孙彬]红冲
+IgnoreError|i:500|501.0|2/14 李国乐天返点
+IgnoreError|i:502|503.0|首尔林返点
+IgnoreError|i:506|507.0|原说明：1月免税店帮做业绩增送的
+IgnoreError|i:508|509.0|原说明：0225--ben 免税 于2018年02月26日 12时02分被[孙彬]红冲
+IgnoreError|i:509|510.0|原说明：0225--ben 免税 于2018年02月26日 12时02分被[孙彬]红冲
+IgnoreError|i:510|511.0|原说明：0225--ben 免税 于2018年02月26日 12时02分被[孙彬]红冲
+IgnoreError|i:511|512.0|原说明：0225--ben 免税 2018年02月26日 12时02分[孙彬]红冲
+IgnoreError|i:512|513.0|原说明：0225--ben 免税 2018年02月26日 12时02分[孙彬]红冲
+IgnoreError|i:513|514.0|原说明：0225--ben 免税 2018年02月26日 12时02分[孙彬]红冲
+IgnoreError|i:523|524.0| 于2018年03月14日 12时43分被[刘洋]红冲
+IgnoreError|i:527|528.0|首尔林返点
+IgnoreError|i:528|529.0|0208~0210 东河返点
+IgnoreError|i:529|530.0| 2018年03月14日 12时43分[刘洋]红冲
+IgnoreError|i:532|533.0|0225免税 于2018年02月27日 13时57分被[孙彬]红冲
+IgnoreError|i:533|534.0|0225免税 2018年02月27日 13时57分[孙彬]红冲
+IgnoreError|i:540|541.0|2/1/~2/9 首尔林乐天返点抹零
+IgnoreError|i:541|542.0|2/14 李国乐天返点抹零
+IgnoreError|i:543|544.0|原说明：0228-ben免税 于2018年03月01日 12时06分被[newline]红冲
+IgnoreError|i:544|545.0|原说明：0228-ben免税 于2018年03月01日 12时11分被[newline]红冲
+IgnoreError|i:546|547.0|2/28B team刷貨退回 于2018年03月04日 23时34分被[newline]红冲
+IgnoreError|i:548|549.0|原说明：0228-ben免税 2018年03月01日 12时06分[newline]红冲
+IgnoreError|i:550|551.0|原说明：0228-ben免税 2018年03月01日 12时11分[newline]红冲
+IgnoreError|i:552|553.0|2/28B team刷貨退回 2018年03月04日 23时34分[newline]红冲
+IgnoreError|i:557|558.0|0222~0228 首尔林乐天返点抹零
+IgnoreError|i:558|559.0|0208~0228 东河返点收入
+IgnoreError|i:561|562.0|首爾林反点(2/26-2/28)
+IgnoreError|i:562|563.0|首爾林反点 2/28尾數（再扣20W手续费）
+IgnoreError|i:567|568.0|2/22-2/28 无尘蜜蜂头费
+IgnoreError|i:568|569.0|YF-20180304-003
+IgnoreError|i:569|570.0|2/24-2/28 张银格150000
+IgnoreError|i:570|571.0|3/2東河開工費 于2018年03月13日 14时24分被[刘洋]红冲
+IgnoreError|i:571|572.0|東河返点
+IgnoreError|i:572|573.0|3/2東河開工費追加 于2018年03月04日 22时34分被[newline]红冲
+IgnoreError|i:576|577.0|3/2東河開工費追加 2018年03月04日 22时34分[newline]红冲
+IgnoreError|i:577|578.0|3/2 刷货费用（姜） 于2018年03月13日 16时15分被[刘洋]红冲
+IgnoreError|i:579|580.0|3/2東河開工費 2018年03月13日 14时24分[刘洋]红冲
+IgnoreError|i:582|583.0|3/2 刷货费用（姜） 2018年03月13日 16时15分[刘洋]红冲
+IgnoreError|i:583|584.0|0303免税 于2018年03月03日 16时27分被[孙彬]红冲
+IgnoreError|i:584|585.0|0303免税 2018年03月03日 16时27分[孙彬]红冲
+IgnoreError|i:588|589.0|首尔林返点
+IgnoreError|i:591|592.0|3/3刷貨退回(B) 于2018年03月13日 16时09分被[刘洋]红冲
+IgnoreError|i:593|594.0|3/3刷貨退回(B) 2018年03月13日 16时09分[刘洋]红冲
+IgnoreError|i:600|601.0|刷貨退回(B)-3/5 于2018年03月13日 16时18分被[刘洋]红冲
+IgnoreError|i:603|604.0|刷貨退回(B)-3/5 2018年03月13日 16时18分[刘洋]红冲
+IgnoreError|i:612|613.0|首爾林反点
+IgnoreError|i:613|614.0|0226~0228 东河返点
+IgnoreError|i:614|615.0|3/6 刷货退回（Ben）（退回两次） 于2018年03月13日 16时28分被[刘洋]红冲
+IgnoreError|i:615|616.0|0302 东河返点
+IgnoreError|i:621|622.0|3/6 刷货退回（Ben）（退回两次） 2018年03月13日 16时28分[刘洋]红冲
+IgnoreError|i:631|632.0|原说明：0308免税 于2018年03月08日 19时46分被[孙彬]红冲
+IgnoreError|i:633|634.0|原说明：0308免税 2018年03月08日 19时46分[孙彬]红冲
+IgnoreError|i:638|639.0|首爾林反点
+IgnoreError|i:639|640.0|赠品
+IgnoreError|i:650|651.0|首爾林反点
+IgnoreError|i:655|656.0|3/ 10 開工費 36+60張樂天卡 于2018年03月10日 00时30分被[newline]红冲
+IgnoreError|i:656|657.0|3/ 10 開工費 36+60張樂天卡 2018年03月10日 00时30分[newline]红冲
+IgnoreError|i:658|659.0|0301--0307 刷货费用 蜜蜂頭 周結3/1-3/7
+IgnoreError|i:669|670.0|首尔林返点
+IgnoreError|i:676|677.0|首尔林返点
+IgnoreError|i:683|684.0|0301~0312 首尔林返点抹零
+IgnoreError|i:686|687.0|0305~0309 东河返点
+IgnoreError|i:688|689.0|原说明：0314-ben  免税 于2018年03月14日 22时10分被[孙彬]红冲
+IgnoreError|i:689|690.0|原说明：0314-ben  免税 2018年03月14日 22时10分[孙彬]红冲
+IgnoreError|i:690|691.0|原说明：0314-ben  免税 于2018年03月14日 22时31分被[孙彬]红冲
+IgnoreError|i:693|694.0|原说明：0314-ben  免税 2018年03月14日 22时31分[孙彬]红冲
+IgnoreError|i:704|705.0|公司版错入库成免税版
+IgnoreError|i:713|714.0|首尔林返点
+IgnoreError|i:714|715.0|首尔林返点
+IgnoreError|i:719|720.0|原说明：0315免税 于2018年03月16日 20时37分被[孙彬]红冲
+IgnoreError|i:721|722.0|0316免税姜渊 于2018年03月16日 17时14分被[孙彬]红冲
+IgnoreError|i:722|723.0|0316免税姜渊 2018年03月16日 17时14分[孙彬]红冲
+IgnoreError|i:725|726.0|原说明：0315免税 2018年03月16日 20时37分[孙彬]红冲
+IgnoreError|i:727|728.0|公司版错入库成免税版
+IgnoreError|i:733|734.0|當日免稅店兩隊交接一千萬現金B給BEN 于2018年03月18日 04时32分被[newline]红冲
+IgnoreError|i:734|735.0|當日免稅店兩隊交接一千萬現金B給BEN 2018年03月18日 04时32分[newline]红冲
+IgnoreError|i:745|746.0|首尔林返点
+IgnoreError|i:758|759.0|原说明：0320-姜渊 于2018年03月20日 20时51分被[孙彬]红冲
+IgnoreError|i:760|761.0|原说明：0320-ben 于2018年03月21日 17时31分被[孙彬]红冲
+IgnoreError|i:761|762.0|原说明：0320-姜渊 2018年03月20日 20时51分[孙彬]红冲
+IgnoreError|i:762|763.0|原说明：0320-姜渊 于2018年03月21日 17时30分被[孙彬]红冲
+IgnoreError|i:763|764.0|0302~0309 东河返点收入
+IgnoreError|i:764|765.0|0313~0317 首尔林饭返点抹零
+IgnoreError|i:765|766.0|原说明：0320-姜渊 2018年03月21日 17时30分[孙彬]红冲
+IgnoreError|i:766|767.0|原说明：0320-ben 2018年03月21日 17时31分[孙彬]红冲
+IgnoreError|i:767|768.0|首尔林返点
+IgnoreError|i:775|776.0|原说明：0320-姜渊 于2018年03月21日 21时24分被[孙彬]红冲
+IgnoreError|i:776|777.0|原说明：0320-姜渊 2018年03月21日 21时24分[孙彬]红冲
+IgnoreError|i:783|784.0|null
+java.lang.NullPointerException
+IgnoreError|i:785|786.0|南山新世界返点（多给7W要支出现金）
+IgnoreError|i:786|787.0|0312-0321 南山东河返点
+IgnoreError|i:787|788.0|首尔林返点
+IgnoreError|i:802|803.0|0313~0321 东河返点损失 返点率变差
+IgnoreError|i:803|804.0|原说明：0324 刷货入库 姜渊 于2018年03月24日 19时03分被[孙彬]红冲
+IgnoreError|i:804|805.0|原说明：0324 刷货入库 姜渊 于2018年03月24日 19时03分被[孙彬]红冲
+IgnoreError|i:805|806.0|原说明：0324 刷货入库 姜渊 2018年03月24日 19时03分[孙彬]红冲
+IgnoreError|i:806|807.0|原说明：0324 刷货入库 姜渊 2018年03月24日 19时03分[孙彬]红冲
+IgnoreError|i:809|810.0|0314 南山新世界返点手续费
+IgnoreError|i:810|811.0|0319~0321 首尔林返点抹零
+IgnoreError|i:811|812.0|原说明：0324 刷货入库 姜渊
+IgnoreError|i:812|813.0|原说明：0324 刷货入库 BEN
+返点收入余额表C:\Users\acer-pc\Documents\WeChat Files\wxid_qyi4s5vkakv222\Files\对账2月3月(1)\返点收入余额表(1).xls
+addRecord3
+ValidData:|1120
+ValidData:|1123
+ValidData:|1125
+ValidData:|1126
+ValidData:|1127
+ValidData:|1128
+ValidData:|1129
+ValidData:|1130
+ValidData:|1201
+ValidData:|1202
+ValidData:|1203
+ValidData:|1204
+ValidData:|1205
+ValidData:|1206
+ValidData:|1207
+ValidData:|1208
+ValidData:|1209
+ValidData:|1210
+ValidData:|1211
+ValidData:|1212
+ValidData:|1213
+ValidData:|1214
+ValidData:|1215
+ValidData:|1216
+ValidData:|1217
+ValidData:|1218
+ValidData:|1219
+ValidData:|1220
+ValidData:|1221
+ValidData:|1222
+ValidData:|1223
+ValidData:|1224
+ValidData:|1225
+ValidData:|1226
+ValidData:|1227
+ValidData:|1228
+ValidData:|1229
+ValidData:|1230
+ValidData:|1231
+录入完成!
+E:\sw-default\eclipse\myworkspace\AccountSystem\config.xlsx
