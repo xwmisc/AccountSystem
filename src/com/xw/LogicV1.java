@@ -11,6 +11,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 
+import org.apache.poi.ss.usermodel.IndexedColors;
+
 import com.xw.db.DB;
 import com.xw.db.DB.SQLITE3_TYPE;
 import com.xw.excel.Excel;
@@ -26,11 +28,32 @@ public class LogicV1 {
 	final static String table5 = "生成_应收检查";
 	final static String table6 = "生成_返点检查";
 
+	public static final String DFS = "系统_DFS";
+	public static final String CMP = "系统_CMP";
 	public final static String EMP = "系统_EMP";
 
-	static void setup() throws SQLException {
+	public static void setup() throws SQLException {
 
 		DB db = DB.getInstance();
+		if (!db.existTable(EMP)) {
+			db.createEmptyTable(EMP);
+			db.insertColumn(EMP, "name", SQLITE3_TYPE.TYPE_TEXT);
+			db.commit();
+			db.insert(EMP, Util.PairOf("name", "姜渊"));
+		}
+		if (!db.existTable(CMP)) {
+			db.createEmptyTable(CMP);
+			db.insertColumn(CMP, "name", SQLITE3_TYPE.TYPE_TEXT);
+			db.commit();
+			db.insert(CMP, Util.PairOf("name", "首尔林"));
+		}
+		if (!db.existTable(DFS)) {
+			db.createEmptyTable(DFS);
+			db.insertColumn(DFS, "name", SQLITE3_TYPE.TYPE_TEXT);
+			db.commit();
+			db.insert(DFS, Util.PairOf("name", "乐天"));
+		}
+		db.commit();
 		if (db.existTable(table1))
 			db.deleteTable(table1);
 		if (db.existTable(table2))
@@ -43,6 +66,8 @@ public class LogicV1 {
 			db.deleteTable(table5);
 		if (db.existTable(table6))
 			db.deleteTable(table6);
+
+		db.commit();// 提交事务
 
 		db.createEmptyTable(table1);
 		db.insertColumn(table1, "姓名", SQLITE3_TYPE.TYPE_TEXT);
@@ -92,26 +117,25 @@ public class LogicV1 {
 
 	public static boolean account(File account_folder) {
 		try {
-			System.out.println(account_folder.getPath());
+			Log.appendln(account_folder.getPath());
 
 			final String s1_name = "对账结果";
 			final String s2_name = "应收检查";
 			final String s3_name = "返点检查";
 
 			DB db = DB.getInstance();
-			setup();
 
 			for (File file : account_folder.listFiles()) {
 				if (file.getName().matches("[0-9]{4}折扣表\\.xlsx?$")) {
-					System.out.println("折扣表" + file.getAbsolutePath());
+					Log.appendln("折扣表" + file.getAbsolutePath());
 					addRecord1(file);
 				}
 				if (file.getName().matches("往来对账数据.*\\.xlsx?$")) {
-					System.out.println("对账表" + file.getAbsolutePath());
+					Log.appendln("对账表" + file.getAbsolutePath());
 					addRecord2(file);
 				}
 				if (file.getName().matches("返点收入余额表.*\\.xlsx?$")) {
-					System.out.println("返点收入余额表" + file.getAbsolutePath());
+					Log.appendln("返点收入余额表" + file.getAbsolutePath());
 					addRecord3(file);
 				}
 			}
@@ -182,10 +206,10 @@ public class LogicV1 {
 						for (HashMap val : data2) {
 							double num = (double) val.get("应收增加");
 							receivable_incr += num;
-							count2.put("应收增加", count1.get("应收增加") + num);
+							count2.put("应收增加", count2.get("应收增加") + num);
 							num = (double) val.get("应收减少");
 							receivable_decr += num;
-							count2.put("应收减少", count1.get("应收减少") + num);
+							count2.put("应收减少", count2.get("应收减少") + num);
 						}
 
 						// 匹配应收
@@ -260,10 +284,11 @@ public class LogicV1 {
 			db.insert(table5, vals2);
 			db.insert(table6, vals3);
 			db.commit();
-			System.out.println("录入完成!");
+			Log.appendln("录入完成!");
 
 		} catch (Exception e) {
 			e.printStackTrace();
+			Log.appendln(e.toString());
 			return false;
 		}
 		return true;
@@ -276,7 +301,7 @@ public class LogicV1 {
 	 * @throws Exception
 	 */
 	public static void addRecord1(File file) throws Exception {
-		// System.out.println("addRecord1");
+		// Log.appendln("addRecord1");
 		DB db = DB.getInstance();
 
 		Excel excel = new Excel(file);
@@ -321,7 +346,7 @@ public class LogicV1 {
 					double num = sheet.readDouble(base_row + 3 + i, base_column + 1, 0);
 					if (num < 0) {
 						val.put("应收增加", 0.0);
-						val.put("应收减少", num);
+						val.put("应收减少", -num);
 					} else {
 						val.put("应收增加", num);
 						val.put("应收减少", 0.0);
@@ -354,7 +379,7 @@ public class LogicV1 {
 	 * @throws DBException
 	 */
 	public static void addRecord2(File file) throws ExcelException, IOException, SQLException {
-		// System.out.println("addRecord2");
+		// Log.appendln("addRecord2");
 
 		Excel excel = new Excel(file);
 		Sheet sheet = excel.getSheets().get(0);
@@ -370,60 +395,68 @@ public class LogicV1 {
 			int row = 10 + i;
 
 			// 跳过无行号的行
-			if ((Double) sheet.readDouble(row, 1, 0) == 0)
-				continue;
+			if ((Double) sheet.readDouble(row, 1, 0) != 0) {
 
-			// 备注合法性验证
-			String remark = "";
-			try {
-				String _remark = sheet.readString(row, 11, "");
-				remark = FJ.convert((_remark).trim(), 0);
-			} catch (Exception e) {
-				remark = "";
-			}
+				// 备注合法性验证
+				String remark = "";
+				try {
+					String _remark = sheet.readString(row, 11, "");
+					remark = FJ.convert((_remark).trim(), 0);
+				} catch (Exception e) {
+					remark = "";
+				}
 
-			// 姓名合法性验证
-			String staff_name = null;
-			for (HashMap emp : emps) {
-				String name = (String) emp.get("name");
-				if (remark.matches("[0-9]{4} (刷货).{2,4} (" + name + ").*")) {
-					staff_name = name;
-					break;
+				// 姓名合法性验证
+				String staff_name = null;
+				for (HashMap emp : emps) {
+					String name = (String) emp.get("name");
+					if (remark.matches("[0-9]{4} (刷货).{2,4} (" + name + ").*")) {
+						staff_name = name;
+						break;
+					}
+				}
+
+				String sp_remark[] = remark.split(" ");
+				if (staff_name != null && sp_remark.length > 2) {
+					// 数据
+					HashMap<String, Object> val = new HashMap<>();
+					val.put("日期", sp_remark[0]);
+					val.put("款项类型", sp_remark[1]);
+					val.put("姓名", staff_name);
+					val.put("单据编号", sheet.readString(row, 3, ""));
+					double num = sheet.readDouble(row, 5, 0);
+					val.put("应收增加", num);
+					num = sheet.readDouble(row, 6, 0);
+					val.put("应收减少", num);
+					val.put("备注", remark);
+
+					vals.add(val);
+					// Log.appendln("ValidData:|" + "i:" + i + "|" + sheet.read(row, 1) + "|"
+					// + remark);
+					sheet.setColor(row, 11, IndexedColors.WHITE.getIndex());
+					continue;
 				}
 			}
-
-			// 数据
-			HashMap<String, Object> val = new HashMap<>();
-
-			if (staff_name != null) {
-				String sp_remark[] = remark.split(" ");
-				val.put("日期", sp_remark[0]);
-				val.put("款项类型", sp_remark[1]);
-				val.put("姓名", staff_name);
-				val.put("单据编号", sheet.readString(row, 3, ""));
-
-				double num = sheet.readDouble(row, 5, 0);
-				val.put("应收增加", num);
-				num = sheet.readDouble(row, 6, 0);
-				val.put("应收减少", num);
-				val.put("备注", remark);
-
-				vals.add(val);
-				// System.out.println("ValidData:|" + "i:" + i + "|" + sheet.read(row, 1) + "|"
-				// + remark);
-			} else {
-				// System.out.println("IgnoreError|" + "i:" + i + "|" + sheet.read(row, 1) + "|"
-				// + remark);
+			// 未满足条件执行以下
+			// Log.appendln("IgnoreError|" + "i:" + i + "|" + sheet.read(row, 1) + "|"
+			// + remark);
+			try {
+				 Log.appendln("IgnoreError|" + "i:" + i + "|" + sheet.read(row, 1) + "|"
+				 + sheet.read(row, 11));
+				sheet.setColor(row, 11, IndexedColors.RED.getIndex());
+			} catch (Exception e) {
+				e.printStackTrace();
+				Log.appendln(e.toString());
 			}
 		}
 
 		db.insert(table2, vals);
 
-		excel.close();
+		excel.closeWithSave();
 	}
 
 	public static void addRecord3(File file) throws ExcelException, IOException, SQLException {
-		System.out.println("addRecord3");
+		Log.appendln("addRecord3");
 
 		Excel excel = new Excel(file);
 		Sheet sheet = excel.getSheets().get(0);
@@ -443,20 +476,20 @@ public class LogicV1 {
 				else
 					date = (Date) obj;
 				if (null == date) {
-					System.out.println("inValidData:|" + date);
+					Log.appendln("inValidData:|" + date);
 					break;
 				}
 			} catch (ClassCastException e) {
 				break;
 			}
-			// System.out.println("ValidData:|" + date);
+			// Log.appendln("ValidData:|" + date);
 
 			// 数据
 			HashMap val = new HashMap<>();
 
 			String date_text = ((date.getMonth() + 1 < 10) ? "0" : "") + (date.getMonth() + 1)
 					+ ((date.getDate() < 10) ? "0" : "") + date.getDate();
-			System.out.println("ValidData:|" + date_text);
+			Log.appendln("ValidData:|" + date_text);
 			val.put("日期", date_text);
 
 			double num = sheet.readDouble(row_add + base_row, 2, 0);

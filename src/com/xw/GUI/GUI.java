@@ -1,52 +1,42 @@
 package com.xw.GUI;
 
-import org.eclipse.swt.widgets.Display;
-import org.eclipse.swt.widgets.MessageBox;
-import org.eclipse.swt.widgets.Shell;
-import org.eclipse.swt.widgets.Table;
-import org.eclipse.swt.widgets.TableColumn;
-import org.eclipse.swt.widgets.TableItem;
-
-import java.io.ByteArrayInputStream;
-import java.io.IOException;
 import java.math.BigDecimal;
 import java.sql.SQLException;
 import java.text.Collator;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
 import java.util.Optional;
 import java.util.function.Consumer;
-import java.util.function.Function;
-import java.util.function.Supplier;
-import java.util.stream.Stream;
 
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.widgets.Combo;
-import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.widgets.Button;
+import org.eclipse.swt.events.ControlAdapter;
+import org.eclipse.swt.events.ControlEvent;
+import org.eclipse.swt.events.MouseEvent;
+import org.eclipse.swt.events.MouseListener;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
-import org.eclipse.swt.graphics.GC;
-import org.eclipse.swt.graphics.Image;
-import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.graphics.Rectangle;
-import org.eclipse.swt.events.ControlAdapter;
-import org.eclipse.swt.events.ControlEvent;
+import org.eclipse.swt.widgets.Button;
+import org.eclipse.swt.widgets.Combo;
+import org.eclipse.swt.widgets.Display;
+import org.eclipse.swt.widgets.Shell;
+import org.eclipse.swt.widgets.Table;
+import org.eclipse.swt.widgets.TableColumn;
+import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.swt.widgets.Text;
 
-import com.xw.DBManager;
 import com.xw.Log;
 import com.xw.Logic;
+import com.xw.LogicV1;
+import com.xw.Util;
 
-import org.eclipse.swt.widgets.Label;
-import org.eclipse.swt.widgets.Canvas;
+import CustomDialog.CheckboxBean;
+import CustomDialog.DialogFactory;
 
 public class GUI {
 
@@ -63,6 +53,7 @@ public class GUI {
 	private Button button;
 	private Button button_1;
 	private Button checkbox_seeSysTable;
+	private Button button_2;
 
 	/**
 	 * Launch the application.
@@ -123,7 +114,7 @@ public class GUI {
 		combo_tableList.select(0);
 
 		text_info = new Text(shell, SWT.BORDER | SWT.MULTI);
-		text_info.setBounds(11, 189, 202, 296);
+		text_info.setBounds(11, 337, 202, 148);
 
 		btn_query = new Button(shell, SWT.NONE);
 		btn_query.setBounds(10, 81, 98, 30);
@@ -202,9 +193,9 @@ public class GUI {
 		button_1.addSelectionListener(OnClick(e -> {
 			boolean result = Logic.exportXLSX(combo_tableList.getText());
 			if (result) {
-				GUI.showMsgDialog(shell, "导出成功,请在运行目录下查看文件");
+				DialogFactory.showMsg(shell, "导出成功,请在运行目录下查看文件");
 			} else {
-				GUI.showErrDialog(shell, "导出失败,请检查运行日志:" + Log.getFileLocation());
+				DialogFactory.showErr(shell, "导出失败,请检查运行日志:" + Log.getFileLocation());
 			}
 		}));
 
@@ -212,10 +203,17 @@ public class GUI {
 		checkbox_seeSysTable.setBounds(144, 9, 69, 28);
 		checkbox_seeSysTable.setText("系统表");
 
+		try {
+			LogicV1.setup();
+		} catch (SQLException e1) {
+			e1.printStackTrace();
+			Log.appendln(e1.toString());
+			DialogFactory.showErr(shell, "数据库错误,请关闭程序再试");
+		}
 		refreshCombo();
-		
-//		AdjustImage a = new AdjustImage(shell, shell.getStyle());
-//		a.open();
+
+		// AdjustImage a = new AdjustImage(shell, shell.getStyle());
+		// a.open();
 	}
 
 	private void refreshCombo() {
@@ -255,39 +253,40 @@ public class GUI {
 		return listener;
 	}
 
-	public static void showErrDialog(Shell shell, String err) {
-		Display.getDefault().asyncExec(new Runnable() {
-			@Override
-			public void run() {
-				int style = SWT.APPLICATION_MODAL | SWT.ERROR;
-				MessageBox messageBox = new MessageBox(shell, style);
-				messageBox.setText("Error Occurred!");
-				messageBox.setMessage(err);
-				messageBox.open();
-			}
-		});
-
-	}
-
-	public static void showMsgDialog(Shell shell, String message) {
-		Display.getDefault().asyncExec(new Runnable() {
-			@Override
-			public void run() {
-				int style = SWT.APPLICATION_MODAL | SWT.YES;
-				MessageBox messageBox = new MessageBox(shell, style);
-				messageBox.setText("Tip");
-				messageBox.setMessage(message);
-				messageBox.open();
-			}
-		});
-	}
-
 	class ASTable {
 		Table m_Table;
 		private String m_tableName;
 
 		public ASTable(Table table) {
 			m_Table = table;
+			m_Table.addMouseListener(new MouseListener() {
+
+				@Override
+				public void mouseUp(MouseEvent e) {
+
+				}
+
+				@Override
+				public void mouseDown(MouseEvent e) {
+
+				}
+
+				@Override
+				public void mouseDoubleClick(MouseEvent e) {
+					// 弹出选择项
+					ArrayList<CheckboxBean> beans = new ArrayList<>();
+					for (final TableColumn column : m_Table.getColumns()) {
+						beans.add(new CheckboxBean(column.getText(), column.getWidth() > 0, selected -> {
+							if (selected) {
+								column.setWidth(evalWidth(column.getText()));
+							} else {
+								column.setWidth(0);
+							}
+						}));
+					}
+					DialogFactory.showCustomCheckboxList(shell, beans);
+				}
+			});
 			m_Table.addSelectionListener(new SelectionAdapter() {
 				boolean sortType = true;
 
@@ -350,10 +349,14 @@ public class GUI {
 				return true;
 			}).forEach(each -> {
 				final TableColumn column = new TableColumn(m_Table, SWT.NONE);
-				column.setWidth(each.getBytes().length * 100 / 16 < 100 ? 100 : each.getBytes().length * 100 / 16);
+				column.setWidth(evalWidth(each));
 				column.setText(each);
 				column.addSelectionListener(new sortListener(column));
 			});
+		}
+
+		private int evalWidth(String str) {
+			return str.getBytes().length * 100 / 16 < 100 ? 100 : str.getBytes().length * 100 / 16;
 		}
 
 		public void addItem(List<HashMap<String, Object>> item_list) {

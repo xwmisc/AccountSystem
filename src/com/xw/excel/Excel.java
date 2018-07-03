@@ -14,6 +14,8 @@ import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellStyle;
 import org.apache.poi.ss.usermodel.DataFormat;
 import org.apache.poi.ss.usermodel.DateUtil;
+import org.apache.poi.ss.usermodel.FillPatternType;
+import org.apache.poi.ss.usermodel.IndexedColors;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
@@ -45,6 +47,40 @@ public class Excel {
 			return _row;
 		}
 
+		/**
+		 * 
+		 * @param row
+		 * @param index
+		 *            IndexedColors.BLUE_GREY.getIndex()
+		 */
+		public void setColor(int row, short index) {
+			if (m_Sheet.getLastRowNum() < row)
+				return;
+			Row line = m_Sheet.getRow(row - 1);
+			CellStyle style = m_Workbook.createCellStyle();
+			style.cloneStyleFrom(line.getRowStyle());
+			style.setFillForegroundColor(index);
+			style.setFillPattern(FillPatternType.SOLID_FOREGROUND);
+			line.setRowStyle(style);
+		}
+
+		/**
+		 * 
+		 * @param row
+		 * @param index
+		 *            IndexedColors.BLUE_GREY.getIndex()
+		 */
+		public void setColor(int row, int col, short index) {
+			if (m_Sheet.getLastRowNum() < row)
+				return;
+			Cell cell = m_Sheet.getRow(row - 1).getCell(col - 1);
+			CellStyle style = m_Workbook.createCellStyle();   
+			style.cloneStyleFrom(cell.getCellStyle());
+			style.setFillForegroundColor(index);
+			style.setFillPattern(FillPatternType.SOLID_FOREGROUND);
+			m_Sheet.getRow(row - 1).getCell(col - 1).setCellStyle(style);
+		}
+
 		public String getName() {
 			return m_Sheet.getSheetName();
 		}
@@ -61,11 +97,11 @@ public class Excel {
 				cell.setCellValue((String) value);
 			} else if (value instanceof Date) {
 				cell.setCellValue((Date) value);
-	            CellStyle cellStyle = m_Workbook.createCellStyle();
-	            DataFormat format= m_Workbook.createDataFormat();
-	            cellStyle.setDataFormat(format.getFormat("yyyy年m月d日"));
-	            cell.setCellStyle(cellStyle);
-	            
+				CellStyle cellStyle = m_Workbook.createCellStyle();
+				DataFormat format = m_Workbook.createDataFormat();
+				cellStyle.setDataFormat(format.getFormat("yyyy年m月d日"));
+				cell.setCellStyle(cellStyle);
+
 			} else if (value instanceof Boolean) {
 				cell.setCellValue((Boolean) value);
 			} else if (value instanceof Double) {

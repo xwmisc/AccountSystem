@@ -352,9 +352,11 @@ public class Logic {
 				log += "\r\n";
 			}
 			Log.appendln(log);
+			int list1size = list1.size();
+			int list2size = list2.size();
 			list1.removeIf(o -> {
 				int index = list1.indexOf(o);
-				for (int i = 0; i < list2.size(); i++) {
+				for (int i = 0; i < list2size; i++) {
 					if (matrix[2][index][i] == 2)
 						return true;
 				}
@@ -362,7 +364,7 @@ public class Logic {
 			});
 			list2.removeIf(o -> {
 				int index = list2.indexOf(o);
-				for (int i = 0; i < list1.size(); i++) {
+				for (int i = 0; i < list1size; i++) {
 					if (matrix[2][i][index] == 2)
 						return true;
 				}

@@ -23,7 +23,7 @@
 	<classpathentry kind="lib" path="E:/sw-default/eclipse/myworkspace/AccountSystem/lib/poi/poi-ooxml-3.17.jar"/>
 	<classpathentry kind="lib" path="E:/sw-default/eclipse/myworkspace/AccountSystem/lib/poi/poi-ooxml-schemas-3.17.jar"/>
 	<classpathentry kind="lib" path="E:/sw-default/eclipse/myworkspace/AccountSystem/lib/poi/xmlbeans-2.6.0.jar"/>
-	<classpathentry kind="lib" path="swing2swt.jar"/>
+	<classpathentry kind="lib" path="E:/sw-default/eclipse/myworkspace/AccountSystem/lib/swing2swt.jar"/>
 	<classpathentry kind="lib" path="E:/sw-default/eclipse/myworkspace/AccountSystem/lib/opencv-341.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

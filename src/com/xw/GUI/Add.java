@@ -30,6 +30,8 @@ import com.xw.LogicV1;
 import com.xw.Util;
 import com.xw.excel.Excel;
 
+import CustomDialog.DialogFactory;
+
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.dnd.DropTarget;
 import org.eclipse.swt.dnd.DropTargetEvent;
@@ -357,10 +359,10 @@ public class Add extends Dialog {
 					}
 					if (result) {
 						text_file.setText("添加成功:" + files[0]);
-						GUI.showMsgDialog(shell, "添加成功:" + files[0]);
+						DialogFactory.showMsg(shell, "添加成功:" + files[0]);
 					} else {
 						text_file.setText("添加失败:" + files[0]);
-						GUI.showErrDialog(shell, "添加失败,请检查运行日志:" + Log.getFileLocation());
+						DialogFactory.showErr(shell, "添加失败,请检查运行日志:" + Log.getFileLocation());
 					}
 				}
 			}
@@ -413,10 +415,10 @@ public class Add extends Dialog {
 					result = LogicV1.account(new File(path));
 					if (result) {
 						text_file2.setText("添加成功:" + files[0]);
-						GUI.showMsgDialog(shell, "添加成功:" + files[0]);
+						DialogFactory.showMsg(shell, "添加成功:" + files[0]);
 					} else {
 						text_file2.setText("添加失败:" + files[0]);
-						GUI.showErrDialog(shell, "添加失败,请检查运行日志:" + Log.getFileLocation());
+						DialogFactory.showErr(shell, "添加失败,请检查运行日志:" + Log.getFileLocation());
 					}
 				}
 			}
@@ -430,82 +432,6 @@ public class Add extends Dialog {
 		refreshData();
 	}
 
-	// public static void addRecord1(String fileName) throws Exception {
-	// // System.out.println("addRecord1");
-	// DBManager db = DBManager.getInstance();
-	// ExcelAPI excel = new ExcelAPI(fileName);
-	//
-	// List<HashMap<String, Object>> list_emp = db.query(DBManager.EMP,
-	// Util.SetOf(DBManager.EMP_ID,DBManager.EMP_NAME),null);
-	// HashSet emp_set = new HashSet<>();
-	// list_emp.stream().forEach(emp->{emp_set.add(emp.get(DBManager.EMP_NAME));});
-	//
-	// for (String sheetName : excel.getSheetNames()) {
-	// if (!emp_set.contains(sheetName))
-	// continue;
-	// Sheet sheet = excel.getSheet(sheetName);
-	// //验证名字
-	// String emp_name = (String) sheet.read(1, 2);
-	// if (!emp_set.contains(emp_name))
-	// continue;
-	// //添加数据
-	// HashMap<String, Object> kv = new HashMap<>();
-	// //emp
-	// int id = DBManager.findIdByName(DBManager.EMP, emp_name);
-	// kv.put(DBManager.WORKING_EMPID, id);
-	// //date 2018!!!
-	// String dateString = (String) sheet.read(2, 2);
-	// Date date = new Date(2018, Integer.parseInt(dateString.substring(0, 2)),
-	// Integer.parseInt(dateString.substring(2, 4)));
-	// kv.put(DBManager.WORKING_WORKINGDATE, date);
-	// //date
-	// String dateString = (String) sheet.read(2, 2);
-	// Date date = new Date(2018, Integer.parseInt(dateString.substring(0, 2)),
-	// Integer.parseInt(dateString.substring(2, 4)));
-	// kv.put(DBManager.WORKING_WORKINGDATE, date);
-	//
-	//
-	//
-	// for (int i = 0; i < 6; i++) {
-	// String text;
-	// Date date = excel.read(base_row + 1, base_column + 1);
-	// kv.put(DBManager.WORKING_WORKINGDATE, );
-	// text = excel.read(base_row + 3 + i, base_column).trim();
-	// kv.put("款项类型", text);
-	// if (text.equals("刷货差额")) {
-	// try {
-	// text = dFormat.format(excel.readNumber(base_row + 3 + i, base_column + 1));
-	// } catch (ClassCastException e) {
-	// text = "0";
-	// }
-	//
-	// if (text.startsWith("-")) {
-	// kv.put("应收增加", "0");
-	// kv.put("应收减少", text.substring(1));
-	// } else {
-	// kv.put("应收增加", text);
-	// kv.put("应收减少", "0");
-	// }
-	// } else {
-	// try {
-	// text = dFormat.format(excel.readNumber(base_row + 3 + i, base_column + 1));
-	// } catch (ClassCastException e) {
-	// text = "0";
-	// }
-	// kv.put("应收增加", text.equals("") ? "0" : text);
-	// try {
-	// text = dFormat.format(excel.readNumber(base_row + 3 + i, base_column + 2));
-	// } catch (ClassCastException e) {
-	// text = "0";
-	// }
-	// kv.put("应收减少", text.equals("") ? "0" : text);
-	// }
-	// db.put(Config.TABLE_1, kv);
-	// }
-	// }
-	// excel.close();
-	// }
-
 	public void addEMP() {
 		// TODO 修改其他的
 		try {
@@ -513,10 +439,10 @@ public class Add extends Dialog {
 			if (name.equals(""))
 				throw new Exception("名字不能为空");
 			ASDataSource.insert(LogicV1.EMP, Util.PairOf("name", name));
-			GUI.showMsgDialog(shell, "添加成功");
+			DialogFactory.showMsg(shell, "添加成功");
 			refreshData();
 		} catch (Exception e) {
-			GUI.showErrDialog(shell, e.toString());
+			DialogFactory.showErr(shell, e.toString());
 			e.printStackTrace();
 		}
 	}
@@ -526,11 +452,11 @@ public class Add extends Dialog {
 			String name = text_cmp_name.getText().trim();
 			if (name.equals(""))
 				throw new Exception("名字不能为空");
-			ASDataSource.insert(DBManager.CMP, Util.PairOf(DBManager.CMP_NAME, name));
-			GUI.showMsgDialog(shell, "添加成功");
+			ASDataSource.insert(LogicV1.CMP, Util.PairOf("name", name));
+			DialogFactory.showMsg(shell, "添加成功");
 			refreshData();
 		} catch (Exception e) {
-			GUI.showErrDialog(shell, e.toString());
+			DialogFactory.showErr(shell, e.toString());
 			e.printStackTrace();
 		}
 	}
@@ -540,11 +466,11 @@ public class Add extends Dialog {
 			String name = text_dfs_name.getText().trim();
 			if (name.equals(""))
 				throw new Exception("名字不能为空");
-			ASDataSource.insert(DBManager.DFS, Util.PairOf(DBManager.DFS_NAME, name));
-			GUI.showMsgDialog(shell, "添加成功");
+			ASDataSource.insert(LogicV1.DFS, Util.PairOf("name", name));
+			DialogFactory.showMsg(shell, "添加成功");
 			refreshData();
 		} catch (Exception e) {
-			GUI.showErrDialog(shell, e.toString());
+			DialogFactory.showErr(shell, e.toString());
 			e.printStackTrace();
 		}
 	}
@@ -574,10 +500,10 @@ public class Add extends Dialog {
 			working.put(DBManager.WORKING_刷货损失, Double.valueOf(text_刷货损失.getText()));
 			db.insert(DBManager.WORKING, working);
 			db.commit();
-			GUI.showMsgDialog(shell, "添加成功");
+			DialogFactory.showMsg(shell, "添加成功");
 
 		} catch (Exception e) {
-			GUI.showErrDialog(shell, e.toString());
+			DialogFactory.showErr(shell, e.toString());
 			e.printStackTrace();
 		}
 	}
@@ -586,15 +512,15 @@ public class Add extends Dialog {
 		try {
 			combo_CMP.removeAll();
 			ASDataSource.get(DBManager.CMP).forEach(e -> {
-				combo_CMP.add(e.get(DBManager.CMP_NAME));
+				combo_CMP.add(e.get("name"));
 			});
 			combo_EMP.removeAll();
 			ASDataSource.get(DBManager.EMP).forEach(e -> {
-				combo_EMP.add(e.get(DBManager.EMP_NAME));
+				combo_EMP.add(e.get("name"));
 			});
 			combo_DFS.removeAll();
 			ASDataSource.get(DBManager.DFS).forEach(e -> {
-				combo_DFS.add(e.get(DBManager.CMP_NAME));
+				combo_DFS.add(e.get("name"));
 			});
 			if (combo_CMP.getItemCount() > 0)
 				combo_CMP.select(0);

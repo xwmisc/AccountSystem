@@ -11,6 +11,8 @@ import org.eclipse.swt.widgets.Shell;
 import com.xw.Log;
 import com.xw.Logic;
 
+import CustomDialog.DialogFactory;
+
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.events.SelectionAdapter;
@@ -87,9 +89,9 @@ public class Compare01 extends Dialog {
 			String t2 = table2.getText();
 			boolean result = Logic.compare01(t1, t2, c1_t1key.getText(), c1_t2key.getText());
 			if (result) {
-				GUI.showMsgDialog(shell, "成功,请查看表[" + t1 + "_" + t2 + "]");
+				DialogFactory.showMsg(shell, "成功,请查看表[" + t1 + "_" + t2 + "]");
 			} else {
-				GUI.showErrDialog(shell, "失败,请检查运行日志:" + Log.getFileLocation());
+				DialogFactory.showErr(shell, "失败,请检查运行日志:" + Log.getFileLocation());
 			}
 		}));
 
@@ -155,9 +157,9 @@ public class Compare01 extends Dialog {
 			String t2key = c2_t2key.getText();
 			boolean result = Logic.compare02(t1, t2, t1date, t1key, t2date, t2key,true);
 			if (result) {
-				GUI.showMsgDialog(shell, "成功,请查看表[" + t1 + "_" + t2 + "]");
+				DialogFactory.showMsg(shell, "成功,请查看表[" + t1 + "_" + t2 + "]");
 			} else {
-				GUI.showErrDialog(shell, "失败,请检查运行日志:" + Log.getFileLocation());
+				DialogFactory.showErr(shell, "失败,请检查运行日志:" + Log.getFileLocation());
 			}
 		}));
 
@@ -201,9 +203,9 @@ public class Compare01 extends Dialog {
 			String t2key = c2_t2key.getText();
 			boolean result = Logic.compare02(t1, t2, t1date, t1key, t2date, t2key,false);
 			if (result) {
-				GUI.showMsgDialog(shell, "成功,请查看表[" + t1 + "_" + t2 + "]");
+				DialogFactory.showMsg(shell, "成功,请查看表[" + t1 + "_" + t2 + "]");
 			} else {
-				GUI.showErrDialog(shell, "失败,请检查运行日志:" + Log.getFileLocation());
+				DialogFactory.showErr(shell, "失败,请检查运行日志:" + Log.getFileLocation());
 			}
 		}));
 
