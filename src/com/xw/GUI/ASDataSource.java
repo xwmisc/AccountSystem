@@ -29,10 +29,18 @@ public class ASDataSource {
 		DB db = DB.getInstance();
 		return Arrays.asList(db.getColumns(tableName));
 	}
+	public static String getColumnType(String tableName,String columnName) throws IOException, SQLException {
+		DB db = DB.getInstance();
+		return db.getColumnType(tableName, columnName);
+	}
 
 	public static String[] getTables() throws SQLException {
 		DB db = DB.getInstance();
 		return db.getTables();
+	}
+	public static boolean existTable(String tableName) throws SQLException {
+		DB db = DB.getInstance();
+		return db.existTable(tableName);
 	}
 
 	public static void insert(String tableName, HashMap<String, Object> values) throws IOException, SQLException {

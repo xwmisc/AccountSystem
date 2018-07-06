@@ -4,6 +4,9 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.text.DateFormat;
+import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -189,8 +192,11 @@ public class Excel {
 			switch (cell.getCellTypeEnum()) {
 			case FORMULA:
 			case NUMERIC:
-				if (DateUtil.isCellDateFormatted(cell))
-					return cell.getDateCellValue();
+				short format = cell.getCellStyle().getDataFormat();
+				if(format == 14 || format == 31 || format == 57 || format == 58 || DateUtil.isCellDateFormatted(cell)) {
+					long days = (cell.getDateCellValue().getTime()-25567) * 24 * 60 *60*1000;
+					return DateUtil.getJavaDate(cell.getNumericCellValue());//new Date(days);
+				}
 				else
 					return cell.getNumericCellValue();
 			case STRING:

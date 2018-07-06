@@ -44,9 +44,12 @@ public class DB {
 		private SqliteDate() throws SQLException {
 			if (!existTable(DATE_TABLE)) {
 				try {
-					createEmptyTable(DATE_TABLE);
+					String sql = "create table " + DATE_TABLE + "(id integer primary key autoincrement)";
+					m_Connection.createStatement().executeUpdate(sql);
+					commit();
 					insertColumn(DATE_TABLE, TB_NAME, SQLITE3_TYPE.TYPE_TEXT);
 					insertColumn(DATE_TABLE, TB_CNAME, SQLITE3_TYPE.TYPE_TEXT);
+					commit();
 				} catch (SQLException e) {
 					if (e.getMessage().contains("already exists"))
 						return;
@@ -112,6 +115,8 @@ public class DB {
 			return;
 		String sql = "create table " + tableName + "(id integer primary key autoincrement)";
 		m_Connection.createStatement().executeUpdate(sql);
+		//清除日期
+		getSqliteDate().cleanDateColumn(tableName);
 	}
 
 	public void deleteTable(String tableName) throws SQLException {
@@ -122,6 +127,7 @@ public class DB {
 	}
 
 	public boolean existTable(String tableName) throws SQLException {
+		if(tableName.equals("")||tableName.contains(" "))return false;
 		DatabaseMetaData meta = m_Connection.getMetaData();
 		ResultSet rs = meta.getTables(null, null, tableName, new String[] { "TABLE" });
 		boolean flag = rs.next();
@@ -153,7 +159,7 @@ public class DB {
 		String sql = "alter table " + tableName + " add column " + colName + " " + type;
 		m_Connection.createStatement().executeUpdate(sql);
 		// 日期
-		if (type.contains("date"))
+		if (type.toLowerCase().contains("date"))
 			getSqliteDate().setDateColumn(tableName, new String[] { colName });
 	}
 
@@ -196,6 +202,12 @@ public class DB {
 
 	public String getColumnType(String tableName, String columnName) throws SQLException {
 
+		//日期
+		boolean isDate = getSqliteDate().isDateColumn(tableName, columnName);
+		if(isDate) {
+			return "DATE";
+		}
+			
 		ResultSet rSet = m_Connection.createStatement().executeQuery("select * from " + tableName);
 		ResultSetMetaData rsmd = rSet.getMetaData();
 
@@ -207,9 +219,7 @@ public class DB {
 				break;
 			}
 		}
-
 		String type = rsmd.getColumnTypeName(c);
-
 		rSet.close();
 		return type;
 	}

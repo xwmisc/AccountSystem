@@ -15,6 +15,8 @@ import CustomDialog.DialogFactory;
 
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Text;
+import org.eclipse.swt.events.SegmentEvent;
+import org.eclipse.swt.events.SegmentListener;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.widgets.Label;
@@ -24,12 +26,12 @@ public class Compare01 extends Dialog {
 
 	protected Object result;
 	protected Shell shell;
-	private Text c1_t1key;
-	private Text c1_t2key;
-	private Text c2_t1date;
-	private Text c2_t1key;
-	private Text c2_t2date;
-	private Text c2_t2key;
+	private Combo c1_t1key;
+	private Combo c1_t2key;
+	private Combo c2_t1date;
+	private Combo c2_t1key;
+	private Combo c2_t2date;
+	private Combo c2_t2key;
 	private Combo table2;
 	private Combo table1;
 
@@ -67,19 +69,17 @@ public class Compare01 extends Dialog {
 	 */
 	private void createContents() {
 		shell = new Shell(getParent(), getStyle());
-		shell.setSize(372, 379);
+		shell.setSize(454, 379);
 		shell.setText(getText());
 
 		Composite composite = new Composite(shell, SWT.BORDER);
 		composite.setBounds(10, 96, 338, 70);
 
-		c1_t1key = new Text(composite, SWT.BORDER);
+		c1_t1key = new Combo(composite, SWT.NONE);
 		c1_t1key.setBounds(10, 32, 98, 26);
-		c1_t1key.setText("支出");
 
-		c1_t2key = new Text(composite, SWT.BORDER);
+		c1_t2key = new Combo(composite, SWT.BORDER);
 		c1_t2key.setBounds(114, 32, 98, 26);
-		c1_t2key.setText("합계금액");
 
 		Button c1_start = new Button(composite, SWT.NONE);
 		c1_start.setBounds(230, 30, 98, 30);
@@ -107,42 +107,28 @@ public class Compare01 extends Dialog {
 		composite_1.setBounds(10, 10, 338, 80);
 
 		Button refresh_table = new Button(composite_1, SWT.NONE);
-		refresh_table.setBounds(229, 34, 98, 30);
+		refresh_table.setBounds(244, 7, 80, 60);
 		refresh_table.setText("刷新表");
 		refresh_table.addSelectionListener(GUI.OnClick(e -> {
 			refreshCombo(table1);
 			refreshCombo(table2);
 		}));
 
-		table2 = new Combo(composite_1, SWT.NONE);
-		table2.setBounds(114, 36, 98, 28);
-		table2.setItems(new String[] {});
-		table2.select(0);
-		refreshCombo(table2);
-
 		Label label_1 = new Label(composite_1, SWT.NONE);
-		label_1.setBounds(114, 10, 76, 20);
+		label_1.setBounds(10, 39, 39, 20);
 		label_1.setText("表2：");
 
-		table1 = new Combo(composite_1, SWT.NONE);
-		table1.setBounds(10, 36, 98, 28);
-		table1.setItems(new String[] {});
-		table1.select(0);
-		refreshCombo(table1);
-
 		Label label = new Label(composite_1, SWT.NONE);
-		label.setBounds(10, 10, 76, 20);
+		label.setBounds(10, 10, 39, 20);
 		label.setText("表1：");
 
 		Composite composite_2 = new Composite(shell, SWT.BORDER);
 		composite_2.setBounds(10, 172, 338, 135);
 
-		c2_t1date = new Text(composite_2, SWT.BORDER);
-		c2_t1date.setText("日期");
+		c2_t1date = new Combo(composite_2, SWT.BORDER);
 		c2_t1date.setBounds(10, 37, 98, 26);
 
-		c2_t1key = new Text(composite_2, SWT.BORDER);
-		c2_t1key.setText("합계금액");
+		c2_t1key = new Combo(composite_2, SWT.BORDER);
 		c2_t1key.setBounds(10, 95, 98, 26);
 
 		Button c2_start = new Button(composite_2, SWT.NONE);
@@ -155,7 +141,7 @@ public class Compare01 extends Dialog {
 			String t2date = c2_t2date.getText();
 			String t1key = c2_t1key.getText();
 			String t2key = c2_t2key.getText();
-			boolean result = Logic.compare02(t1, t2, t1date, t1key, t2date, t2key,true);
+			boolean result = Logic.compare02(t1, t2, t1date, t1key, t2date, t2key, true);
 			if (result) {
 				DialogFactory.showMsg(shell, "成功,请查看表[" + t1 + "_" + t2 + "]");
 			} else {
@@ -175,12 +161,10 @@ public class Compare01 extends Dialog {
 		label_6.setText("表2日期列名：");
 		label_6.setBounds(114, 11, 98, 20);
 
-		c2_t2date = new Text(composite_2, SWT.BORDER);
-		c2_t2date.setText("日期");
+		c2_t2date = new Combo(composite_2, SWT.BORDER);
 		c2_t2date.setBounds(114, 37, 98, 26);
 
-		c2_t2key = new Text(composite_2, SWT.BORDER);
-		c2_t2key.setText("当日总刷货返点");
+		c2_t2key = new Combo(composite_2, SWT.BORDER);
 		c2_t2key.setBounds(114, 95, 98, 26);
 
 		Label label_7 = new Label(composite_2, SWT.NONE);
@@ -190,7 +174,7 @@ public class Compare01 extends Dialog {
 		Label label_8 = new Label(composite_2, SWT.WRAP);
 		label_8.setText("日期统计");
 		label_8.setBounds(242, 11, 65, 26);
-		
+
 		Button c2_start2 = new Button(composite_2, SWT.NONE);
 		c2_start2.setText("分别求和");
 		c2_start2.setBounds(226, 91, 98, 30);
@@ -201,7 +185,7 @@ public class Compare01 extends Dialog {
 			String t2date = c2_t2date.getText();
 			String t1key = c2_t1key.getText();
 			String t2key = c2_t2key.getText();
-			boolean result = Logic.compare02(t1, t2, t1date, t1key, t2date, t2key,false);
+			boolean result = Logic.compare02(t1, t2, t1date, t1key, t2date, t2key, false);
 			if (result) {
 				DialogFactory.showMsg(shell, "成功,请查看表[" + t1 + "_" + t2 + "]");
 			} else {
@@ -209,6 +193,51 @@ public class Compare01 extends Dialog {
 			}
 		}));
 
+		table1 = new Combo(composite_1, SWT.NONE);
+		table1.setBounds(55, 7, 168, 28);
+		table1.setItems(new String[] {});
+		table1.select(0);
+		table1.addSegmentListener(new SegmentListener() {
+			@Override
+			public void getSegments(SegmentEvent event) {
+				String tableName = table1.getText();
+				try {
+					if (!ASDataSource.existTable(tableName))
+						return;
+				} catch (SQLException e) {
+					e.printStackTrace();
+					return;
+				}
+				GUI.fillWithColumnName(c1_t1key, tableName);
+				GUI.fillWithColumnName(c2_t1date, tableName);
+				GUI.fillWithColumnName(c2_t1key, tableName);
+
+			}
+		});
+		refreshCombo(table1);
+
+		table2 = new Combo(composite_1, SWT.NONE);
+		table2.setBounds(55, 39, 168, 28);
+		table2.setItems(new String[] {});
+		table2.select(0);
+		table2.addSegmentListener(new SegmentListener() {
+			@Override
+			public void getSegments(SegmentEvent event) {
+				String tableName = table2.getText();
+				try {
+					if (!ASDataSource.existTable(tableName))
+						return;
+				} catch (SQLException e) {
+					e.printStackTrace();
+					return;
+				}
+				GUI.fillWithColumnName(c1_t2key, tableName);
+				GUI.fillWithColumnName(c2_t2date, tableName);
+				GUI.fillWithColumnName(c2_t2key, tableName);
+
+			}
+		});
+		refreshCombo(table2);
 	}
 
 	private void refreshCombo(Combo combo_tableList) {
@@ -217,8 +246,11 @@ public class Compare01 extends Dialog {
 			String[] tables;
 			tables = ASDataSource.getTables();
 			combo_tableList.removeAll();
-			for (String table : tables)
+			for (String table : tables) {
+				if (table.contains("系统_"))
+					continue;
 				combo_tableList.add(table);
+			}
 			if (combo_tableList.getItemCount() > 0)
 				combo_tableList.select(0);
 		} catch (SQLException e1) {

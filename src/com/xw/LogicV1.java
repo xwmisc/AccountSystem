@@ -240,7 +240,6 @@ public class LogicV1 {
 						val.put("应收减少合计", receivable_decr);
 						vals2.add(val);
 					}
-
 				}
 			}
 

@@ -18,6 +18,8 @@ import org.eclipse.swt.events.ControlAdapter;
 import org.eclipse.swt.events.ControlEvent;
 import org.eclipse.swt.events.MouseEvent;
 import org.eclipse.swt.events.MouseListener;
+import org.eclipse.swt.events.SegmentEvent;
+import org.eclipse.swt.events.SegmentListener;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
@@ -40,6 +42,12 @@ import com.xw.excel.ExcelException;
 
 import CustomDialog.CheckboxBean;
 import CustomDialog.DialogFactory;
+import org.eclipse.swt.widgets.TabFolder;
+import org.eclipse.swt.widgets.TabItem;
+import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.DateTime;
+import org.eclipse.swt.widgets.Label;
+import org.eclipse.wb.swt.SWTResourceManager;
 
 public class GUI {
 
@@ -57,6 +65,33 @@ public class GUI {
 	private Button button_1;
 	private Button checkbox_seeSysTable;
 	private Button button_2;
+	private Table table_match;
+	private DateTime dateTime_match_from;
+	private DateTime dateTime_match_to;
+	private Text text_match_from;
+	private Text text_match_to;
+	private Combo combo_match;
+	private Label label_type;
+	private Button btn_add_match;
+
+	private ArrayList<matchBean> matches;
+	private Button btn_del_match;
+
+	class matchBean {
+		String column;
+		String type;
+		Object from;
+		Object to;
+
+		public matchBean(String column, String type, Object from, Object to) {
+			super();
+			this.column = column;
+			this.type = type;
+			this.from = from;
+			this.to = to;
+		}
+
+	}
 
 	/**
 	 * Launch the application.
@@ -91,13 +126,15 @@ public class GUI {
 	 * Create contents of the window.
 	 */
 	protected void createContents() {
+		matches = new ArrayList<>();
+
 		shell = new Shell();
-		shell.setSize(672, 542);
+		shell.setSize(900, 553);
 		shell.setText("SWT Application");
 
 		table = new Table(shell, SWT.BORDER | SWT.FULL_SELECTION | SWT.MULTI);
 		m_Table = new ASTable(table);
-		table.setBounds(219, 10, 435, 475);
+		table.setBounds(279, 10, 593, 486);
 		table.setHeaderVisible(true);
 		table.setLinesVisible(true);
 		shell.addControlListener(new ControlAdapter() {
@@ -113,26 +150,25 @@ public class GUI {
 
 		combo_tableList = new Combo(shell, SWT.NONE);
 		combo_tableList.setItems(new String[] {});
-		combo_tableList.setBounds(10, 10, 128, 28);
+		combo_tableList.setBounds(10, 10, 188, 28);
 		combo_tableList.select(0);
 
-		text_info = new Text(shell, SWT.BORDER | SWT.MULTI);
-		text_info.setBounds(11, 337, 202, 148);
-
 		btn_query = new Button(shell, SWT.NONE);
-		btn_query.setBounds(10, 81, 98, 30);
+		btn_query.setBounds(10, 81, 124, 30);
 		btn_query.setText("查询表");
 		btn_query.addSelectionListener(OnClick(e -> {
 			// 检索
 			String tableName = combo_tableList.getText();
 			m_Table.setCurrentTableName(tableName);
 			m_Table.reloadData();
+			// 匹配
+			fillWithColumnName(combo_match,m_Table.getCurrentTableName());
 		}));
 
 		btn_add = new Button(shell, SWT.NONE);
 		// btn_add.setEnabled(false);
 		btn_add.setText("添加");
-		btn_add.setBounds(10, 117, 98, 30);
+		btn_add.setBounds(10, 117, 124, 30);
 		btn_add.addSelectionListener(OnClick(e -> {
 			new Add(shell, shell.getStyle()).open();
 			// new AdjustImage(shell, shell.getStyle()).open();
@@ -141,7 +177,7 @@ public class GUI {
 		btn_delete = new Button(shell, SWT.NONE);
 		// btn_delete.setEnabled(false);
 		btn_delete.setText("删除行");
-		btn_delete.setBounds(114, 117, 98, 30);
+		btn_delete.setBounds(149, 117, 124, 30);
 		btn_delete.addSelectionListener(OnClick(e -> {
 			// 删除
 			m_Table.deleteSelectData();
@@ -160,7 +196,7 @@ public class GUI {
 
 		btn_refreshTable = new Button(shell, SWT.NONE);
 		btn_refreshTable.setText("刷新");
-		btn_refreshTable.setBounds(10, 45, 202, 30);
+		btn_refreshTable.setBounds(10, 45, 263, 30);
 		btn_refreshTable.addSelectionListener(OnClick(e -> {
 			refreshCombo();
 		}));
@@ -172,7 +208,7 @@ public class GUI {
 			}
 		});
 		brn_dTable.setText("删除表");
-		brn_dTable.setBounds(114, 81, 98, 30);
+		brn_dTable.setBounds(149, 81, 124, 30);
 		brn_dTable.addSelectionListener(OnClick(e -> {
 			try {
 				String tableName = combo_tableList.getText();
@@ -185,14 +221,14 @@ public class GUI {
 
 		button = new Button(shell, SWT.NONE);
 		button.setText("比较01");
-		button.setBounds(115, 153, 98, 30);
+		button.setBounds(149, 153, 124, 30);
 		button.addSelectionListener(OnClick(e -> {
 			new Compare01(shell, shell.getStyle()).open();
 		}));
 
 		button_1 = new Button(shell, SWT.NONE);
 		button_1.setText("导出XSLX");
-		button_1.setBounds(10, 153, 98, 30);
+		button_1.setBounds(10, 153, 124, 30);
 		button_1.addSelectionListener(OnClick(e -> {
 			boolean result = Logic.exportXLSX(combo_tableList.getText());
 			if (result) {
@@ -203,12 +239,152 @@ public class GUI {
 		}));
 
 		checkbox_seeSysTable = new Button(shell, SWT.CHECK);
-		checkbox_seeSysTable.setBounds(144, 9, 69, 28);
+		checkbox_seeSysTable.setBounds(204, 9, 69, 28);
 		checkbox_seeSysTable.setText("系统表");
+
+		TabFolder tabFolder = new TabFolder(shell, SWT.NONE);
+		tabFolder.setBounds(10, 189, 263, 307);
+
+		TabItem tabItem_1 = new TabItem(tabFolder, SWT.NONE);
+		tabItem_1.setText("记录");
+
+		text_info = new Text(tabFolder, SWT.BORDER | SWT.MULTI);
+		tabItem_1.setControl(text_info);
+
+		TabItem tbtmNewItem = new TabItem(tabFolder, SWT.NONE);
+		tbtmNewItem.setText("筛选");
+
+		Composite composite_1 = new Composite(tabFolder, SWT.NONE);
+		tbtmNewItem.setControl(composite_1);
+
+		label_type = new Label(composite_1, SWT.NONE);
+		label_type.setBounds(135, 144, 120, 20);
+		label_type.setText("类型:");
+
+		combo_match = new Combo(composite_1, SWT.NONE);
+		combo_match.setBounds(0, 110, 120, 28);
+		combo_match.addSegmentListener(new SegmentListener() {
+			@Override
+			public void getSegments(SegmentEvent arg0) {
+				try {
+					label_type.setText("类型:");
+					String column_name = combo_match.getText();
+					String type = ASDataSource.getColumnType(m_Table.getCurrentTableName(), column_name);
+					label_type.setText("类型:" + type);
+				} catch (IOException | SQLException e) {
+				}
+			}
+		});
+
+		table_match = new Table(composite_1, SWT.BORDER | SWT.FULL_SELECTION);
+		table_match.setFont(SWTResourceManager.getFont("Microsoft YaHei UI", 8, SWT.BOLD));
+		table_match.setBounds(0, 0, 255, 107);
+		table_match.setHeaderVisible(true);
+		table_match.setLinesVisible(true);
+		TableColumn tc = new TableColumn(table_match, SWT.NONE);
+		tc.setText("列名");
+		tc.setWidth(76);
+		tc = new TableColumn(table_match, SWT.NONE);
+		tc.setText("规则");
+		tc.setWidth(200);
+
+		dateTime_match_from = new DateTime(composite_1, SWT.BORDER);
+		dateTime_match_from.setBounds(0, 202, 110, 28);
+
+		dateTime_match_to = new DateTime(composite_1, SWT.BORDER);
+		dateTime_match_to.setBounds(145, 202, 110, 28);
+
+		text_match_from = new Text(composite_1, SWT.BORDER);
+		text_match_from.setBounds(0, 170, 110, 26);
+
+		text_match_to = new Text(composite_1, SWT.BORDER);
+		text_match_to.setBounds(145, 170, 110, 26);
+
+		Button radio_as = new Button(composite_1, SWT.RADIO);
+		radio_as.setBounds(10, 144, 60, 20);
+		radio_as.setText("等于");
+		radio_as.addSelectionListener(OnClick(c -> {
+			text_match_to.setEnabled(false);
+			dateTime_match_to.setEnabled(false);
+		}));
+
+		Button radio_between = new Button(composite_1, SWT.RADIO);
+		radio_between.setSelection(true);
+		radio_between.setText("介于");
+		radio_between.setBounds(71, 144, 60, 20);
+		radio_between.addSelectionListener(OnClick(c -> {
+			text_match_to.setEnabled(true);
+			dateTime_match_to.setEnabled(true);
+		}));
+
+		Label label_1 = new Label(composite_1, SWT.NONE);
+		label_1.setBounds(118, 202, 22, 20);
+		label_1.setText("至");
+
+		Label label_2 = new Label(composite_1, SWT.NONE);
+		label_2.setText("至");
+		label_2.setBounds(118, 173, 22, 20);
+
+		Button btn_match = new Button(composite_1, SWT.NONE);
+		btn_match.setBounds(10, 236, 235, 30);
+		btn_match.setText("开始筛选");
+		btn_match.addSelectionListener(OnClick(c -> {
+			try {
+				m_Table.applyMatch();
+			} catch (IOException | SQLException e1) {
+				e1.printStackTrace();
+				Log.appendln(e1.toString());
+			}
+		}));
+
+		btn_add_match = new Button(composite_1, SWT.NONE);
+		btn_add_match.setText("添加规则");
+		btn_add_match.setBounds(126, 108, 72, 30);
+		btn_add_match.addSelectionListener(OnClick(c -> {
+			try {
+				refreshMatch();
+				String column_name = combo_match.getText();
+				String type = ASDataSource.getColumnType(m_Table.getCurrentTableName(), column_name).toLowerCase();
+				boolean isBetween = radio_between.getSelection();
+				Object from = null;
+				Object to = null;
+				if (type.contains("date")) {
+					from = new Date(dateTime_match_from.getYear(), dateTime_match_from.getMonth(),
+							dateTime_match_from.getDay());
+					if (isBetween) {
+						to = new Date(dateTime_match_to.getYear(), dateTime_match_to.getMonth(),
+								dateTime_match_to.getDay());
+					}
+				} else if (type.contains("real") || type.contains("int")) {
+					from = Double.parseDouble(text_match_from.getText());
+					if (isBetween) {
+						to = Double.parseDouble(text_match_to.getText());
+					}
+				} else {
+					from = text_match_from.getText();
+				}
+				matches.add(new matchBean(column_name, type, from, to));
+				refreshMatch();
+			} catch (IOException | SQLException e) {
+				DialogFactory.showErr(shell, e.toString());
+			}
+		}));
+
+		btn_del_match = new Button(composite_1, SWT.NONE);
+		btn_del_match.setText("删除");
+		btn_del_match.setBounds(202, 108, 48, 30);
+		btn_del_match.addSelectionListener(OnClick(c -> {
+			for (TableItem item : table_match.getSelection()) {
+				matches.remove(item.getData());
+				table_match.remove(table_match.indexOf(item));
+				item.dispose();
+			}
+		}));
 
 		try {
 			LogicV1.setup();
 			Config.loadSetting();
+
 		} catch (SQLException | IOException | ExcelException e1) {
 			e1.printStackTrace();
 			Log.appendln(e1.toString());
@@ -218,6 +394,33 @@ public class GUI {
 
 		// AdjustImage a = new AdjustImage(shell, shell.getStyle());
 		// a.open();
+	}
+	public static void fillWithColumnName(Combo combo,String tableName) {
+		try {
+			if(combo==null)return;
+			combo.removeAll();
+			if(!ASDataSource.existTable(tableName))return;
+			List<String> columns;
+			columns = ASDataSource.getColumns(tableName);
+			for (String column : columns)
+				combo.add(column);
+			if (columns.size() > 0)
+				combo.select(0);
+		} catch (IOException | SQLException e1) {
+			Log.appendln(e1.toString());
+			e1.printStackTrace();
+		}
+	}
+
+	private void refreshMatch() {
+		table_match.removeAll();
+		for (matchBean val : matches) {
+			TableItem tableItem = new TableItem(table_match, SWT.NONE);
+			tableItem.setText(0, val.column);
+			tableItem.setText(1, "" + (val.to == null ? "等于" : "介于") + val.from.toString()
+					+ (val.to == null ? "" : "至" + val.to.toString()));
+			tableItem.setData(val);
+		}
 	}
 
 	private void refreshCombo() {
@@ -354,6 +557,14 @@ public class GUI {
 			}).forEach(each -> {
 				final TableColumn column = new TableColumn(m_Table, SWT.NONE);
 				column.setWidth(evalWidth(each));
+				Object type = "";
+				try {
+					type = ASDataSource.getColumnType(m_tableName, each);
+				} catch (IOException | SQLException e) {
+					e.printStackTrace();
+					Log.appendln(e.toString());
+				}
+				column.setData(type);
 				column.setText(each);
 				column.addSelectionListener(new sortListener(column));
 			});
@@ -363,33 +574,114 @@ public class GUI {
 			return str.getBytes().length * 100 / 16 < 100 ? 100 : str.getBytes().length * 100 / 16;
 		}
 
-		public void addItem(List<HashMap<String, Object>> item_list) {
+		public void addItem(List<HashMap<String, Object>> vals) {
 			final SimpleDateFormat fmt = new SimpleDateFormat("MM月dd日 E HH:mm:ss:SS yyyy");
 
-			for (HashMap<String, Object> item : item_list) {
+			for (HashMap<String, Object> val : vals) {
 				TableItem tableItem = new TableItem(table, SWT.NONE);
-				tableItem.setData(item);
+				tableItem.setData(val);
 				for (TableColumn column : m_Table.getColumns()) {
 					String attr = column.getText();
-					Object something = item.get(attr);
-					boolean isDate = attr.contains("时间") || attr.contains("日期");
+					Object something = val.get(attr);
+					// boolean isDate = attr.contains("时间") || attr.contains("日期");
 					if (something instanceof Date) {
 						Date date = (Date) something;
 						tableItem.setText(m_Table.indexOf(column), fmt.format(date));
 					} else if (something instanceof Number) {
-						if (isDate) {
-							String text = fmt.format(new Date(((Number) something).longValue()));
-							tableItem.setText(m_Table.indexOf(column), text);
-						} else {
-							String text = new BigDecimal(((Number) something).doubleValue()).toString();
-							tableItem.setText(m_Table.indexOf(column), text);
-						}
+						// if (isDate) {
+						// String text = fmt.format(new Date(((Number) something).longValue()));
+						// tableItem.setText(m_Table.indexOf(column), text);
+						// } else {
+						String text = new BigDecimal(((Number) something).doubleValue()).toString();
+						tableItem.setText(m_Table.indexOf(column), text);
+						// }
 					} else {
 						String text = Optional.ofNullable(something).orElse("").toString();
 						tableItem.setText(m_Table.indexOf(column), text);
 					}
 				}
 			}
+		}
+
+		public void applyMatch() throws IOException, SQLException {
+			Log.appendln("applyMatch");
+			if (matches.size() == 0)
+				return;
+			for (matchBean match : matches) {
+
+				// 存在列 且 类型相同
+				boolean isExisted = false;
+				int cIndex = 0;
+				for (TableColumn column : m_Table.getColumns()) {
+					Log.appendln("text:" + column.getText() + " " + match.column);
+					if (column.getText().equals(match.column)) {
+						String type = ASDataSource.getColumnType(m_tableName, match.column);
+						if (type.toLowerCase().contains(match.type.toLowerCase())) {
+							Log.appendln("type:" + type + " " + match.type);
+							cIndex = m_Table.indexOf(column);
+							isExisted = true;
+							break;
+						}
+					}
+				}
+				if (!isExisted)
+					continue;
+
+				// 删除
+				boolean isBetween = (match.to != null);
+				for (TableItem item : m_Table.getItems()) {
+					HashMap val = (HashMap) item.getData();
+					boolean isMatch = true; // 默认不删除
+					try {
+						if (match.type.contains("date")) {
+							Date date = (Date) val.get(match.column);
+							Date date_match = (Date) match.from;
+							if (!isBetween) {
+								isMatch = (date_match.getMonth() == date.getMonth()
+										&& date_match.getDate() == date.getDate());
+								Log.appendln("" + date_match.getMonth() + " " + date.getMonth());
+								Log.appendln("" + date_match.getDate() + " " + date.getDate());
+							} else {
+								Date date_match2 = (Date) match.to;
+								date.setYear(date_match.getYear());
+								isMatch = (date_match.getTime() <= date.getTime()
+										&& date.getTime() <= date_match2.getTime());
+								Log.appendln(
+										"" + date_match.getTime() + " " + date.getTime() + " " + date_match2.getTime());
+							}
+						} else if (match.type.contains("real") || match.type.contains("int")) {
+							Object _num = val.get(match.column);
+							Double num;
+							Double num_match = (Double) match.from;
+							if (_num instanceof Integer) {
+								num = 0.0 + (Integer) _num;
+							} else {
+								num = (Double) val.get(match.column);
+							}
+							if (!isBetween) {
+								isMatch = num == num_match;
+							} else {
+								Double num_match2 = (Double) match.to;
+								isMatch = (num_match <= num && num <= num_match2);
+							}
+						} else {
+							String text = (String) val.get(match.column);
+							String text_match = (String) match.from;
+							isMatch = text.equals(text_match);
+						}
+					} catch (ClassCastException | NullPointerException e) {
+					}
+					// 删除项
+					if (!isMatch) {
+						Log.appendln("" + isMatch);
+						int itemIndex = m_Table.indexOf(item);
+						m_Table.remove(itemIndex);
+						item.dispose();
+					}
+				} // 删除结束
+
+			}
+
 		}
 
 		public void removeAllColumn() {
