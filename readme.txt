@@ -1,4 +1,10 @@
-1.确保account.bat和account.jar以及account_lib文件夹放在同一目录下
+1.确保以下4个文件放在同一目录下:
+[
+	account.jar,
+	account.bat,
+	log4j.properties,
+	account_lib文件夹
+]
 2.运行account.bat,之后便会看到用户界面
 
 配置文件:

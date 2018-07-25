@@ -206,6 +206,7 @@ public class Compare01 extends Dialog {
 						return;
 				} catch (SQLException e) {
 					e.printStackTrace();
+					Log.logger().error(e.toString(), e);
 					return;
 				}
 				GUI.fillWithColumnName(c1_t1key, tableName);
@@ -229,6 +230,7 @@ public class Compare01 extends Dialog {
 						return;
 				} catch (SQLException e) {
 					e.printStackTrace();
+					Log.logger().error(e.toString(), e);
 					return;
 				}
 				GUI.fillWithColumnName(c1_t2key, tableName);
@@ -255,6 +257,7 @@ public class Compare01 extends Dialog {
 				combo_tableList.select(0);
 		} catch (SQLException e1) {
 			e1.printStackTrace();
+			Log.logger().error(e1.toString(), e1);
 		}
 	}
 }

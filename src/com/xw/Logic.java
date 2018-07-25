@@ -81,8 +81,7 @@ public class Logic {
 				sdf = new SimpleDateFormat(format);
 
 			final boolean replaceTable = true;
-			Log.clean();
-			Log.appendln("file " + file.getName());
+			Log.logger().info("file " + file.getName());
 
 			// 初始化DB
 			DB db = DB.getInstance();
@@ -90,19 +89,19 @@ public class Logic {
 			tableName = tableName.substring(0, tableName.indexOf("."));
 			// 建表
 			if (db.existTable(tableName)) {
-				Log.appendln("file has been recorded " + file.getName());
+				Log.logger().info("file has been recorded " + file.getName());
 				if (replaceTable) {
 					db.deleteTable(tableName);
 					db.commit();
 					db.createEmptyTable(tableName);
 					db.commit();
-					Log.appendln("createEmptyTable " + tableName);
+					Log.logger().info("createEmptyTable " + tableName);
 				} else
 					return false;
 			} else {
 				db.createEmptyTable(tableName);
 				db.commit();
-				Log.appendln("createEmptyTable " + tableName);
+				Log.logger().info("createEmptyTable " + tableName);
 			}
 
 			// 初始化excel
@@ -135,10 +134,10 @@ public class Logic {
 
 			int cols = sheet.getColCount(startRow);
 			int beginRow = start > 0 ? start : (startRow + 1);
-			Log.appendln("cols: " + cols);
-			Log.appendln("startRow: " + startRow);
-			Log.appendln("beginRow: " + beginRow);
-			Log.appendln("rows: " + endRow);
+			Log.logger().info("cols: " + cols);
+			Log.logger().info("startRow: " + startRow);
+			Log.logger().info("beginRow: " + beginRow);
+			Log.logger().info("rows: " + endRow);
 
 			HashMap[] vals = new HashMap[endRow - (beginRow - 1)];// 欲添加数据源
 
@@ -230,7 +229,8 @@ public class Logic {
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-			Log.appendln(e.toString());
+			Log.logger().error(e.toString(), e);
+			
 		}
 		return false;
 
@@ -277,7 +277,6 @@ public class Logic {
 	public static boolean compare01(String table1, String table2, String keyWord1, String keyWord2) {
 
 		try {
-			Log.clean();
 			// 初始化DB
 			DB db = DB.getInstance();
 			if (!db.existTable(table1) || !db.existTable(table1))
@@ -310,7 +309,7 @@ public class Logic {
 							}
 						}
 						if (flag) {
-							Log.appendln("-" + word1);
+							Log.logger().info("-" + word1);
 							matrix[0][i][j]++;
 						}
 					}
@@ -335,7 +334,7 @@ public class Logic {
 							}
 						}
 						if (flag) {
-							Log.appendln("-" + word1);
+							Log.logger().info("-" + word1);
 							matrix[1][j][i]++;
 						}
 					}
@@ -347,11 +346,11 @@ public class Logic {
 					matrix[2][i][j] = matrix[0][i][j] + matrix[1][i][j];
 					log += matrix[2][i][j] + " ";
 					if (matrix[2][i][j] == 2)
-						Log.appendln("-" + (double) list1.get(i).get(keyWord1));
+						Log.logger().info("-" + (double) list1.get(i).get(keyWord1));
 				}
 				log += "\r\n";
 			}
-			Log.appendln(log);
+			Log.logger().info(log);
 			int list1size = list1.size();
 			int list2size = list2.size();
 			list1.removeIf(o -> {
@@ -375,19 +374,19 @@ public class Logic {
 			final boolean replaceTable = true;
 			String tableName = table1 + "_" + table2;
 			if (db.existTable(tableName)) {
-				Log.appendln(tableName + " existed");
+				Log.logger().info(tableName + " existed");
 				if (replaceTable) {
 					db.deleteTable(tableName);
 					db.commit();
 					db.createEmptyTable(tableName);
 					db.commit();
-					Log.appendln("createEmptyTable " + tableName);
+					Log.logger().info("createEmptyTable " + tableName);
 				} else
 					return false;
 			} else {
 				db.createEmptyTable(tableName);
 				db.commit();
-				Log.appendln("createEmptyTable " + tableName);
+				Log.logger().info("createEmptyTable " + tableName);
 			}
 
 			// id分类
@@ -425,9 +424,10 @@ public class Logic {
 			db.commit();
 
 			return true;
-		} catch (SQLException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
-			Log.appendln(e.toString());
+			Log.logger().error(e.toString(), e);
+			
 		}
 		return false;
 	}
@@ -435,7 +435,6 @@ public class Logic {
 	public static boolean compare02(String table1, String table2, String date1, String key1, String date2, String key2,
 			boolean onlyTable1) {
 		try {
-			Log.clean();
 
 			// 初始化DB
 			DB db = DB.getInstance();
@@ -446,19 +445,19 @@ public class Logic {
 			final boolean replaceTable = true;
 			String tableName = table1 + "_" + table2;
 			if (db.existTable(tableName)) {
-				Log.appendln(tableName + " existed");
+				Log.logger().info(tableName + " existed");
 				if (replaceTable) {
 					db.deleteTable(tableName);
 					db.commit();
 					db.createEmptyTable(tableName);
 					db.commit();
-					Log.appendln("createEmptyTable " + tableName);
+					Log.logger().info("createEmptyTable " + tableName);
 				} else
 					return false;
 			} else {
 				db.createEmptyTable(tableName);
 				db.commit();
-				Log.appendln("createEmptyTable " + tableName);
+				Log.logger().info("createEmptyTable " + tableName);
 			}
 
 			//
@@ -515,11 +514,11 @@ public class Logic {
 					double num1 = sum1.get(key);
 					double num2 = sum2.get(key);
 					if (num1 == num2) {
-						Log.appendln("-" + num1 + "-" + (key == null ? "" : key.toString()));
+						Log.logger().info("-" + num1 + "-" + (key == null ? "" : key.toString()));
 						added.add(key);
 						sum2.remove(key);
 					} else {
-						Log.appendln("num " + num1 + "-" + num2);
+						Log.logger().info("num " + num1 + "-" + num2);
 					}
 				}
 			}
@@ -553,7 +552,8 @@ public class Logic {
 			return true;
 		} catch (Exception e) {
 			e.printStackTrace();
-			Log.appendln(e.toString());
+			Log.logger().error(e.toString(), e);
+			
 		}
 		return false;
 	}
@@ -573,7 +573,7 @@ public class Logic {
 				String title = colNames[index];
 				sheet.write(1, index + 1, title);
 				types[index] = db.getColumnType(tableName, title);
-				Log.appendln(title + ":" + types[index]);
+				Log.logger().info(title + ":" + types[index]);
 			}
 			for (int i = 0; i < data.size(); i++) {
 				HashMap<String, Object> each = data.get(i);
@@ -593,6 +593,7 @@ public class Logic {
 			return true;
 		} catch (Exception e) {
 			e.printStackTrace();
+			Log.logger().error(e.toString(), e);
 		}
 		return false;
 	}

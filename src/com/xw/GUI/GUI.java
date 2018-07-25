@@ -13,6 +13,14 @@ import java.util.Locale;
 import java.util.Optional;
 import java.util.function.Consumer;
 
+import org.apache.log4j.Appender;
+import org.apache.log4j.BasicConfigurator;
+import org.apache.log4j.Layout;
+import org.apache.log4j.Logger;
+import org.apache.log4j.PropertyConfigurator;
+import org.apache.log4j.spi.ErrorHandler;
+import org.apache.log4j.spi.Filter;
+import org.apache.log4j.spi.LoggingEvent;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.ControlAdapter;
 import org.eclipse.swt.events.ControlEvent;
@@ -50,7 +58,6 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.wb.swt.SWTResourceManager;
 
 public class GUI {
-
 	protected Shell shell;
 	private Table table;
 	private Button btn_add;
@@ -100,10 +107,12 @@ public class GUI {
 	 */
 	public static void main(String[] args) {
 		try {
+			PropertyConfigurator.configure("log4j.properties");
 			GUI window = new GUI();
 			window.open();
 		} catch (Exception e) {
 			e.printStackTrace();
+			Log.logger().error(e.toString(), e);
 		}
 	}
 
@@ -162,7 +171,7 @@ public class GUI {
 			m_Table.setCurrentTableName(tableName);
 			m_Table.reloadData();
 			// 匹配
-			fillWithColumnName(combo_match,m_Table.getCurrentTableName());
+			fillWithColumnName(combo_match, m_Table.getCurrentTableName());
 		}));
 
 		btn_add = new Button(shell, SWT.NONE);
@@ -216,6 +225,7 @@ public class GUI {
 				refreshCombo();
 			} catch (SQLException e1) {
 				e1.printStackTrace();
+				Log.logger().error(e1.toString(), e1);
 			}
 		}));
 
@@ -333,7 +343,8 @@ public class GUI {
 				m_Table.applyMatch();
 			} catch (IOException | SQLException e1) {
 				e1.printStackTrace();
-				Log.appendln(e1.toString());
+				Log.logger().error(e1.toString(), e1);
+				
 			}
 		}));
 
@@ -387,19 +398,23 @@ public class GUI {
 
 		} catch (SQLException | IOException | ExcelException e1) {
 			e1.printStackTrace();
-			Log.appendln(e1.toString());
-			DialogFactory.showErr(shell, "数据库或配置文件错误,请调整或关闭程序再试");
+			Log.logger().error(e1.toString(), e1);
+			DialogFactory.showErr(shell, "数据库或配置文件错误,请关闭程序再试(请确保本程序仅有一个进程)");
+
 		}
 		refreshCombo();
 
 		// AdjustImage a = new AdjustImage(shell, shell.getStyle());
 		// a.open();
 	}
-	public static void fillWithColumnName(Combo combo,String tableName) {
+
+	public static void fillWithColumnName(Combo combo, String tableName) {
 		try {
-			if(combo==null)return;
+			if (combo == null)
+				return;
 			combo.removeAll();
-			if(!ASDataSource.existTable(tableName))return;
+			if (!ASDataSource.existTable(tableName))
+				return;
 			List<String> columns;
 			columns = ASDataSource.getColumns(tableName);
 			for (String column : columns)
@@ -407,8 +422,9 @@ public class GUI {
 			if (columns.size() > 0)
 				combo.select(0);
 		} catch (IOException | SQLException e1) {
-			Log.appendln(e1.toString());
+			
 			e1.printStackTrace();
+			Log.logger().error(e1.toString(), e1);
 		}
 	}
 
@@ -438,6 +454,7 @@ public class GUI {
 				combo_tableList.select(0);
 		} catch (SQLException e1) {
 			e1.printStackTrace();
+			Log.logger().error(e1.toString(), e1);
 		}
 	}
 
@@ -517,6 +534,7 @@ public class GUI {
 				});
 			} catch (Exception e1) {
 				e1.printStackTrace();
+				Log.logger().error(e1.toString(), e1);
 			}
 		}
 
@@ -537,6 +555,7 @@ public class GUI {
 				reloadData();
 			} catch (Exception e1) {
 				e1.printStackTrace();
+				Log.logger().error(e1.toString(), e1);
 			}
 		}
 
@@ -562,7 +581,8 @@ public class GUI {
 					type = ASDataSource.getColumnType(m_tableName, each);
 				} catch (IOException | SQLException e) {
 					e.printStackTrace();
-					Log.appendln(e.toString());
+					Log.logger().error(e.toString(), e);
+					
 				}
 				column.setData(type);
 				column.setText(each);
@@ -604,7 +624,7 @@ public class GUI {
 		}
 
 		public void applyMatch() throws IOException, SQLException {
-			Log.appendln("applyMatch");
+			Log.logger().info("applyMatch");
 			if (matches.size() == 0)
 				return;
 			for (matchBean match : matches) {
@@ -613,11 +633,11 @@ public class GUI {
 				boolean isExisted = false;
 				int cIndex = 0;
 				for (TableColumn column : m_Table.getColumns()) {
-					Log.appendln("text:" + column.getText() + " " + match.column);
+					Log.logger().info("text:" + column.getText() + " " + match.column);
 					if (column.getText().equals(match.column)) {
 						String type = ASDataSource.getColumnType(m_tableName, match.column);
 						if (type.toLowerCase().contains(match.type.toLowerCase())) {
-							Log.appendln("type:" + type + " " + match.type);
+							Log.logger().info("type:" + type + " " + match.type);
 							cIndex = m_Table.indexOf(column);
 							isExisted = true;
 							break;
@@ -639,14 +659,14 @@ public class GUI {
 							if (!isBetween) {
 								isMatch = (date_match.getMonth() == date.getMonth()
 										&& date_match.getDate() == date.getDate());
-								Log.appendln("" + date_match.getMonth() + " " + date.getMonth());
-								Log.appendln("" + date_match.getDate() + " " + date.getDate());
+								Log.logger().info("" + date_match.getMonth() + " " + date.getMonth());
+								Log.logger().info("" + date_match.getDate() + " " + date.getDate());
 							} else {
 								Date date_match2 = (Date) match.to;
 								date.setYear(date_match.getYear());
 								isMatch = (date_match.getTime() <= date.getTime()
 										&& date.getTime() <= date_match2.getTime());
-								Log.appendln(
+								Log.logger().info(
 										"" + date_match.getTime() + " " + date.getTime() + " " + date_match2.getTime());
 							}
 						} else if (match.type.contains("real") || match.type.contains("int")) {
@@ -673,7 +693,7 @@ public class GUI {
 					}
 					// 删除项
 					if (!isMatch) {
-						Log.appendln("" + isMatch);
+						Log.logger().info("" + isMatch);
 						int itemIndex = m_Table.indexOf(item);
 						m_Table.remove(itemIndex);
 						item.dispose();

@@ -447,6 +447,7 @@ public class Add extends Dialog {
 		} catch (Exception e) {
 			DialogFactory.showErr(shell, e.toString());
 			e.printStackTrace();
+			Log.logger().error(e.toString(), e);
 		}
 	}
 
@@ -461,6 +462,7 @@ public class Add extends Dialog {
 		} catch (Exception e) {
 			DialogFactory.showErr(shell, e.toString());
 			e.printStackTrace();
+			Log.logger().error(e.toString(), e);
 		}
 	}
 
@@ -475,6 +477,7 @@ public class Add extends Dialog {
 		} catch (Exception e) {
 			DialogFactory.showErr(shell, e.toString());
 			e.printStackTrace();
+			Log.logger().error(e.toString(), e);
 		}
 	}
 
@@ -508,13 +511,14 @@ public class Add extends Dialog {
 		} catch (Exception e) {
 			DialogFactory.showErr(shell, e.toString());
 			e.printStackTrace();
+			Log.logger().error(e.toString(), e);
 		}
 	}
 
 	public void refreshData() {
 		try {
 			Config.loadSetting();
-			
+
 			combo_CMP.removeAll();
 			ASDataSource.get(DBManager.CMP).forEach(e -> {
 				combo_CMP.add(e.get("name"));
@@ -536,6 +540,7 @@ public class Add extends Dialog {
 
 		} catch (IOException | SQLException | com.xw.excel.ExcelException e) {
 			e.printStackTrace();
+			Log.logger().error(e.toString(), e);
 		}
 	}
 }

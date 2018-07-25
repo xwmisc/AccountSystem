@@ -32,7 +32,7 @@ public class Config {
 	public static void loadSetting() throws IOException, ExcelException, SQLException {
 		DB db = DB.getInstance();
 		File file = new File("config.xlsx");
-		Log.appendln(file.getAbsolutePath());
+		Log.logger().info(file.getAbsolutePath());
 		if (!file.exists())
 			saveSetting();
 
@@ -95,7 +95,7 @@ public class Config {
 	public static void saveSetting() throws SQLException, IOException, ExcelException {
 		DB db = DB.getInstance();
 		File file = new File("config.xlsx");
-		Log.appendln(file.getAbsolutePath());
+		Log.logger().info(file.getAbsolutePath());
 		file.mkdirs();
 		// 初始化excel
 		Excel excel = Excel.createExcel(file.getAbsolutePath(), true);

@@ -117,7 +117,7 @@ public class LogicV1 {
 
 	public static boolean account(File account_folder) {
 		try {
-			Log.appendln(account_folder.getPath());
+			Log.logger().info(account_folder.getPath());
 
 			final String s1_name = "对账结果";
 			final String s2_name = "应收检查";
@@ -127,15 +127,15 @@ public class LogicV1 {
 
 			for (File file : account_folder.listFiles()) {
 				if (file.getName().matches("[0-9]{4}折扣表\\.xlsx?$")) {
-					Log.appendln("折扣表" + file.getAbsolutePath());
+					Log.logger().info("折扣表" + file.getAbsolutePath());
 					addRecord1(file);
 				}
 				if (file.getName().matches("往来对账数据.*\\.xlsx?$")) {
-					Log.appendln("对账表" + file.getAbsolutePath());
+					Log.logger().info("对账表" + file.getAbsolutePath());
 					addRecord2(file);
 				}
 				if (file.getName().matches("返点收入余额表.*\\.xlsx?$")) {
-					Log.appendln("返点收入余额表" + file.getAbsolutePath());
+					Log.logger().info("返点收入余额表" + file.getAbsolutePath());
 					addRecord3(file);
 				}
 			}
@@ -262,7 +262,7 @@ public class LogicV1 {
 					point_condition.put("款项类型", "刷货返点");
 					account_point = db.query(table1, new String[] { "应收减少" }, point_condition);
 				} catch (Exception e) {
-					e.printStackTrace();
+					e.printStackTrace();Log.logger().error(e.toString(),e);
 					break;
 				}
 				double point1 = record_point.size() == 0 ? 0.0
@@ -283,11 +283,11 @@ public class LogicV1 {
 			db.insert(table5, vals2);
 			db.insert(table6, vals3);
 			db.commit();
-			Log.appendln("录入完成!");
+			Log.logger().info("录入完成!");
 
 		} catch (Exception e) {
-			e.printStackTrace();
-			Log.appendln(e.toString());
+			e.printStackTrace();Log.logger().error(e.toString(),e);
+			
 			return false;
 		}
 		return true;
@@ -300,7 +300,7 @@ public class LogicV1 {
 	 * @throws Exception
 	 */
 	public static void addRecord1(File file) throws Exception {
-		// Log.appendln("addRecord1");
+		// Log.logger().info("addRecord1");
 		DB db = DB.getInstance();
 
 		Excel excel = new Excel(file);
@@ -378,28 +378,66 @@ public class LogicV1 {
 	 * @throws DBException
 	 */
 	public static void addRecord2(File file) throws ExcelException, IOException, SQLException {
-		// Log.appendln("addRecord2");
+		// Log.logger().info("addRecord2");
 
 		Excel excel = new Excel(file);
 		Sheet sheet = excel.getSheets().get(0);
 
+		// 找到标题行
+		int row_start = 0;
+		int col_rowNo = 0;
+		int col_date = 0;
+		int col_type = 0;
+		int col_incr = 0;
+		int col_decr = 0;
+		int col_remark = 0;
+		for (row_start = 1; row_start < sheet.getRowCount(); row_start++) {
+			col_rowNo = 0;
+			col_date = 0;
+			col_type = 0;
+			col_incr = 0;
+			col_decr = 0;
+			col_remark = 0;
+			for (int col = 1; col <= sheet.getColCount(row_start); col++) {
+				String text = sheet.readString(row_start, col, "");
+				if (text.contains("行号"))
+					col_rowNo = col;
+				else if (text.contains("日期"))
+					col_date = col;
+				else if (text.contains("单据编号"))
+					col_type = col;
+				else if (text.contains("应收增加"))
+					col_incr = col;
+				else if (text.contains("应收减少"))
+					col_decr = col;
+				else if (text.contains("备注"))
+					col_remark = col;
+			}
+			if (col_rowNo > 0 && col_date > 0 && col_type > 0 && col_incr > 0 && col_decr > 0 && col_remark > 0)
+				break;
+		}
+		if (!(col_rowNo > 0 && col_date > 0 && col_type > 0 && col_incr > 0 && col_decr > 0 && col_remark > 0))
+			return;
+		row_start += 1;
+
+		//找到员工
 		DB db = DB.getInstance();
 		List<HashMap<String, Object>> emps = db.query(EMP, new String[] { "name" }, null);
 
 		List vals = new ArrayList();
 
 		// 遍历所有数据行
-		for (int i = 0; i < sheet.getRowCount() - 10; i++) {
+		for (int i = 0; row_start + i < sheet.getRowCount(); i++) {
 
-			int row = 10 + i;
+			int row = row_start + i;
 
 			// 跳过无行号的行
-			if ((Double) sheet.readDouble(row, 1, 0) != 0) {
+			if ((Double) sheet.readDouble(row, col_rowNo, 0) != 0) {
 
 				// 备注合法性验证
 				String remark = "";
 				try {
-					String _remark = sheet.readString(row, 11, "");
+					String _remark = sheet.readString(row, col_remark, "");
 					remark = FJ.convert((_remark).trim(), 0);
 				} catch (Exception e) {
 					remark = "";
@@ -422,28 +460,28 @@ public class LogicV1 {
 					val.put("日期", sp_remark[0]);
 					val.put("款项类型", sp_remark[1]);
 					val.put("姓名", staff_name);
-					val.put("单据编号", sheet.readString(row, 3, ""));
-					double num = sheet.readDouble(row, 5, 0);
+					val.put("单据编号", sheet.readString(row, col_type, ""));
+					double num = sheet.readDouble(row, col_incr, 0);
 					val.put("应收增加", num);
-					num = sheet.readDouble(row, 6, 0);
+					num = sheet.readDouble(row, col_decr, 0);
 					val.put("应收减少", num);
 					val.put("备注", remark);
 
 					vals.add(val);
-					// Log.appendln("ValidData:|" + "i:" + i + "|" + sheet.read(row, 1) + "|"
+					// Log.logger().info("ValidData:|" + "i:" + i + "|" + sheet.read(row, 1) + "|"
 					// + remark);
-					sheet.setColor(row, 11, IndexedColors.WHITE.getIndex());
+					sheet.setColor(row, col_remark, IndexedColors.WHITE.getIndex());
 					continue;
 				}
 			}
 			// 未满足条件执行以下
 			try {
-//				 Log.appendln("IgnoreError|" + "i:" + i + "|" + sheet.read(row, 1) + "|"
-//				 + sheet.read(row, 11));
-				sheet.setColor(row, 11, IndexedColors.RED.getIndex());
+				// Log.logger().info("IgnoreError|" + "i:" + i + "|" + sheet.read(row, 1) + "|"
+				// + sheet.read(row, 11));
+				sheet.setColor(row, col_remark, IndexedColors.RED.getIndex());
 			} catch (Exception e) {
-				e.printStackTrace();
-				Log.appendln(e.toString());
+				e.printStackTrace();Log.logger().error(e.toString(),e);
+				
 			}
 		}
 
@@ -452,8 +490,42 @@ public class LogicV1 {
 		excel.closeWithSave();
 	}
 
+	/**
+	 * 
+	 * @param sheet
+	 * @return 对账表的标题行+1
+	 */
+	private static int findStartRow_R2(Sheet sheet) {
+		for (int row = 1; row < sheet.getRowCount(); row++) {
+			boolean flag_rowNo = false;
+			boolean flag_date = false;
+			boolean flag_type = false;
+			boolean flag_incr = false;
+			boolean flag_decr = false;
+			boolean flag_remark = false;
+			for (int col = 1; col <= sheet.getColCount(row); col++) {
+				String text = sheet.readString(row, col, "");
+				if (text.contains("行号"))
+					flag_rowNo = true;
+				else if (text.contains("日期"))
+					flag_date = true;
+				else if (text.contains("单据编号"))
+					flag_type = true;
+				else if (text.contains("应收增加"))
+					flag_incr = true;
+				else if (text.contains("应收减少"))
+					flag_decr = true;
+				else if (text.contains("备注"))
+					flag_remark = true;
+			}
+			if (flag_rowNo && flag_date && flag_type && flag_incr && flag_decr && flag_remark)
+				return row + 1;
+		}
+		return -1;
+	}
+
 	public static void addRecord3(File file) throws ExcelException, IOException, SQLException {
-		Log.appendln("addRecord3");
+		Log.logger().info("addRecord3");
 
 		Excel excel = new Excel(file);
 		Sheet sheet = excel.getSheets().get(0);
@@ -473,20 +545,20 @@ public class LogicV1 {
 				else
 					date = (Date) obj;
 				if (null == date) {
-					Log.appendln("inValidData:|" + date);
+					Log.logger().info("inValidData:|" + date);
 					break;
 				}
 			} catch (ClassCastException e) {
 				break;
 			}
-			// Log.appendln("ValidData:|" + date);
+			// Log.logger().info("ValidData:|" + date);
 
 			// 数据
 			HashMap val = new HashMap<>();
 
 			String date_text = ((date.getMonth() + 1 < 10) ? "0" : "") + (date.getMonth() + 1)
 					+ ((date.getDate() < 10) ? "0" : "") + date.getDate();
-//			Log.appendln("ValidData:|" + date_text);
+			// Log.logger().info("ValidData:|" + date_text);
 			val.put("日期", date_text);
 
 			double num = sheet.readDouble(row_add + base_row, 2, 0);
