@@ -586,7 +586,6 @@ public class Logic {
 					} else {
 						sheet.write(row, index + 1, obj);
 					}
-
 				}
 			}
 			excel.closeWithSave();

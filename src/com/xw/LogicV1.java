@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -262,7 +263,8 @@ public class LogicV1 {
 					point_condition.put("款项类型", "刷货返点");
 					account_point = db.query(table1, new String[] { "应收减少" }, point_condition);
 				} catch (Exception e) {
-					e.printStackTrace();Log.logger().error(e.toString(),e);
+					e.printStackTrace();
+					Log.logger().error(e.toString(), e);
 					break;
 				}
 				double point1 = record_point.size() == 0 ? 0.0
@@ -286,8 +288,9 @@ public class LogicV1 {
 			Log.logger().info("录入完成!");
 
 		} catch (Exception e) {
-			e.printStackTrace();Log.logger().error(e.toString(),e);
-			
+			e.printStackTrace();
+			Log.logger().error(e.toString(), e);
+
 			return false;
 		}
 		return true;
@@ -379,6 +382,8 @@ public class LogicV1 {
 	 */
 	public static void addRecord2(File file) throws ExcelException, IOException, SQLException {
 		// Log.logger().info("addRecord2");
+		// 用于匹配的日期格式
+		SimpleDateFormat dateFmt = new SimpleDateFormat("yyyy-MM-dd");
 
 		Excel excel = new Excel(file);
 		Sheet sheet = excel.getSheets().get(0);
@@ -391,6 +396,8 @@ public class LogicV1 {
 		int col_incr = 0;
 		int col_decr = 0;
 		int col_remark = 0;
+		int col_blank = 0;
+		boolean flag_blank_exist = false;// 原本是否存在标记
 		for (row_start = 1; row_start < sheet.getRowCount(); row_start++) {
 			col_rowNo = 0;
 			col_date = 0;
@@ -398,6 +405,7 @@ public class LogicV1 {
 			col_incr = 0;
 			col_decr = 0;
 			col_remark = 0;
+			col_blank = 0;
 			for (int col = 1; col <= sheet.getColCount(row_start); col++) {
 				String text = sheet.readString(row_start, col, "");
 				if (text.contains("行号"))
@@ -412,22 +420,42 @@ public class LogicV1 {
 					col_decr = col;
 				else if (text.contains("备注"))
 					col_remark = col;
+				else if (text.contains("对账标记")) {
+					flag_blank_exist = true;
+					col_blank = col;
+				} else if (!flag_blank_exist && text.contains(""))
+					col_blank = col;
+
 			}
 			if (col_rowNo > 0 && col_date > 0 && col_type > 0 && col_incr > 0 && col_decr > 0 && col_remark > 0)
 				break;
 		}
 		if (!(col_rowNo > 0 && col_date > 0 && col_type > 0 && col_incr > 0 && col_decr > 0 && col_remark > 0))
 			return;
+		// 初始化对账标记
+		if (!flag_blank_exist) {
+			boolean flag_blank = true;
+			for (int i = row_start; i < sheet.getRowCount(); i++) {
+				if (!sheet.readString(i, col_blank, "").equals("")) {
+					flag_blank = false;
+					break;
+				}
+			}
+			if (col_blank == 0 || flag_blank == false)
+				col_blank = sheet.getColCount(row_start) + 1;
+			sheet.write(row_start, col_blank, "对账标记");
+		}
+		
 		row_start += 1;
 
-		//找到员工
+		// 找到员工
 		DB db = DB.getInstance();
 		List<HashMap<String, Object>> emps = db.query(EMP, new String[] { "name" }, null);
 
 		List vals = new ArrayList();
 
 		// 遍历所有数据行
-		for (int i = 0; row_start + i < sheet.getRowCount(); i++) {
+		for (int i = 0; row_start + i <= sheet.getRowCount(); i++) {
 
 			int row = row_start + i;
 
@@ -453,11 +481,24 @@ public class LogicV1 {
 					}
 				}
 
+				// 日期合法性检验
+				String date = sheet.readString(row, col_date, "");
+				String fmtDate = null;
+				try {
+					Date _date = dateFmt.parse(date);
+					fmtDate = specialDate2String(_date);
+				} catch (Exception e) {
+					fmtDate = null;
+					e.printStackTrace();
+					Log.logger().warn(e.toString(), e);
+				}
+
 				String sp_remark[] = remark.split(" ");
-				if (staff_name != null && sp_remark.length > 2) {
-					// 数据
+				if (staff_name != null && sp_remark.length > 2 && (fmtDate != null && fmtDate.equals(sp_remark[0]))) {
+
+					// 全都合法,现在录入数据
 					HashMap<String, Object> val = new HashMap<>();
-					val.put("日期", sp_remark[0]);
+					val.put("日期", fmtDate);
 					val.put("款项类型", sp_remark[1]);
 					val.put("姓名", staff_name);
 					val.put("单据编号", sheet.readString(row, col_type, ""));
@@ -470,7 +511,10 @@ public class LogicV1 {
 					vals.add(val);
 					// Log.logger().info("ValidData:|" + "i:" + i + "|" + sheet.read(row, 1) + "|"
 					// + remark);
-					sheet.setColor(row, col_remark, IndexedColors.WHITE.getIndex());
+					// 改变颜色
+					// sheet.setColor(row, col_remark, IndexedColors.WHITE.getIndex());
+					// 对账标记
+					sheet.write(row, col_blank, 1);
 					continue;
 				}
 			}
@@ -478,16 +522,27 @@ public class LogicV1 {
 			try {
 				// Log.logger().info("IgnoreError|" + "i:" + i + "|" + sheet.read(row, 1) + "|"
 				// + sheet.read(row, 11));
-				sheet.setColor(row, col_remark, IndexedColors.RED.getIndex());
+				// 改变颜色
+				// sheet.setColor(row, col_remark, IndexedColors.RED.getIndex());
+				// 对账标记
+				sheet.write(row, col_blank, 0);
 			} catch (Exception e) {
-				e.printStackTrace();Log.logger().error(e.toString(),e);
-				
+				e.printStackTrace();
+				Log.logger().error(e.toString(), e);
+
 			}
 		}
 
 		db.insert(table2, vals);
 
 		excel.closeWithSave();
+	}
+
+	private static String specialDate2String(Date date) {
+		int day = date.getDate();
+		int month = date.getMonth() + 1;// 0-11
+		String fmt = (month < 10 ? "0" : "") + month + (day < 10 ? "0" : "") + day;
+		return fmt;
 	}
 
 	/**

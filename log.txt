@@ -61,3 +61,204 @@
 	at org.eclipse.swt.widgets.Display.readAndDispatch(Display.java:3817)
 	at com.xw.GUI.GUI.open(GUI.java:128)
 	at com.xw.GUI.GUI.main(GUI.java:112)
+2018-07-26 23:43:27 [ INFO] - Log4j -Config.java(35)(loadSetting) -E:\sw-default\eclipse\myworkspace\AccountSystem\config.xlsx
+  2018-07-26 23:43:29 [ INFO] - Log4j -Config.java(35)(loadSetting) -E:\sw-default\eclipse\myworkspace\AccountSystem\config.xlsx
+  2018-07-26 23:43:44 [ INFO] - Log4j -LogicV1.java(121)(account) -C:\Users\acer-pc\Documents\WeChat Files\wxid_qyi4s5vkakv222\Files\对账5月
+  2018-07-26 23:43:44 [ INFO] - Log4j -LogicV1.java(131)(account) -折扣表C:\Users\acer-pc\Documents\WeChat Files\wxid_qyi4s5vkakv222\Files\对账5月\0501折扣表.xlsx
+  2018-07-26 23:43:44 [ INFO] - Log4j -LogicV1.java(131)(account) -折扣表C:\Users\acer-pc\Documents\WeChat Files\wxid_qyi4s5vkakv222\Files\对账5月\0502折扣表.xlsx
+  2018-07-26 23:43:44 [ INFO] - Log4j -LogicV1.java(131)(account) -折扣表C:\Users\acer-pc\Documents\WeChat Files\wxid_qyi4s5vkakv222\Files\对账5月\0503折扣表.xlsx
+  2018-07-26 23:43:44 [ INFO] - Log4j -LogicV1.java(131)(account) -折扣表C:\Users\acer-pc\Documents\WeChat Files\wxid_qyi4s5vkakv222\Files\对账5月\0504折扣表.xlsx
+  2018-07-26 23:43:44 [ INFO] - Log4j -LogicV1.java(131)(account) -折扣表C:\Users\acer-pc\Documents\WeChat Files\wxid_qyi4s5vkakv222\Files\对账5月\0505折扣表.xlsx
+  2018-07-26 23:43:44 [ INFO] - Log4j -LogicV1.java(131)(account) -折扣表C:\Users\acer-pc\Documents\WeChat Files\wxid_qyi4s5vkakv222\Files\对账5月\0507折扣表.xlsx
+  2018-07-26 23:43:44 [ INFO] - Log4j -LogicV1.java(131)(account) -折扣表C:\Users\acer-pc\Documents\WeChat Files\wxid_qyi4s5vkakv222\Files\对账5月\0508折扣表.xlsx
+  2018-07-26 23:43:45 [ INFO] - Log4j -LogicV1.java(131)(account) -折扣表C:\Users\acer-pc\Documents\WeChat Files\wxid_qyi4s5vkakv222\Files\对账5月\0509折扣表.xlsx
+  2018-07-26 23:43:45 [ INFO] - Log4j -LogicV1.java(131)(account) -折扣表C:\Users\acer-pc\Documents\WeChat Files\wxid_qyi4s5vkakv222\Files\对账5月\0510折扣表.xlsx
+  2018-07-26 23:43:45 [ INFO] - Log4j -LogicV1.java(131)(account) -折扣表C:\Users\acer-pc\Documents\WeChat Files\wxid_qyi4s5vkakv222\Files\对账5月\0511折扣表.xlsx
+  2018-07-26 23:43:45 [ INFO] - Log4j -LogicV1.java(131)(account) -折扣表C:\Users\acer-pc\Documents\WeChat Files\wxid_qyi4s5vkakv222\Files\对账5月\0512折扣表.xlsx
+  2018-07-26 23:43:45 [ INFO] - Log4j -LogicV1.java(131)(account) -折扣表C:\Users\acer-pc\Documents\WeChat Files\wxid_qyi4s5vkakv222\Files\对账5月\0514折扣表.xlsx
+  2018-07-26 23:43:45 [ INFO] - Log4j -LogicV1.java(131)(account) -折扣表C:\Users\acer-pc\Documents\WeChat Files\wxid_qyi4s5vkakv222\Files\对账5月\0515折扣表.xlsx
+  2018-07-26 23:43:45 [ INFO] - Log4j -LogicV1.java(131)(account) -折扣表C:\Users\acer-pc\Documents\WeChat Files\wxid_qyi4s5vkakv222\Files\对账5月\0516折扣表.xlsx
+  2018-07-26 23:43:45 [ INFO] - Log4j -LogicV1.java(131)(account) -折扣表C:\Users\acer-pc\Documents\WeChat Files\wxid_qyi4s5vkakv222\Files\对账5月\0517折扣表.xlsx
+  2018-07-26 23:43:45 [ INFO] - Log4j -LogicV1.java(135)(account) -对账表C:\Users\acer-pc\Documents\WeChat Files\wxid_qyi4s5vkakv222\Files\对账5月\往来对账数据.xls
+  2018-07-26 23:43:46 [ INFO] - Log4j -LogicV1.java(288)(account) -录入完成!
+  2018-07-26 23:47:15 [ INFO] - Log4j -Config.java(35)(loadSetting) -E:\sw-default\eclipse\myworkspace\AccountSystem\config.xlsx
+  2018-07-26 23:47:23 [ INFO] - Log4j -Config.java(35)(loadSetting) -E:\sw-default\eclipse\myworkspace\AccountSystem\config.xlsx
+  2018-07-26 23:47:24 [ INFO] - Log4j -LogicV1.java(121)(account) -C:\Users\acer-pc\Documents\WeChat Files\wxid_qyi4s5vkakv222\Files\对账5月
+  2018-07-26 23:47:24 [ INFO] - Log4j -LogicV1.java(131)(account) -折扣表C:\Users\acer-pc\Documents\WeChat Files\wxid_qyi4s5vkakv222\Files\对账5月\0501折扣表.xlsx
+  2018-07-26 23:47:24 [ INFO] - Log4j -LogicV1.java(131)(account) -折扣表C:\Users\acer-pc\Documents\WeChat Files\wxid_qyi4s5vkakv222\Files\对账5月\0502折扣表.xlsx
+  2018-07-26 23:47:24 [ INFO] - Log4j -LogicV1.java(131)(account) -折扣表C:\Users\acer-pc\Documents\WeChat Files\wxid_qyi4s5vkakv222\Files\对账5月\0503折扣表.xlsx
+  2018-07-26 23:47:25 [ INFO] - Log4j -LogicV1.java(131)(account) -折扣表C:\Users\acer-pc\Documents\WeChat Files\wxid_qyi4s5vkakv222\Files\对账5月\0504折扣表.xlsx
+  2018-07-26 23:47:25 [ INFO] - Log4j -LogicV1.java(131)(account) -折扣表C:\Users\acer-pc\Documents\WeChat Files\wxid_qyi4s5vkakv222\Files\对账5月\0505折扣表.xlsx
+  2018-07-26 23:47:25 [ INFO] - Log4j -LogicV1.java(131)(account) -折扣表C:\Users\acer-pc\Documents\WeChat Files\wxid_qyi4s5vkakv222\Files\对账5月\0507折扣表.xlsx
+  2018-07-26 23:47:25 [ INFO] - Log4j -LogicV1.java(131)(account) -折扣表C:\Users\acer-pc\Documents\WeChat Files\wxid_qyi4s5vkakv222\Files\对账5月\0508折扣表.xlsx
+  2018-07-26 23:47:25 [ INFO] - Log4j -LogicV1.java(131)(account) -折扣表C:\Users\acer-pc\Documents\WeChat Files\wxid_qyi4s5vkakv222\Files\对账5月\0509折扣表.xlsx
+  2018-07-26 23:47:25 [ INFO] - Log4j -LogicV1.java(131)(account) -折扣表C:\Users\acer-pc\Documents\WeChat Files\wxid_qyi4s5vkakv222\Files\对账5月\0510折扣表.xlsx
+  2018-07-26 23:47:25 [ INFO] - Log4j -LogicV1.java(131)(account) -折扣表C:\Users\acer-pc\Documents\WeChat Files\wxid_qyi4s5vkakv222\Files\对账5月\0511折扣表.xlsx
+  2018-07-26 23:47:25 [ INFO] - Log4j -LogicV1.java(131)(account) -折扣表C:\Users\acer-pc\Documents\WeChat Files\wxid_qyi4s5vkakv222\Files\对账5月\0512折扣表.xlsx
+  2018-07-26 23:47:25 [ INFO] - Log4j -LogicV1.java(131)(account) -折扣表C:\Users\acer-pc\Documents\WeChat Files\wxid_qyi4s5vkakv222\Files\对账5月\0514折扣表.xlsx
+  2018-07-26 23:47:25 [ INFO] - Log4j -LogicV1.java(131)(account) -折扣表C:\Users\acer-pc\Documents\WeChat Files\wxid_qyi4s5vkakv222\Files\对账5月\0515折扣表.xlsx
+  2018-07-26 23:47:25 [ INFO] - Log4j -LogicV1.java(131)(account) -折扣表C:\Users\acer-pc\Documents\WeChat Files\wxid_qyi4s5vkakv222\Files\对账5月\0516折扣表.xlsx
+  2018-07-26 23:47:25 [ INFO] - Log4j -LogicV1.java(131)(account) -折扣表C:\Users\acer-pc\Documents\WeChat Files\wxid_qyi4s5vkakv222\Files\对账5月\0517折扣表.xlsx
+  2018-07-26 23:47:25 [ INFO] - Log4j -LogicV1.java(135)(account) -对账表C:\Users\acer-pc\Documents\WeChat Files\wxid_qyi4s5vkakv222\Files\对账5月\往来对账数据.xls
+  2018-07-26 23:47:26 [ INFO] - Log4j -LogicV1.java(288)(account) -录入完成!
+  2018-07-26 23:50:07 [ INFO] - Log4j -Config.java(35)(loadSetting) -E:\sw-default\eclipse\myworkspace\AccountSystem\config.xlsx
+  2018-07-26 23:50:08 [ INFO] - Log4j -Config.java(35)(loadSetting) -E:\sw-default\eclipse\myworkspace\AccountSystem\config.xlsx
+  2018-07-26 23:50:15 [ INFO] - Log4j -LogicV1.java(121)(account) -C:\Users\acer-pc\Documents\WeChat Files\wxid_qyi4s5vkakv222\Files\对账5月
+  2018-07-26 23:50:15 [ INFO] - Log4j -LogicV1.java(131)(account) -折扣表C:\Users\acer-pc\Documents\WeChat Files\wxid_qyi4s5vkakv222\Files\对账5月\0501折扣表.xlsx
+  2018-07-26 23:50:16 [ INFO] - Log4j -LogicV1.java(131)(account) -折扣表C:\Users\acer-pc\Documents\WeChat Files\wxid_qyi4s5vkakv222\Files\对账5月\0502折扣表.xlsx
+  2018-07-26 23:50:16 [ INFO] - Log4j -LogicV1.java(131)(account) -折扣表C:\Users\acer-pc\Documents\WeChat Files\wxid_qyi4s5vkakv222\Files\对账5月\0503折扣表.xlsx
+  2018-07-26 23:50:16 [ INFO] - Log4j -LogicV1.java(131)(account) -折扣表C:\Users\acer-pc\Documents\WeChat Files\wxid_qyi4s5vkakv222\Files\对账5月\0504折扣表.xlsx
+  2018-07-26 23:50:16 [ INFO] - Log4j -LogicV1.java(131)(account) -折扣表C:\Users\acer-pc\Documents\WeChat Files\wxid_qyi4s5vkakv222\Files\对账5月\0505折扣表.xlsx
+  2018-07-26 23:50:16 [ INFO] - Log4j -LogicV1.java(131)(account) -折扣表C:\Users\acer-pc\Documents\WeChat Files\wxid_qyi4s5vkakv222\Files\对账5月\0507折扣表.xlsx
+  2018-07-26 23:50:16 [ INFO] - Log4j -LogicV1.java(131)(account) -折扣表C:\Users\acer-pc\Documents\WeChat Files\wxid_qyi4s5vkakv222\Files\对账5月\0508折扣表.xlsx
+  2018-07-26 23:50:16 [ INFO] - Log4j -LogicV1.java(131)(account) -折扣表C:\Users\acer-pc\Documents\WeChat Files\wxid_qyi4s5vkakv222\Files\对账5月\0509折扣表.xlsx
+  2018-07-26 23:50:16 [ INFO] - Log4j -LogicV1.java(131)(account) -折扣表C:\Users\acer-pc\Documents\WeChat Files\wxid_qyi4s5vkakv222\Files\对账5月\0510折扣表.xlsx
+  2018-07-26 23:50:16 [ INFO] - Log4j -LogicV1.java(131)(account) -折扣表C:\Users\acer-pc\Documents\WeChat Files\wxid_qyi4s5vkakv222\Files\对账5月\0511折扣表.xlsx
+  2018-07-26 23:50:16 [ INFO] - Log4j -LogicV1.java(131)(account) -折扣表C:\Users\acer-pc\Documents\WeChat Files\wxid_qyi4s5vkakv222\Files\对账5月\0512折扣表.xlsx
+  2018-07-26 23:50:16 [ INFO] - Log4j -LogicV1.java(131)(account) -折扣表C:\Users\acer-pc\Documents\WeChat Files\wxid_qyi4s5vkakv222\Files\对账5月\0514折扣表.xlsx
+  2018-07-26 23:50:16 [ INFO] - Log4j -LogicV1.java(131)(account) -折扣表C:\Users\acer-pc\Documents\WeChat Files\wxid_qyi4s5vkakv222\Files\对账5月\0515折扣表.xlsx
+  2018-07-26 23:50:17 [ INFO] - Log4j -LogicV1.java(131)(account) -折扣表C:\Users\acer-pc\Documents\WeChat Files\wxid_qyi4s5vkakv222\Files\对账5月\0516折扣表.xlsx
+  2018-07-26 23:50:17 [ INFO] - Log4j -LogicV1.java(131)(account) -折扣表C:\Users\acer-pc\Documents\WeChat Files\wxid_qyi4s5vkakv222\Files\对账5月\0517折扣表.xlsx
+  2018-07-26 23:50:17 [ INFO] - Log4j -LogicV1.java(135)(account) -对账表C:\Users\acer-pc\Documents\WeChat Files\wxid_qyi4s5vkakv222\Files\对账5月\往来对账数据.xls
+  2018-07-26 23:50:17 [ERROR] - Log4j -LogicV1.java(292)(account) -java.io.FileNotFoundException: C:\Users\acer-pc\Documents\WeChat Files\wxid_qyi4s5vkakv222\Files\对账5月\往来对账数据.xls (另一个程序正在使用此文件，进程无法访问。)
+  java.io.FileNotFoundException: C:\Users\acer-pc\Documents\WeChat Files\wxid_qyi4s5vkakv222\Files\对账5月\往来对账数据.xls (另一个程序正在使用此文件，进程无法访问。)
+	at java.io.FileOutputStream.open0(Native Method)
+	at java.io.FileOutputStream.open(FileOutputStream.java:270)
+	at java.io.FileOutputStream.<init>(FileOutputStream.java:213)
+	at java.io.FileOutputStream.<init>(FileOutputStream.java:162)
+	at com.xw.excel.Excel.save(Excel.java:280)
+	at com.xw.excel.Excel.closeWithSave(Excel.java:290)
+	at com.xw.LogicV1.addRecord2(LogicV1.java:538)
+	at com.xw.LogicV1.account(LogicV1.java:136)
+	at com.xw.GUI.Add$3.drop(Add.java:416)
+	at org.eclipse.swt.dnd.DNDListener.handleEvent(DNDListener.java:91)
+	at org.eclipse.swt.widgets.EventTable.sendEvent(EventTable.java:86)
+	at org.eclipse.swt.widgets.Display.sendEvent(Display.java:4428)
+	at org.eclipse.swt.widgets.Widget.sendEvent(Widget.java:1079)
+	at org.eclipse.swt.widgets.Widget.sendEvent(Widget.java:1103)
+	at org.eclipse.swt.widgets.Widget.sendEvent(Widget.java:1088)
+	at org.eclipse.swt.widgets.Widget.notifyListeners(Widget.java:802)
+	at org.eclipse.swt.dnd.DropTarget.Drop(DropTarget.java:464)
+	at org.eclipse.swt.dnd.DropTarget.Drop_64(DropTarget.java:398)
+	at org.eclipse.swt.dnd.DropTarget$1.method6(DropTarget.java:262)
+	at org.eclipse.swt.internal.ole.win32.COMObject.callback6(COMObject.java:119)
+	at org.eclipse.swt.internal.win32.OS.DispatchMessageW(Native Method)
+	at org.eclipse.swt.internal.win32.OS.DispatchMessage(OS.java:2560)
+	at org.eclipse.swt.widgets.Display.readAndDispatch(Display.java:3815)
+	at com.xw.GUI.Add.open(Add.java:94)
+	at com.xw.GUI.GUI.lambda$1(GUI.java:182)
+	at com.xw.GUI.GUI$4.widgetSelected(GUI.java:470)
+	at org.eclipse.swt.widgets.TypedListener.handleEvent(TypedListener.java:249)
+	at org.eclipse.swt.widgets.EventTable.sendEvent(EventTable.java:86)
+	at org.eclipse.swt.widgets.Display.sendEvent(Display.java:4428)
+	at org.eclipse.swt.widgets.Widget.sendEvent(Widget.java:1079)
+	at org.eclipse.swt.widgets.Display.runDeferredEvents(Display.java:4238)
+	at org.eclipse.swt.widgets.Display.readAndDispatch(Display.java:3817)
+	at com.xw.GUI.GUI.open(GUI.java:128)
+	at com.xw.GUI.GUI.main(GUI.java:112)
+2018-07-26 23:50:48 [ INFO] - Log4j -Logic.java(84)(recordFromFile) -file 对账5月
+  2018-07-26 23:50:48 [ERROR] - Log4j -Logic.java(232)(recordFromFile) -java.lang.StringIndexOutOfBoundsException: String index out of range: -1
+  java.lang.StringIndexOutOfBoundsException: String index out of range: -1
+	at java.lang.String.substring(String.java:1967)
+	at com.xw.Logic.recordFromFile(Logic.java:89)
+	at com.xw.Logic.recordFromFile(Logic.java:71)
+	at com.xw.Logic.recordFromFile(Logic.java:62)
+	at com.xw.GUI.Add$2.drop(Add.java:359)
+	at org.eclipse.swt.dnd.DNDListener.handleEvent(DNDListener.java:91)
+	at org.eclipse.swt.widgets.EventTable.sendEvent(EventTable.java:86)
+	at org.eclipse.swt.widgets.Display.sendEvent(Display.java:4428)
+	at org.eclipse.swt.widgets.Widget.sendEvent(Widget.java:1079)
+	at org.eclipse.swt.widgets.Widget.sendEvent(Widget.java:1103)
+	at org.eclipse.swt.widgets.Widget.sendEvent(Widget.java:1088)
+	at org.eclipse.swt.widgets.Widget.notifyListeners(Widget.java:802)
+	at org.eclipse.swt.dnd.DropTarget.Drop(DropTarget.java:464)
+	at org.eclipse.swt.dnd.DropTarget.Drop_64(DropTarget.java:398)
+	at org.eclipse.swt.dnd.DropTarget$1.method6(DropTarget.java:262)
+	at org.eclipse.swt.internal.ole.win32.COMObject.callback6(COMObject.java:119)
+	at org.eclipse.swt.internal.win32.OS.DispatchMessageW(Native Method)
+	at org.eclipse.swt.internal.win32.OS.DispatchMessage(OS.java:2560)
+	at org.eclipse.swt.widgets.Display.readAndDispatch(Display.java:3815)
+	at com.xw.GUI.Add.open(Add.java:94)
+	at com.xw.GUI.GUI.lambda$1(GUI.java:182)
+	at com.xw.GUI.GUI$4.widgetSelected(GUI.java:470)
+	at org.eclipse.swt.widgets.TypedListener.handleEvent(TypedListener.java:249)
+	at org.eclipse.swt.widgets.EventTable.sendEvent(EventTable.java:86)
+	at org.eclipse.swt.widgets.Display.sendEvent(Display.java:4428)
+	at org.eclipse.swt.widgets.Widget.sendEvent(Widget.java:1079)
+	at org.eclipse.swt.widgets.Display.runDeferredEvents(Display.java:4238)
+	at org.eclipse.swt.widgets.Display.readAndDispatch(Display.java:3817)
+	at com.xw.GUI.GUI.open(GUI.java:128)
+	at com.xw.GUI.GUI.main(GUI.java:112)
+2018-07-26 23:50:52 [ INFO] - Log4j -LogicV1.java(121)(account) -C:\Users\acer-pc\Documents\WeChat Files\wxid_qyi4s5vkakv222\Files\对账5月
+  2018-07-26 23:50:52 [ INFO] - Log4j -LogicV1.java(131)(account) -折扣表C:\Users\acer-pc\Documents\WeChat Files\wxid_qyi4s5vkakv222\Files\对账5月\0501折扣表.xlsx
+  2018-07-26 23:50:53 [ INFO] - Log4j -LogicV1.java(131)(account) -折扣表C:\Users\acer-pc\Documents\WeChat Files\wxid_qyi4s5vkakv222\Files\对账5月\0502折扣表.xlsx
+  2018-07-26 23:50:53 [ INFO] - Log4j -LogicV1.java(131)(account) -折扣表C:\Users\acer-pc\Documents\WeChat Files\wxid_qyi4s5vkakv222\Files\对账5月\0503折扣表.xlsx
+  2018-07-26 23:50:53 [ INFO] - Log4j -LogicV1.java(131)(account) -折扣表C:\Users\acer-pc\Documents\WeChat Files\wxid_qyi4s5vkakv222\Files\对账5月\0504折扣表.xlsx
+  2018-07-26 23:50:53 [ INFO] - Log4j -LogicV1.java(131)(account) -折扣表C:\Users\acer-pc\Documents\WeChat Files\wxid_qyi4s5vkakv222\Files\对账5月\0505折扣表.xlsx
+  2018-07-26 23:50:53 [ INFO] - Log4j -LogicV1.java(131)(account) -折扣表C:\Users\acer-pc\Documents\WeChat Files\wxid_qyi4s5vkakv222\Files\对账5月\0507折扣表.xlsx
+  2018-07-26 23:50:53 [ INFO] - Log4j -LogicV1.java(131)(account) -折扣表C:\Users\acer-pc\Documents\WeChat Files\wxid_qyi4s5vkakv222\Files\对账5月\0508折扣表.xlsx
+  2018-07-26 23:50:53 [ INFO] - Log4j -LogicV1.java(131)(account) -折扣表C:\Users\acer-pc\Documents\WeChat Files\wxid_qyi4s5vkakv222\Files\对账5月\0509折扣表.xlsx
+  2018-07-26 23:50:53 [ INFO] - Log4j -LogicV1.java(131)(account) -折扣表C:\Users\acer-pc\Documents\WeChat Files\wxid_qyi4s5vkakv222\Files\对账5月\0510折扣表.xlsx
+  2018-07-26 23:50:53 [ INFO] - Log4j -LogicV1.java(131)(account) -折扣表C:\Users\acer-pc\Documents\WeChat Files\wxid_qyi4s5vkakv222\Files\对账5月\0511折扣表.xlsx
+  2018-07-26 23:50:53 [ INFO] - Log4j -LogicV1.java(131)(account) -折扣表C:\Users\acer-pc\Documents\WeChat Files\wxid_qyi4s5vkakv222\Files\对账5月\0512折扣表.xlsx
+  2018-07-26 23:50:53 [ INFO] - Log4j -LogicV1.java(131)(account) -折扣表C:\Users\acer-pc\Documents\WeChat Files\wxid_qyi4s5vkakv222\Files\对账5月\0514折扣表.xlsx
+  2018-07-26 23:50:53 [ INFO] - Log4j -LogicV1.java(131)(account) -折扣表C:\Users\acer-pc\Documents\WeChat Files\wxid_qyi4s5vkakv222\Files\对账5月\0515折扣表.xlsx
+  2018-07-26 23:50:53 [ INFO] - Log4j -LogicV1.java(131)(account) -折扣表C:\Users\acer-pc\Documents\WeChat Files\wxid_qyi4s5vkakv222\Files\对账5月\0516折扣表.xlsx
+  2018-07-26 23:50:53 [ INFO] - Log4j -LogicV1.java(131)(account) -折扣表C:\Users\acer-pc\Documents\WeChat Files\wxid_qyi4s5vkakv222\Files\对账5月\0517折扣表.xlsx
+  2018-07-26 23:50:53 [ INFO] - Log4j -LogicV1.java(135)(account) -对账表C:\Users\acer-pc\Documents\WeChat Files\wxid_qyi4s5vkakv222\Files\对账5月\往来对账数据.xls
+  2018-07-26 23:50:53 [ INFO] - Log4j -LogicV1.java(288)(account) -录入完成!
+  2018-07-26 23:51:11 [ INFO] - Log4j -LogicV1.java(121)(account) -C:\Users\acer-pc\Documents\WeChat Files\wxid_qyi4s5vkakv222\Files\对账5月
+  2018-07-26 23:51:11 [ INFO] - Log4j -LogicV1.java(131)(account) -折扣表C:\Users\acer-pc\Documents\WeChat Files\wxid_qyi4s5vkakv222\Files\对账5月\0501折扣表.xlsx
+  2018-07-26 23:51:11 [ INFO] - Log4j -LogicV1.java(131)(account) -折扣表C:\Users\acer-pc\Documents\WeChat Files\wxid_qyi4s5vkakv222\Files\对账5月\0502折扣表.xlsx
+  2018-07-26 23:51:11 [ INFO] - Log4j -LogicV1.java(131)(account) -折扣表C:\Users\acer-pc\Documents\WeChat Files\wxid_qyi4s5vkakv222\Files\对账5月\0503折扣表.xlsx
+  2018-07-26 23:51:11 [ INFO] - Log4j -LogicV1.java(131)(account) -折扣表C:\Users\acer-pc\Documents\WeChat Files\wxid_qyi4s5vkakv222\Files\对账5月\0504折扣表.xlsx
+  2018-07-26 23:51:11 [ INFO] - Log4j -LogicV1.java(131)(account) -折扣表C:\Users\acer-pc\Documents\WeChat Files\wxid_qyi4s5vkakv222\Files\对账5月\0505折扣表.xlsx
+  2018-07-26 23:51:11 [ INFO] - Log4j -LogicV1.java(131)(account) -折扣表C:\Users\acer-pc\Documents\WeChat Files\wxid_qyi4s5vkakv222\Files\对账5月\0507折扣表.xlsx
+  2018-07-26 23:51:11 [ INFO] - Log4j -LogicV1.java(131)(account) -折扣表C:\Users\acer-pc\Documents\WeChat Files\wxid_qyi4s5vkakv222\Files\对账5月\0508折扣表.xlsx
+  2018-07-26 23:51:11 [ INFO] - Log4j -LogicV1.java(131)(account) -折扣表C:\Users\acer-pc\Documents\WeChat Files\wxid_qyi4s5vkakv222\Files\对账5月\0509折扣表.xlsx
+  2018-07-26 23:51:11 [ INFO] - Log4j -LogicV1.java(131)(account) -折扣表C:\Users\acer-pc\Documents\WeChat Files\wxid_qyi4s5vkakv222\Files\对账5月\0510折扣表.xlsx
+  2018-07-26 23:51:11 [ INFO] - Log4j -LogicV1.java(131)(account) -折扣表C:\Users\acer-pc\Documents\WeChat Files\wxid_qyi4s5vkakv222\Files\对账5月\0511折扣表.xlsx
+  2018-07-26 23:51:11 [ INFO] - Log4j -LogicV1.java(131)(account) -折扣表C:\Users\acer-pc\Documents\WeChat Files\wxid_qyi4s5vkakv222\Files\对账5月\0512折扣表.xlsx
+  2018-07-26 23:51:11 [ INFO] - Log4j -LogicV1.java(131)(account) -折扣表C:\Users\acer-pc\Documents\WeChat Files\wxid_qyi4s5vkakv222\Files\对账5月\0514折扣表.xlsx
+  2018-07-26 23:51:11 [ INFO] - Log4j -LogicV1.java(131)(account) -折扣表C:\Users\acer-pc\Documents\WeChat Files\wxid_qyi4s5vkakv222\Files\对账5月\0515折扣表.xlsx
+  2018-07-26 23:51:11 [ INFO] - Log4j -LogicV1.java(131)(account) -折扣表C:\Users\acer-pc\Documents\WeChat Files\wxid_qyi4s5vkakv222\Files\对账5月\0516折扣表.xlsx
+  2018-07-26 23:51:12 [ INFO] - Log4j -LogicV1.java(131)(account) -折扣表C:\Users\acer-pc\Documents\WeChat Files\wxid_qyi4s5vkakv222\Files\对账5月\0517折扣表.xlsx
+  2018-07-26 23:51:12 [ INFO] - Log4j -LogicV1.java(135)(account) -对账表C:\Users\acer-pc\Documents\WeChat Files\wxid_qyi4s5vkakv222\Files\对账5月\往来对账数据.xls
+  2018-07-26 23:51:12 [ INFO] - Log4j -LogicV1.java(288)(account) -录入完成!
+  2018-07-26 23:51:24 [ INFO] - Log4j -LogicV1.java(121)(account) -C:\Users\acer-pc\Documents\WeChat Files\wxid_qyi4s5vkakv222\Files\对账5月
+  2018-07-26 23:51:24 [ INFO] - Log4j -LogicV1.java(131)(account) -折扣表C:\Users\acer-pc\Documents\WeChat Files\wxid_qyi4s5vkakv222\Files\对账5月\0501折扣表.xlsx
+  2018-07-26 23:51:24 [ INFO] - Log4j -LogicV1.java(131)(account) -折扣表C:\Users\acer-pc\Documents\WeChat Files\wxid_qyi4s5vkakv222\Files\对账5月\0502折扣表.xlsx
+  2018-07-26 23:51:24 [ INFO] - Log4j -LogicV1.java(131)(account) -折扣表C:\Users\acer-pc\Documents\WeChat Files\wxid_qyi4s5vkakv222\Files\对账5月\0503折扣表.xlsx
+  2018-07-26 23:51:24 [ INFO] - Log4j -LogicV1.java(131)(account) -折扣表C:\Users\acer-pc\Documents\WeChat Files\wxid_qyi4s5vkakv222\Files\对账5月\0504折扣表.xlsx
+  2018-07-26 23:51:24 [ INFO] - Log4j -LogicV1.java(131)(account) -折扣表C:\Users\acer-pc\Documents\WeChat Files\wxid_qyi4s5vkakv222\Files\对账5月\0505折扣表.xlsx
+  2018-07-26 23:51:24 [ INFO] - Log4j -LogicV1.java(131)(account) -折扣表C:\Users\acer-pc\Documents\WeChat Files\wxid_qyi4s5vkakv222\Files\对账5月\0507折扣表.xlsx
+  2018-07-26 23:51:24 [ INFO] - Log4j -LogicV1.java(131)(account) -折扣表C:\Users\acer-pc\Documents\WeChat Files\wxid_qyi4s5vkakv222\Files\对账5月\0508折扣表.xlsx
+  2018-07-26 23:51:24 [ INFO] - Log4j -LogicV1.java(131)(account) -折扣表C:\Users\acer-pc\Documents\WeChat Files\wxid_qyi4s5vkakv222\Files\对账5月\0509折扣表.xlsx
+  2018-07-26 23:51:24 [ INFO] - Log4j -LogicV1.java(131)(account) -折扣表C:\Users\acer-pc\Documents\WeChat Files\wxid_qyi4s5vkakv222\Files\对账5月\0510折扣表.xlsx
+  2018-07-26 23:51:24 [ INFO] - Log4j -LogicV1.java(131)(account) -折扣表C:\Users\acer-pc\Documents\WeChat Files\wxid_qyi4s5vkakv222\Files\对账5月\0511折扣表.xlsx
+  2018-07-26 23:51:24 [ INFO] - Log4j -LogicV1.java(131)(account) -折扣表C:\Users\acer-pc\Documents\WeChat Files\wxid_qyi4s5vkakv222\Files\对账5月\0512折扣表.xlsx
+  2018-07-26 23:51:24 [ INFO] - Log4j -LogicV1.java(131)(account) -折扣表C:\Users\acer-pc\Documents\WeChat Files\wxid_qyi4s5vkakv222\Files\对账5月\0514折扣表.xlsx
+  2018-07-26 23:51:24 [ INFO] - Log4j -LogicV1.java(131)(account) -折扣表C:\Users\acer-pc\Documents\WeChat Files\wxid_qyi4s5vkakv222\Files\对账5月\0515折扣表.xlsx
+  2018-07-26 23:51:24 [ INFO] - Log4j -LogicV1.java(131)(account) -折扣表C:\Users\acer-pc\Documents\WeChat Files\wxid_qyi4s5vkakv222\Files\对账5月\0516折扣表.xlsx
+  2018-07-26 23:51:24 [ INFO] - Log4j -LogicV1.java(131)(account) -折扣表C:\Users\acer-pc\Documents\WeChat Files\wxid_qyi4s5vkakv222\Files\对账5月\0517折扣表.xlsx
+  2018-07-26 23:51:24 [ INFO] - Log4j -LogicV1.java(135)(account) -对账表C:\Users\acer-pc\Documents\WeChat Files\wxid_qyi4s5vkakv222\Files\对账5月\往来对账数据.xls
+  2018-07-26 23:51:25 [ INFO] - Log4j -LogicV1.java(288)(account) -录入完成!
+  2018-07-26 23:51:42 [ INFO] - Log4j -LogicV1.java(121)(account) -C:\Users\acer-pc\Documents\WeChat Files\wxid_qyi4s5vkakv222\Files\对账5月
+  2018-07-26 23:51:42 [ INFO] - Log4j -LogicV1.java(131)(account) -折扣表C:\Users\acer-pc\Documents\WeChat Files\wxid_qyi4s5vkakv222\Files\对账5月\0501折扣表.xlsx
+  2018-07-26 23:51:42 [ INFO] - Log4j -LogicV1.java(131)(account) -折扣表C:\Users\acer-pc\Documents\WeChat Files\wxid_qyi4s5vkakv222\Files\对账5月\0502折扣表.xlsx
+  2018-07-26 23:51:42 [ INFO] - Log4j -LogicV1.java(131)(account) -折扣表C:\Users\acer-pc\Documents\WeChat Files\wxid_qyi4s5vkakv222\Files\对账5月\0503折扣表.xlsx
+  2018-07-26 23:51:42 [ INFO] - Log4j -LogicV1.java(131)(account) -折扣表C:\Users\acer-pc\Documents\WeChat Files\wxid_qyi4s5vkakv222\Files\对账5月\0504折扣表.xlsx
+  2018-07-26 23:51:42 [ INFO] - Log4j -LogicV1.java(131)(account) -折扣表C:\Users\acer-pc\Documents\WeChat Files\wxid_qyi4s5vkakv222\Files\对账5月\0505折扣表.xlsx
+  2018-07-26 23:51:42 [ INFO] - Log4j -LogicV1.java(131)(account) -折扣表C:\Users\acer-pc\Documents\WeChat Files\wxid_qyi4s5vkakv222\Files\对账5月\0507折扣表.xlsx
+  2018-07-26 23:51:42 [ INFO] - Log4j -LogicV1.java(131)(account) -折扣表C:\Users\acer-pc\Documents\WeChat Files\wxid_qyi4s5vkakv222\Files\对账5月\0508折扣表.xlsx
+  2018-07-26 23:51:42 [ INFO] - Log4j -LogicV1.java(131)(account) -折扣表C:\Users\acer-pc\Documents\WeChat Files\wxid_qyi4s5vkakv222\Files\对账5月\0509折扣表.xlsx
+  2018-07-26 23:51:42 [ INFO] - Log4j -LogicV1.java(131)(account) -折扣表C:\Users\acer-pc\Documents\WeChat Files\wxid_qyi4s5vkakv222\Files\对账5月\0510折扣表.xlsx
+  2018-07-26 23:51:42 [ INFO] - Log4j -LogicV1.java(131)(account) -折扣表C:\Users\acer-pc\Documents\WeChat Files\wxid_qyi4s5vkakv222\Files\对账5月\0511折扣表.xlsx
+  2018-07-26 23:51:42 [ INFO] - Log4j -LogicV1.java(131)(account) -折扣表C:\Users\acer-pc\Documents\WeChat Files\wxid_qyi4s5vkakv222\Files\对账5月\0512折扣表.xlsx
+  2018-07-26 23:51:42 [ INFO] - Log4j -LogicV1.java(131)(account) -折扣表C:\Users\acer-pc\Documents\WeChat Files\wxid_qyi4s5vkakv222\Files\对账5月\0514折扣表.xlsx
+  2018-07-26 23:51:43 [ INFO] - Log4j -LogicV1.java(131)(account) -折扣表C:\Users\acer-pc\Documents\WeChat Files\wxid_qyi4s5vkakv222\Files\对账5月\0515折扣表.xlsx
+  2018-07-26 23:51:43 [ INFO] - Log4j -LogicV1.java(131)(account) -折扣表C:\Users\acer-pc\Documents\WeChat Files\wxid_qyi4s5vkakv222\Files\对账5月\0516折扣表.xlsx
+  2018-07-26 23:51:43 [ INFO] - Log4j -LogicV1.java(131)(account) -折扣表C:\Users\acer-pc\Documents\WeChat Files\wxid_qyi4s5vkakv222\Files\对账5月\0517折扣表.xlsx
+  2018-07-26 23:51:43 [ INFO] - Log4j -LogicV1.java(135)(account) -对账表C:\Users\acer-pc\Documents\WeChat Files\wxid_qyi4s5vkakv222\Files\对账5月\往来对账数据.xls
+  2018-07-26 23:51:43 [ INFO] - Log4j -LogicV1.java(288)(account) -录入完成!
+  
