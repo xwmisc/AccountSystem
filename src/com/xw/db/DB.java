@@ -18,6 +18,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
+import com.xw.Log;
 import com.xw.Util;
 
 public class DB {
@@ -84,8 +85,10 @@ public class DB {
 
 	public static void main(String[] args) throws SQLException {
 		// TODO Auto-generated method stub
-		System.out.println(DB.getInstance().existTable("CMP"));
-		DB.getInstance().test("result");
+//		System.out.println(DB.getInstance().existTable("CMP"));
+//		DB.getInstance().test("sqlite_master");
+		DB.getInstance().getTablesSortByCreationTime();
+		System.out.println(DB.getInstance().getTableCreationTime("系统_返点表"));
 	}
 
 	public static DB getInstance() {
@@ -105,6 +108,7 @@ public class DB {
 			Class.forName("org.sqlite.JDBC");
 			m_Connection = DriverManager.getConnection("jdbc:sqlite:" + FileName);
 			m_Connection.setAutoCommit(false);
+			Log.logger().info("!!!!!!!new db" + m_Connection.getAutoCommit());
 		} catch (ClassNotFoundException | SQLException e) {
 			e.printStackTrace();
 		}
@@ -115,7 +119,7 @@ public class DB {
 			return;
 		String sql = "create table " + tableName + "(id integer primary key autoincrement)";
 		m_Connection.createStatement().executeUpdate(sql);
-		//清除日期
+		// 清除日期
 		getSqliteDate().cleanDateColumn(tableName);
 	}
 
@@ -127,7 +131,8 @@ public class DB {
 	}
 
 	public boolean existTable(String tableName) throws SQLException {
-		if(tableName.equals("")||tableName.contains(" "))return false;
+		if (tableName.equals("") || tableName.contains(" "))
+			return false;
 		DatabaseMetaData meta = m_Connection.getMetaData();
 		ResultSet rs = meta.getTables(null, null, tableName, new String[] { "TABLE" });
 		boolean flag = rs.next();
@@ -202,12 +207,12 @@ public class DB {
 
 	public String getColumnType(String tableName, String columnName) throws SQLException {
 
-		//日期
+		// 日期
 		boolean isDate = getSqliteDate().isDateColumn(tableName, columnName);
-		if(isDate) {
+		if (isDate) {
 			return "DATE";
 		}
-			
+
 		ResultSet rSet = m_Connection.createStatement().executeQuery("select * from " + tableName);
 		ResultSetMetaData rsmd = rSet.getMetaData();
 
@@ -224,6 +229,19 @@ public class DB {
 		return type;
 	}
 
+	public int getTableCreationTime(String tableName) throws SQLException {
+
+		ResultSet rSet = m_Connection.createStatement()
+				.executeQuery("SELECT rootpage FROM sqlite_master WHERE type='table' and name='" + tableName + "' ");
+		int pageroot = 0;
+
+		while (rSet.next()) {
+			pageroot = rSet.getInt("rootpage");
+		}
+		rSet.close();
+		return pageroot;
+	}
+
 	public String[] getTables() throws SQLException {
 
 		DatabaseMetaData meta = m_Connection.getMetaData();
@@ -233,6 +251,43 @@ public class DB {
 			tables.add((String) rs.getObject("TABLE_NAME"));
 		rs.close();
 		return tables.toArray(new String[0]);
+	}
+
+	public String[] getTablesSortByCreationTime() throws SQLException {
+
+		ResultSet rSet = m_Connection.createStatement().executeQuery(
+				"SELECT name,rootpage FROM sqlite_master WHERE type='table' ");
+		int pageroot = 0;
+
+		ArrayList<String> tables = new ArrayList<>();
+		ArrayList<Integer> rootpages = new ArrayList<>();
+
+		while (rSet.next()) {
+			tables.add(rSet.getString("name"));
+			rootpages.add(rSet.getInt("rootpage"));
+		}
+		rSet.close();
+
+		int length = tables.size();
+		for (int index = 0; index < length; index++) {
+			int num1 = rootpages.get(index);
+			for (int stepIndex = index + 1; stepIndex < length; stepIndex++) {
+				int num2 = rootpages.get(stepIndex);
+				if (num1 < num2) {
+					String tTable = tables.get(index);
+					tables.set(index, tables.get(stepIndex));
+					tables.set(stepIndex, tTable);
+					
+					rootpages.set(index, num2);
+					rootpages.set(stepIndex, num1);
+					num1 = rootpages.get(index);
+					num2 = rootpages.get(stepIndex);
+				}
+			}
+		}
+		
+		String[] rs = tables.toArray(new String[0]);
+		return rs;
 	}
 
 	public void insert(String tableName, HashMap vals) throws SQLException {
@@ -255,6 +310,7 @@ public class DB {
 			pre_stmt.setObject(1 + i, vals.get(keys[i]));
 
 		pre_stmt.executeUpdate();
+		pre_stmt.close();
 	}
 
 	public void insert(String tableName, HashMap[] vals) throws SQLException {
@@ -324,6 +380,8 @@ public class DB {
 	public List<HashMap<String, Object>> query(String tableName, String[] columns, HashMap where) throws SQLException {
 		String sql_column = "";
 
+		boolean fromDateQuery = tableName.equals(SqliteDate.DATE_TABLE);
+
 		if (columns == null || columns.length == 0)
 			throw new SQLException("query error occur! no column");
 		for (int i = 0; i < columns.length; i++)
@@ -359,7 +417,9 @@ public class DB {
 		while (rSet.next()) {
 			HashMap<String, Object> row = new HashMap<>();
 			for (String column : columns) {
-				if (getSqliteDate().isDateColumn(tableName, column)) {
+				if (fromDateQuery) {
+					row.put(column, rSet.getObject(column));
+				} else if (getSqliteDate().isDateColumn(tableName, column)) {
 					row.put(column, rSet.getDate(column));// 日期
 				} else {
 					row.put(column, rSet.getObject(column));
@@ -368,7 +428,13 @@ public class DB {
 			list.add(row);
 		}
 		rSet.close();
-		pre_stmt.close();
+		pre_stmt.closeOnCompletion();
+//		try {
+//			float a = 1/0;
+//		} catch (Exception e) {
+//			Log.logger().error("", e);
+//		}
+//		Log.logger().info(tableName + fromDateQuery);
 		return list;
 
 	}
@@ -387,7 +453,7 @@ public class DB {
 			}
 		}
 		pre_stmt.executeBatch();
-
+		pre_stmt.close();
 	}
 
 	public void commit() throws SQLException {

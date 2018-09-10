@@ -385,8 +385,13 @@ public class LogicV1 {
 		// 用于匹配的日期格式
 		SimpleDateFormat dateFmt = new SimpleDateFormat("yyyy-MM-dd");
 
+		// 往来表
 		Excel excel = new Excel(file);
 		Sheet sheet = excel.getSheets().get(0);
+		// 导出表
+		Excel ex_excel = Excel.createExcel(file.getParent() + "\\export.xlsx", true);
+		Sheet ex_sheet = ex_excel.createSheet("export");
+		int ex_row = 1;
 
 		// 找到标题行
 		int row_start = 0;
@@ -445,7 +450,7 @@ public class LogicV1 {
 				col_blank = sheet.getColCount(row_start) + 1;
 			sheet.write(row_start, col_blank, "对账标记");
 		}
-		
+
 		row_start += 1;
 
 		// 找到员工
@@ -460,64 +465,81 @@ public class LogicV1 {
 			int row = row_start + i;
 
 			// 跳过无行号的行
-			if ((Double) sheet.readDouble(row, col_rowNo, 0) != 0) {
+			if ((Double) sheet.readDouble(row, col_rowNo, 0) == 0)
+				continue;
 
-				// 备注合法性验证
-				String remark = "";
-				try {
-					String _remark = sheet.readString(row, col_remark, "");
-					remark = FJ.convert((_remark).trim(), 0);
-				} catch (Exception e) {
-					remark = "";
-				}
+			// 备注合法性验证
+			String remark = "";
+			try {
+				String _remark = sheet.readString(row, col_remark, "");
+				remark = FJ.convert((_remark).trim(), 0);
+			} catch (Exception e) {
+				remark = "";
+			}
 
-				// 姓名合法性验证
-				String staff_name = null;
-				for (HashMap emp : emps) {
-					String name = (String) emp.get("name");
-					if (remark.matches("[0-9]{4} (刷货).{2,4} (" + name + ").*")) {
-						staff_name = name;
-						break;
+			if (remark.matches("[0-9]{4} (返点).*")) {
+				if (ex_row == 1) {
+					for (int ex_col = 1; ex_col <= sheet.getColCount(row_start - 1); ex_col++) {
+						Object info = sheet.read(row_start - 1, ex_col);
+						ex_sheet.write(ex_row, ex_col, info);
 					}
+					ex_row++;
 				}
-
-				// 日期合法性检验
-				String date = sheet.readString(row, col_date, "");
-				String fmtDate = null;
-				try {
-					Date _date = dateFmt.parse(date);
-					fmtDate = specialDate2String(_date);
-				} catch (Exception e) {
-					fmtDate = null;
-					e.printStackTrace();
-					Log.logger().warn(e.toString(), e);
+				for (int ex_col = 1; ex_col <= sheet.getColCount(row); ex_col++) {
+					Object info = sheet.read(row, ex_col);
+					ex_sheet.write(ex_row, ex_col, info);
 				}
+				ex_row++;
+			}
 
-				String sp_remark[] = remark.split(" ");
-				if (staff_name != null && sp_remark.length > 2 && (fmtDate != null && fmtDate.equals(sp_remark[0]))) {
-
-					// 全都合法,现在录入数据
-					HashMap<String, Object> val = new HashMap<>();
-					val.put("日期", fmtDate);
-					val.put("款项类型", sp_remark[1]);
-					val.put("姓名", staff_name);
-					val.put("单据编号", sheet.readString(row, col_type, ""));
-					double num = sheet.readDouble(row, col_incr, 0);
-					val.put("应收增加", num);
-					num = sheet.readDouble(row, col_decr, 0);
-					val.put("应收减少", num);
-					val.put("备注", remark);
-
-					vals.add(val);
-					// Log.logger().info("ValidData:|" + "i:" + i + "|" + sheet.read(row, 1) + "|"
-					// + remark);
-					// 改变颜色
-					// sheet.setColor(row, col_remark, IndexedColors.WHITE.getIndex());
-					// 对账标记
-					sheet.write(row, col_blank, 1);
-					continue;
+			// 姓名合法性验证
+			String staff_name = null;
+			for (HashMap emp : emps) {
+				String name = (String) emp.get("name");
+				if (remark.matches("[0-9]{4} (刷货).{2,4} (" + name + ").*")) {
+					staff_name = name;
+					break;
 				}
 			}
+
+			// 日期合法性检验
+			// String date = sheet.readString(row, col_date, "");
+			// String fmtDate = null;
+			// try {
+			// Date _date = dateFmt.parse(date);
+			// fmtDate = specialDate2String(_date);
+			// } catch (Exception e) {
+			// fmtDate = null;
+			// e.printStackTrace();
+			// Log.logger().warn(e.toString(), e);
+			// }
+
+			String sp_remark[] = remark.split(" ");
+			// boolean match_date = (fmtDate != null && fmtDate.equals(sp_remark[0]));
+			if (staff_name != null && sp_remark.length > 2) {
+
+				// 全都合法,现在录入数据
+				HashMap<String, Object> val = new HashMap<>();
+				val.put("日期", sp_remark[0]);
+				val.put("款项类型", sp_remark[1]);
+				val.put("姓名", staff_name);
+				val.put("单据编号", sheet.readString(row, col_type, ""));
+				double num = sheet.readDouble(row, col_incr, 0);
+				val.put("应收增加", num);
+				num = sheet.readDouble(row, col_decr, 0);
+				val.put("应收减少", num);
+				val.put("备注", remark);
+
+				vals.add(val);
+				// Log.logger().info("ValidData:|" + "i:" + i + "|" + sheet.read(row, 1) + "|"
+				// + remark);
+				// 改变颜色
+				// sheet.setColor(row, col_remark, IndexedColors.WHITE.getIndex());
+				// 对账标记
+				sheet.write(row, col_blank, 1);
+				continue;
+			}
+
 			// 未满足条件执行以下
 			try {
 				// Log.logger().info("IgnoreError|" + "i:" + i + "|" + sheet.read(row, 1) + "|"
@@ -536,6 +558,7 @@ public class LogicV1 {
 		db.insert(table2, vals);
 
 		excel.closeWithSave();
+		ex_excel.closeWithSave();
 	}
 
 	private static String specialDate2String(Date date) {

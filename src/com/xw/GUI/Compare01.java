@@ -246,10 +246,11 @@ public class Compare01 extends Dialog {
 
 		try {
 			String[] tables;
-			tables = ASDataSource.getTables();
+			tables = ASDataSource.getSortTables();
 			combo_tableList.removeAll();
-			for (String table : tables) {
-				if (table.contains("系统_"))
+			for (int index=0;index<tables.length;index++) {
+				String table = tables[index];
+				if (table.startsWith("系统_")||table.startsWith("sqlite"))
 					continue;
 				combo_tableList.add(table);
 			}

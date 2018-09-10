@@ -309,7 +309,7 @@ public class Logic {
 							}
 						}
 						if (flag) {
-							Log.logger().info("-" + word1);
+//							Log.logger().info("-" + word1);
 							matrix[0][i][j]++;
 						}
 					}
@@ -334,23 +334,23 @@ public class Logic {
 							}
 						}
 						if (flag) {
-							Log.logger().info("-" + word1);
+//							Log.logger().info("-" + word1);
 							matrix[1][j][i]++;
 						}
 					}
 				}
 			}
-			String log = "";
+//			String log = "";
 			for (int i = 0; i < list1.size(); i++) {
 				for (int j = 0; j < list2.size(); j++) {
 					matrix[2][i][j] = matrix[0][i][j] + matrix[1][i][j];
-					log += matrix[2][i][j] + " ";
-					if (matrix[2][i][j] == 2)
-						Log.logger().info("-" + (double) list1.get(i).get(keyWord1));
+//					log += matrix[2][i][j] + " ";
+//					if (matrix[2][i][j] == 2)
+//						Log.logger().info("-" + (double) list1.get(i).get(keyWord1));
 				}
-				log += "\r\n";
+//				log += "\r\n";
 			}
-			Log.logger().info(log);
+//			Log.logger().info(log);
 			int list1size = list1.size();
 			int list2size = list2.size();
 			list1.removeIf(o -> {

@@ -344,7 +344,7 @@ public class GUI {
 			} catch (IOException | SQLException e1) {
 				e1.printStackTrace();
 				Log.logger().error(e1.toString(), e1);
-				
+
 			}
 		}));
 
@@ -422,7 +422,7 @@ public class GUI {
 			if (columns.size() > 0)
 				combo.select(0);
 		} catch (IOException | SQLException e1) {
-			
+
 			e1.printStackTrace();
 			Log.logger().error(e1.toString(), e1);
 		}
@@ -443,10 +443,13 @@ public class GUI {
 
 		try {
 			String[] tables;
-			tables = ASDataSource.getTables();
+			tables = ASDataSource.getSortTables();
 			combo_tableList.removeAll();
-			for (String table : tables) {
+			for (int index = 0; index < tables.length; index++) {
+				String table = tables[index];
 				if (!checkbox_seeSysTable.getSelection() && table.contains("系统_"))
+					continue;
+				if (table.startsWith("sqlite"))
 					continue;
 				combo_tableList.add(table);
 			}
@@ -480,6 +483,7 @@ public class GUI {
 	class ASTable {
 		Table m_Table;
 		private String m_tableName;
+		private HashMap<String, Boolean> invisibleBean;
 
 		public ASTable(Table table) {
 			m_Table = table;
@@ -503,8 +507,10 @@ public class GUI {
 						beans.add(new CheckboxBean(column.getText(), column.getWidth() > 0, selected -> {
 							if (selected) {
 								column.setWidth(evalWidth(column.getText()));
+								invisibleBean.put(column.getText(), true);
 							} else {
 								column.setWidth(0);
+								invisibleBean.put(column.getText(), false);
 							}
 						}));
 					}
@@ -560,7 +566,10 @@ public class GUI {
 		}
 
 		public void setCurrentTableName(String tableName) {
-			m_tableName = tableName;
+			if (m_tableName==null || !m_tableName.equals(tableName)) {
+				m_tableName = tableName;
+				invisibleBean = new HashMap<>();
+			}
 		}
 
 		public String getCurrentTableName() {
@@ -575,14 +584,18 @@ public class GUI {
 				return true;
 			}).forEach(each -> {
 				final TableColumn column = new TableColumn(m_Table, SWT.NONE);
-				column.setWidth(evalWidth(each));
+				if (invisibleBean.getOrDefault(each, true)) {
+					column.setWidth(evalWidth(each));
+				} else {
+					column.setWidth(0);
+				}
 				Object type = "";
 				try {
 					type = ASDataSource.getColumnType(m_tableName, each);
 				} catch (IOException | SQLException e) {
 					e.printStackTrace();
 					Log.logger().error(e.toString(), e);
-					
+
 				}
 				column.setData(type);
 				column.setText(each);
@@ -710,8 +723,9 @@ public class GUI {
 		}
 
 		public void removeAllItem() {
-			for (TableItem item : m_Table.getItems())
-				item.dispose();
+			TableItem[] tableItems = m_Table.getItems();
+			for(int index = tableItems.length-1;index>=0;index--)
+				tableItems[index].dispose();
 		}
 
 		class sortListener implements SelectionListener {

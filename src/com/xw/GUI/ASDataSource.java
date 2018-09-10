@@ -38,6 +38,14 @@ public class ASDataSource {
 		DB db = DB.getInstance();
 		return db.getTables();
 	}
+	
+	public static String[] getSortTables() throws SQLException {
+		DB db = DB.getInstance();
+		return db.getTablesSortByCreationTime();
+	}
+	
+	
+	
 	public static boolean existTable(String tableName) throws SQLException {
 		DB db = DB.getInstance();
 		return db.existTable(tableName);
