@@ -1,0 +1,9 @@
+#This file is a configuration file. Please note that the both sides of '=' do not write spaces character.
+#Tue Sep 11 23:30:56 CST 2018
+date_column_name=日期s
+data_start_line=2
+header_line=1
+default_year=2018
+data_end_line=100
+date_format_text=yyyy-MM-dd_HH\:mm\:ss
+employees=姜渊,ben

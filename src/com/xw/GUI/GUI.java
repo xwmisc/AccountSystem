@@ -394,9 +394,10 @@ public class GUI {
 
 		try {
 			LogicV1.setup();
-			Config.loadSetting();
+			Class.forName(Config.class.getName());
+//			Config.loadEMP();
 
-		} catch (SQLException | IOException | ExcelException e1) {
+		} catch (SQLException | ClassNotFoundException e1) {
 			e1.printStackTrace();
 			Log.logger().error(e1.toString(), e1);
 			DialogFactory.showErr(shell, "数据库或配置文件错误,请关闭程序再试(请确保本程序仅有一个进程)");

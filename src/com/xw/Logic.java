@@ -59,26 +59,30 @@ public class Logic {
 	}
 
 	public static boolean recordFromFile(File file) {
-		return recordFromFile(file, -1, -1, -1, "", null);
+		return recordFromFile(file, -1, -1, -1, "", null, 0);
 	}
 
 	public static boolean recordFromFile(File file, int title, int start, int end) {
-		return recordFromFile(file, title, start, end, "", null);
+		return recordFromFile(file, title, start, end, "", null, 0);
 	}
 
-	public static boolean recordFromFile(File file, int title, int start, int end, String date_columns, String format) {
+	public static boolean recordFromFile(File file, int title, int start, int end, String date_columns, String format,
+			int defaultYear) {
 		String[] date_column = date_columns.split("\\\\");
-		return recordFromFile(file, title, start, end, date_column, format);
+		return recordFromFile(file, title, start, end, date_column, format, defaultYear);
 	}
 
-	public static boolean recordFromFile(File file, int title, int start, int end, String[] date_column,
-			String format) {
+	public static boolean recordFromFile(File file, int title, int start, int end, String[] date_column, String format,
+			int defaultYear) {
 		try {
 			SimpleDateFormat sdf;
-			if (format == null || format.equals(""))
+			boolean hasYear = false;
+			if (format == null || format.equals("")) {
 				sdf = null;
-			else
+			} else {
 				sdf = new SimpleDateFormat(format);
+				hasYear = format.contains("yyyy");
+			}
 
 			final boolean replaceTable = true;
 			Log.logger().info("file " + file.getName());
@@ -193,12 +197,17 @@ public class Logic {
 						} else {
 							String s_date = sheet.readString(row, col, "");
 							Date date_f = sdf.parse(s_date);
+							
+							//格式不存在yyyy时,加入缺省年份
+							if (!hasYear)
+								date_f.setYear(defaultYear-1900);//以1900年为0
 							vals[index].put(attr, date_f);
 						}
 						// System.out.println("date:" + vals[index].get(attr));
 						break;
 					case NUMBER:
-						// double num = sheet.readDouble(row, col, Double.MAX_VALUE);
+						// double num = sheet.readDouble(row, col,
+						// Double.MAX_VALUE);
 						// if (num != Double.MAX_VALUE) {
 						// vals[index].put(attr, num);
 						// } else {
@@ -230,7 +239,7 @@ public class Logic {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			Log.logger().error(e.toString(), e);
-			
+
 		}
 		return false;
 
@@ -309,7 +318,7 @@ public class Logic {
 							}
 						}
 						if (flag) {
-//							Log.logger().info("-" + word1);
+							// Log.logger().info("-" + word1);
 							matrix[0][i][j]++;
 						}
 					}
@@ -334,23 +343,24 @@ public class Logic {
 							}
 						}
 						if (flag) {
-//							Log.logger().info("-" + word1);
+							// Log.logger().info("-" + word1);
 							matrix[1][j][i]++;
 						}
 					}
 				}
 			}
-//			String log = "";
+			// String log = "";
 			for (int i = 0; i < list1.size(); i++) {
 				for (int j = 0; j < list2.size(); j++) {
 					matrix[2][i][j] = matrix[0][i][j] + matrix[1][i][j];
-//					log += matrix[2][i][j] + " ";
-//					if (matrix[2][i][j] == 2)
-//						Log.logger().info("-" + (double) list1.get(i).get(keyWord1));
+					// log += matrix[2][i][j] + " ";
+					// if (matrix[2][i][j] == 2)
+					// Log.logger().info("-" + (double)
+					// list1.get(i).get(keyWord1));
 				}
-//				log += "\r\n";
+				// log += "\r\n";
 			}
-//			Log.logger().info(log);
+			// Log.logger().info(log);
 			int list1size = list1.size();
 			int list2size = list2.size();
 			list1.removeIf(o -> {
@@ -427,7 +437,7 @@ public class Logic {
 		} catch (Exception e) {
 			e.printStackTrace();
 			Log.logger().error(e.toString(), e);
-			
+
 		}
 		return false;
 	}
@@ -469,7 +479,8 @@ public class Logic {
 			HashMap<Date, Double> sum1 = new HashMap<>();
 			for (HashMap<String, Object> each : list1) {
 				// 这里由于sqlite3日期用数值存,故用new date
-				// long dnum = (long) Optional.ofNullable(each.get(date1)).orElse(0l);
+				// long dnum = (long)
+				// Optional.ofNullable(each.get(date1)).orElse(0l);
 				// Date date = new Date(dnum);
 				Date date = (Date) each.get(date1);
 				date = new Date(date.getYear(), date.getMonth(), date.getDate());
@@ -484,7 +495,8 @@ public class Logic {
 			HashMap<Date, Double> sum2 = new HashMap<>();
 			if (onlyTable1) {
 				for (HashMap<String, Object> each : list2) {
-					// long dnum = (long) Optional.ofNullable(each.get(date2)).orElse(0l);
+					// long dnum = (long)
+					// Optional.ofNullable(each.get(date2)).orElse(0l);
 					// Date date = new Date(dnum);
 					Date date = (Date) each.get(date2);
 					date = new Date(date.getYear(), date.getMonth(), date.getDate());
@@ -494,7 +506,8 @@ public class Logic {
 			} else {
 				for (HashMap<String, Object> each : list2) {
 					// 这里由于sqlite3日期用数值存,故用new date
-					// long dnum = (long) Optional.ofNullable(each.get(date2)).orElse(0l);
+					// long dnum = (long)
+					// Optional.ofNullable(each.get(date2)).orElse(0l);
 					// Date date = new Date(dnum);
 					Date date = (Date) each.get(date2);
 					date = new Date(date.getYear(), date.getMonth(), date.getDate());
@@ -553,7 +566,7 @@ public class Logic {
 		} catch (Exception e) {
 			e.printStackTrace();
 			Log.logger().error(e.toString(), e);
-			
+
 		}
 		return false;
 	}

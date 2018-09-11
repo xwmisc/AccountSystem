@@ -66605,4 +66605,50 @@
   2018-09-02 11:36:43 [ INFO] - Log4j -Logic.java(138)(recordFromFile) -startRow: 1
   2018-09-02 11:36:43 [ INFO] - Log4j -Logic.java(139)(recordFromFile) -beginRow: 2
   2018-09-02 11:36:43 [ INFO] - Log4j -Logic.java(140)(recordFromFile) -rows: 146
+  2018-09-11 21:08:59 [ INFO] - Log4j -DB.java(111)(<init>) -!!!!!!!new dbfalse
+  2018-09-11 21:08:59 [ INFO] - Log4j -Config.java(35)(loadSetting) -C:\Users\xw\Documents\Eclipse\AccountSystem\config.xlsx
+  2018-09-11 21:09:04 [ INFO] - Log4j -Config.java(35)(loadSetting) -C:\Users\xw\Documents\Eclipse\AccountSystem\config.xlsx
+  2018-09-11 21:13:57 [ INFO] - Log4j -DB.java(111)(<init>) -!!!!!!!new dbfalse
+  2018-09-11 21:13:57 [ INFO] - Log4j -Config.java(35)(loadSetting) -C:\Users\xw\Documents\Eclipse\AccountSystem\config.xlsx
+  2018-09-11 21:13:59 [ INFO] - Log4j -Config.java(35)(loadSetting) -C:\Users\xw\Documents\Eclipse\AccountSystem\config.xlsx
+  2018-09-11 22:41:01 [ INFO] - Log4j -DB.java(111)(<init>) -!!!!!!!new dbfalse
+  2018-09-11 22:46:43 [ INFO] - Log4j -DB.java(111)(<init>) -!!!!!!!new dbfalse
+  2018-09-11 22:55:42 [ INFO] - Log4j -DB.java(111)(<init>) -!!!!!!!new dbfalse
+  2018-09-11 22:55:50 [ INFO] - Log4j -DB.java(111)(<init>) -!!!!!!!new dbfalse
+  2018-09-11 23:13:30 [ INFO] - Log4j -DB.java(111)(<init>) -!!!!!!!new dbfalse
+  2018-09-11 23:14:42 [ INFO] - Log4j -DB.java(111)(<init>) -!!!!!!!new dbfalse
+  2018-09-11 23:14:42 [ERROR] - Log4j -GUI.java(401)(createContents) -org.sqlite.SQLiteException: [SQLITE_BUSY]  The database file is locked (database is locked)
+  org.sqlite.SQLiteException: [SQLITE_BUSY]  The database file is locked (database is locked)
+	at org.sqlite.core.DB.newSQLException(DB.java:909)
+	at org.sqlite.core.DB.newSQLException(DB.java:921)
+	at org.sqlite.core.DB.throwex(DB.java:886)
+	at org.sqlite.core.NativeDB._exec_utf8(Native Method)
+	at org.sqlite.core.NativeDB._exec(NativeDB.java:87)
+	at org.sqlite.jdbc3.JDBC3Statement.executeUpdate(JDBC3Statement.java:116)
+	at com.xw.db.DB.deleteTable(DB.java:130)
+	at com.xw.LogicV1.setup(LogicV1.java:59)
+	at com.xw.GUI.GUI.createContents(GUI.java:396)
+	at com.xw.GUI.GUI.open(GUI.java:124)
+	at com.xw.GUI.GUI.main(GUI.java:112)
+2018-09-11 23:14:47 [ INFO] - Log4j -DB.java(111)(<init>) -!!!!!!!new dbfalse
+  2018-09-11 23:14:47 [ERROR] - Log4j -GUI.java(401)(createContents) -org.sqlite.SQLiteException: [SQLITE_BUSY]  The database file is locked (database is locked)
+  org.sqlite.SQLiteException: [SQLITE_BUSY]  The database file is locked (database is locked)
+	at org.sqlite.core.DB.newSQLException(DB.java:909)
+	at org.sqlite.core.DB.newSQLException(DB.java:921)
+	at org.sqlite.core.DB.throwex(DB.java:886)
+	at org.sqlite.core.NativeDB._exec_utf8(Native Method)
+	at org.sqlite.core.NativeDB._exec(NativeDB.java:87)
+	at org.sqlite.jdbc3.JDBC3Statement.executeUpdate(JDBC3Statement.java:116)
+	at com.xw.db.DB.deleteTable(DB.java:130)
+	at com.xw.LogicV1.setup(LogicV1.java:59)
+	at com.xw.GUI.GUI.createContents(GUI.java:396)
+	at com.xw.GUI.GUI.open(GUI.java:124)
+	at com.xw.GUI.GUI.main(GUI.java:112)
+2018-09-11 23:14:53 [ INFO] - Log4j -DB.java(111)(<init>) -!!!!!!!new dbfalse
+  2018-09-11 23:15:31 [ INFO] - Log4j -DB.java(111)(<init>) -!!!!!!!new dbfalse
+  2018-09-11 23:15:43 [ INFO] - Log4j -DB.java(111)(<init>) -!!!!!!!new dbfalse
+  2018-09-11 23:16:28 [ INFO] - Log4j -DB.java(111)(<init>) -!!!!!!!new dbfalse
+  2018-09-11 23:18:54 [ INFO] - Log4j -DB.java(111)(<init>) -!!!!!!!new dbfalse
+  2018-09-11 23:25:32 [ INFO] - Log4j -DB.java(111)(<init>) -!!!!!!!new dbfalse
+  2018-09-11 23:30:51 [ INFO] - Log4j -DB.java(111)(<init>) -!!!!!!!new dbfalse
   

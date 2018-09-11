@@ -9,6 +9,7 @@ import org.eclipse.swt.widgets.Composite;
 import java.io.File;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -40,6 +41,8 @@ import org.eclipse.swt.dnd.DropTargetListener;
 import org.eclipse.swt.dnd.FileTransfer;
 import org.eclipse.swt.dnd.Transfer;
 import org.eclipse.swt.dnd.DND;
+import org.eclipse.swt.events.DisposeEvent;
+import org.eclipse.swt.events.DisposeListener;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 
@@ -68,6 +71,7 @@ public class Add extends Dialog {
 	private Text text_file2;
 	private Text text_日期列名;
 	private Text txtYyyymmddHhmmss;
+	private Text text_defaultYear;
 
 	/**
 	 * Create the dialog.
@@ -107,7 +111,7 @@ public class Add extends Dialog {
 		shell.setText(getText());
 
 		Composite composite = new Composite(shell, SWT.BORDER);
-		composite.setBounds(22, 128, 513, 289);
+		composite.setBounds(22, 101, 513, 289);
 
 		combo_EMP = new Combo(composite, SWT.READ_ONLY);
 		combo_EMP.setBounds(10, 101, 92, 28);
@@ -194,65 +198,53 @@ public class Add extends Dialog {
 		}));
 
 		Composite composite_1 = new Composite(shell, SWT.BORDER);
-		composite_1.setBounds(22, 10, 133, 112);
-
-		Label label_10 = new Label(composite_1, SWT.NONE);
-		label_10.setText("员工");
-		label_10.setBounds(10, 10, 76, 20);
+		composite_1.setBounds(22, 10, 133, 85);
 
 		text_emp_name = new Text(composite_1, SWT.BORDER);
-		text_emp_name.setBounds(10, 36, 88, 26);
+		text_emp_name.setBounds(10, 10, 88, 26);
 
 		Button button_1 = new Button(composite_1, SWT.NONE);
-		button_1.setText("添加员工");
-		button_1.setBounds(10, 68, 98, 30);
+		button_1.setText("+员工");
+		button_1.setBounds(10, 42, 98, 30);
 		button_1.addSelectionListener(GUI.OnClick(e -> {
 			addEMP();
 		}));
 
 		Composite composite_2 = new Composite(shell, SWT.BORDER);
-		composite_2.setBounds(161, 10, 182, 112);
-
-		Label lblDfs_1 = new Label(composite_2, SWT.NONE);
-		lblDfs_1.setText("DFS");
-		lblDfs_1.setBounds(10, 10, 76, 20);
+		composite_2.setBounds(161, 10, 182, 85);
 
 		text_dfs_name = new Text(composite_2, SWT.BORDER);
-		text_dfs_name.setBounds(10, 36, 147, 26);
+		text_dfs_name.setBounds(10, 10, 147, 26);
 
 		Button btndfs = new Button(composite_2, SWT.NONE);
-		btndfs.setText("添加DFS");
-		btndfs.setBounds(10, 67, 147, 30);
+		btndfs.setText("+DFS");
+		btndfs.setBounds(10, 41, 147, 30);
 		btndfs.addSelectionListener(GUI.OnClick(e -> {
 			addDFS();
 		}));
 
 		Composite composite_3 = new Composite(shell, SWT.BORDER);
-		composite_3.setBounds(349, 10, 186, 112);
-
-		Label label_12 = new Label(composite_3, SWT.NONE);
-		label_12.setText("返点公司");
-		label_12.setBounds(10, 10, 76, 20);
+		composite_3.setBounds(349, 10, 186, 85);
 
 		text_cmp_name = new Text(composite_3, SWT.BORDER);
-		text_cmp_name.setBounds(10, 36, 154, 26);
+		text_cmp_name.setBounds(10, 10, 154, 26);
 
 		Button button_3 = new Button(composite_3, SWT.NONE);
-		button_3.setText("添加返点公司");
-		button_3.setBounds(10, 68, 154, 30);
+		button_3.setText("+返点公司");
+		button_3.setBounds(10, 42, 154, 30);
 		button_3.addSelectionListener(GUI.OnClick(e -> {
 			addCMP();
 		}));
 
 		Composite composite_4 = new Composite(shell, SWT.BORDER);
-		composite_4.setBounds(22, 423, 513, 165);
+		composite_4.setBounds(22, 396, 513, 192);
 
 		Label label_11 = new Label(composite_4, SWT.NONE);
 		label_11.setText("文件拖拽");
 		label_11.setBounds(10, 13, 61, 20);
 
 		Composite composite_5 = new Composite(composite_4, SWT.BORDER);
-		composite_5.setBounds(7, 48, 496, 103);
+		composite_5.setBounds(7, 48, 496, 130);
 
 		Button check_autosetting = new Button(composite_5, SWT.CHECK);
 		check_autosetting.setText("手动配置");
@@ -311,6 +303,15 @@ public class Add extends Dialog {
 		checkbox_format.setText("手动格式化");
 		checkbox_format.setBounds(346, 10, 107, 20);
 
+		Label label_10 = new Label(composite_5, SWT.NONE);
+		label_10.setText("缺省年份：");
+		label_10.setBounds(264, 94, 76, 20);
+
+		text_defaultYear = new Text(composite_5, SWT.BORDER);
+		text_defaultYear.setText("" + Calendar.getInstance().get(Calendar.YEAR));
+		System.out.println(Calendar.getInstance().get(Calendar.YEAR));
+		text_defaultYear.setBounds(346, 94, 76, 26);
+
 		text_file = new Text(composite_4, SWT.BORDER);
 		text_file.setBounds(77, 10, 426, 26);
 
@@ -351,7 +352,9 @@ public class Add extends Dialog {
 						if (checkbox_date.getSelection()) {
 							String date_columns = text_日期列名.getText();
 							String format = txtYyyymmddHhmmss.getText();
-							result = Logic.recordFromFile(new File(path), title, start, end, date_columns, format);
+							int defaultYear = Integer.parseInt(text_defaultYear.getText());
+							result = Logic.recordFromFile(new File(path), title, start, end, date_columns, format,
+									defaultYear);
 						} else
 							result = Logic.recordFromFile(new File(path), title, start, end);
 
@@ -430,7 +433,35 @@ public class Add extends Dialog {
 			}
 		});
 
+		shell.addDisposeListener(new DisposeListener() {
+			@Override
+			public void widgetDisposed(DisposeEvent e) {
+				SetConfig();
+				Config.store();
+			}
+		});
+
+		LoadConfig();
 		refreshData();
+	}
+
+	public void LoadConfig() {
+		text_表头行号.setText(Config.prop.getProperty("header_line", "1"));
+		text_开始行号.setText(Config.prop.getProperty("data_start_line", "2"));
+		text_结束行号.setText(Config.prop.getProperty("data_end_line", "100"));
+		text_defaultYear
+				.setText(Config.prop.getProperty("default_year", "" + Calendar.getInstance().get(Calendar.YEAR)));
+		text_日期列名.setText(Config.prop.getProperty("date_column_name", "日期"));
+		txtYyyymmddHhmmss.setText(Config.prop.getProperty("date_format_text", "yyyy-MM-dd HH:mm:ss"));
+	}
+
+	public void SetConfig() {
+		Config.prop.setProperty("header_line", text_表头行号.getText());
+		Config.prop.setProperty("data_start_line", text_开始行号.getText());
+		Config.prop.setProperty("data_end_line", text_结束行号.getText());
+		Config.prop.setProperty("default_year", text_defaultYear.getText());
+		Config.prop.setProperty("date_column_name", text_日期列名.getText());
+		Config.prop.setProperty("date_format_text", txtYyyymmddHhmmss.getText());
 	}
 
 	public void addEMP() {
@@ -517,7 +548,8 @@ public class Add extends Dialog {
 
 	public void refreshData() {
 		try {
-			Config.loadSetting();
+//			Config.loadEMP();
+			
 
 			combo_CMP.removeAll();
 			ASDataSource.get(DBManager.CMP).forEach(e -> {
@@ -538,7 +570,7 @@ public class Add extends Dialog {
 			if (combo_DFS.getItemCount() > 0)
 				combo_DFS.select(0);
 
-		} catch (IOException | SQLException | com.xw.excel.ExcelException e) {
+		} catch (IOException | SQLException e) {
 			e.printStackTrace();
 			Log.logger().error(e.toString(), e);
 		}
